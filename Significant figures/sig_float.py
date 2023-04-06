@@ -88,7 +88,7 @@ class sig_float:
       return len(self._str) - self._str.find(".") -1
     return 0
   
-  #TODO: Hel
+  #TODO: Help!!
   def round_sig(self, sig_figs:int):
     # Determine the number of valid digits in the number
     # negative = False
@@ -222,7 +222,7 @@ class sig_float:
 
     return self._str == other._str
 
-  def __eq__(self, other)->bool:
+  def __ne__(self, other)->bool:
     """
     Evaluates if two numbers of type sig_float are not equal
     """
