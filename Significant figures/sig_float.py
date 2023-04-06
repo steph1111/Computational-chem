@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """
+https://github.com/steph1111/Computational-chem/blob/main/Significant%20figures/sig_float.py
 Module sig_float contains the sig_float class--instances 
 of numbers that behave according to sig fig rules.
 """
@@ -19,7 +20,7 @@ class sig_float:
   • Leading zeros are never significant.
   """
 
-  def __init__(self, str_number:str="0")->None:
+  def __init__(self, str_number:str="0", units:str="")->None:
     """
     Initializes a sig_float object
     'str_number' has a default value of 0 
@@ -35,6 +36,7 @@ class sig_float:
     self._sig_figs = self.sig_figs()
     self._precision = self.precision()
     self._float = float(self._str)
+    self._units = units
 
   def sig_figs(self)->int:
     """
@@ -88,19 +90,32 @@ class sig_float:
       return len(self._str) - self._str.find(".") -1
     return 0
   
-  #TODO: Help!!
-  def round_sig(self, sig_figs:int):
-    # Determine the number of valid digits in the number
-    # negative = False
-    digits = len(self._str)
-    if self._str.find(".") != -1:
-      digits -= 1
+  #TODO: Finish the section for when there is a decimal place
+  def round_sig(self, sig_figs:int): #->sig_float
+    # Deterine the number of digits
+    negative = False
     if self._str[0] == "-":
-      digits -= 1
+      negative = True
+    
+    decimal_index = self._str.find(".")
+    if decimal_index == -1:
+      return sig_float(str(round(self._float, -sig_figs)))
+    else:
+      if not negative:
+        pass
+      else:
+        pass
   
   # TODO: Implicate
-  def scientific(self):
-    pass
+  def scientific(self)->str:
+    """
+    Converts to a scientific notation string representation 
+    """
+    decimal_index = self._str.find(".")
+    # if decimal_index == -1: 
+    #   pass
+    # if self._str[0] == "-":
+    #   pass
   
   def __mul__(self, other): # ->sig_float
     """
