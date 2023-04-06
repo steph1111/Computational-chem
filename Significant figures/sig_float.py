@@ -54,9 +54,10 @@ class sig_float:
    
     # Find stopping point of leading zeros
     for digit in self._str:
-      if digit != "0":
+      if digit != "0" and digit != ".":
         break
-      start += 1
+      if digit != ".":
+        start += 1
 
     # Find stopping point of trailing zeros
     if self._str.find(".") != -1:
