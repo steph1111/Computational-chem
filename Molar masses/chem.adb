@@ -1,3 +1,6 @@
+---This code does not work, It was an attempt
+-- Probably will not fix
+
 with Ada.Text_IO; use Ada.Text_IO;
 
 procedure main is
