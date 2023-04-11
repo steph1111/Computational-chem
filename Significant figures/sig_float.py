@@ -25,12 +25,13 @@ class sig_float:
     Initializes a sig_float object
     'str_number' has a default value of 0 
     """
+  
     # If the user did not provide a string arguement, arguement 
     # is converted to a string and warning is raised
     if not isinstance(str_number, str):
       warnings.warn("Warning: Arguement should be of type str", PendingDeprecationWarning)
       str_number = str(str_number)
-    
+    print(f"Tests {str_number}")
     # Initializations
     self._str = str_number
     self._sig_figs = self.sig_figs()
@@ -41,11 +42,25 @@ class sig_float:
   def sig_figs(self)->int:
     """
     Returns the number of sig figs of a sig_float object
+
+    >>> num1 = sig_float("0923.2300")
+    >>> num2 = sig_float("0.0023000")
+    >>> num3 = sig_float("22000.0")
+    >>> num3 - num1 + num2
+    sig_float('44077')
+    >>> num1.sig_figs()
+    7
+    >>> num2.sig_figs()
+    2
+    >>> num3.sig_figs()
+    6
     """
     # Default start and end
     start = 0
     end = len(self._str)
     negative = False
+
+    # print(f"First {self._str}") # >>> test_2 = sig_float(8829.9000) -> First 8829.9
 
     # Account for negative
     if self._str[0] == "-":
@@ -76,7 +91,7 @@ class sig_float:
       string_num_reversed = reversed(self._str)
       for digit in string_num_reversed:
         if digit != "0":
-          break
+          break       
         end -= 1
     self._str = self._str[start:end] # Update string representation
   
@@ -232,6 +247,7 @@ class sig_float:
     Evaluates if two numbers of type sig_float are equal
     """
     # TODO: Ask how equality should work
+    raise NotImplementedError("Equality not implicated yet. Todo")
     if not isinstance(other, sig_float):
       other = sig_float(other)
       warnings.warn("Warning: Operands should be of type sig_float", PendingDeprecationWarning)
@@ -242,6 +258,7 @@ class sig_float:
     """
     Evaluates if two numbers of type sig_float are not equal
     """
+    raise NotImplementedError("Not equal not implicated yet. Todo")
     # TODO: Ask how equality should work
     if not isinstance(other, sig_float):
       other = sig_float(other)
@@ -296,11 +313,11 @@ class sig_float:
 
 
 if __name__ == "__main__":
-  this = sig_float("0001633.00")
+  this = sig_float("0.0023000")
   # print(this)
   # print(this) 
   # print(f"This: {this.sig_figs()}")
-  that = sig_float("01623003.912") 
+  # that = sig_float("01623003.912") 
   # print(f"This: {that.sig_figs()}")
   # print(this * that)
   # result = sig_float(str(this * that))
