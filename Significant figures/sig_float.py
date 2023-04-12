@@ -31,7 +31,7 @@ class sig_float:
     if not isinstance(str_number, str):
       warnings.warn("Warning: Arguement should be of type str", PendingDeprecationWarning)
       str_number = str(str_number)
-    print(f"Tests {str_number}")
+    
     # Initializations
     self._str = str_number
     self._sig_figs = self.sig_figs()
@@ -55,6 +55,7 @@ class sig_float:
     >>> num3.sig_figs()
     6
     """
+    
     # Default start and end
     start = 0
     end = len(self._str)
@@ -65,14 +66,16 @@ class sig_float:
     # Account for negative
     if self._str[0] == "-":
       negative = True
-      self._str = self._str[1:]    
+      self._str = self._str[1:] 
    
     # Find stopping point of leading zeros
     for digit in self._str:
-      if digit != "0" and digit != ".":
-        break
-      if digit != ".":
+      if digit == "0":
         start += 1
+      elif digit == ".":
+        break
+      else:
+        break
 
     # Find stopping point of trailing zeros
     if self._str.find(".") != -1:
@@ -313,11 +316,9 @@ class sig_float:
 
 
 if __name__ == "__main__":
-  this = sig_float("0.0023000")
-  # print(this)
-  # print(this) 
-  # print(f"This: {this.sig_figs()}")
-  # that = sig_float("01623003.912") 
+  pass
+  # this = sig_float("000.0023000")
+  # that = sig_float("01623003") 
   # print(f"This: {that.sig_figs()}")
   # print(this * that)
   # result = sig_float(str(this * that))
