@@ -334,6 +334,6 @@ if __name__ == "__main__":
   print(f"6. {num1} + {num2} = {num1 + num2}")
 
   # Should be 500
-  num1 = sig_float("500.")
+  num1 = sig_float("500")
   num2 = sig_float("1.365")
   print(f"7. {num1} + {num2} = {num1 + num2}")
