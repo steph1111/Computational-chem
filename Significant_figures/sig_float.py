@@ -303,16 +303,37 @@ class sig_float:
 
 
 if __name__ == "__main__":
-  num1 = sig_float("1.457")
-  num2 = sig_float("83.2")
+  num1 = sig_float("13.0198")
+  num2 = sig_float("1.2")
   print(f"1. {num1} + {num2} = {num1 + num2}")
 
-  num1 = sig_float("0.0367")
-  num2 = sig_float("0.004322")
-  print(f"2. {num1} - {num2} = {num1 - num2}")
+  num1 = sig_float("94")
+  num2 = sig_float("15")
+  num3 = sig_float("182.113")
+  print(f"2. {num1} + {num2} + {num3} = {num1 + num2 + num3}")
 
-  # Not working
-  num1 = sig_float("30000.")
-  num2 = sig_float("35")
-  num3 = sig_float("0013")
-  print(f"3. {num1} + {num2} - {num3} = {num1 + num2 - num3}")
+  num1 = sig_float("59.21")
+  num2 = sig_float("18.8722")
+  print(f"3. {num1} - {num2} = {num1 - num2}")
+
+  num1 = sig_float("8.679")
+  num2 = sig_float("0.3")
+  num3 = sig_float("5.88")
+  print(f"4. {num1} + {num2} + {num3} = {num1 + num2 + num3}")
+
+  num1 = sig_float("2.36")
+  num2 = sig_float("5.4")
+  print(f"5. {num1} + {num2} = {num1 + num2}")
+
+  num1 = sig_float("7.2361")
+  num2 = sig_float("8.42")
+  print(f"6. {num1} + {num2} = {num1 + num2}")
+
+  num1 = sig_float("420.")
+  num2 = sig_float("3.51")
+  print(f"6. {num1} + {num2} = {num1 + num2}")
+
+  # Should be 500
+  num1 = sig_float("500.")
+  num2 = sig_float("1.365")
+  print(f"7. {num1} + {num2} = {num1 + num2}")
