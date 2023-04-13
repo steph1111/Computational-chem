@@ -42,18 +42,6 @@ class sig_float:
   def sig_figs(self)->int:
     """
     Returns the number of sig figs of a sig_float object
-
-    >>> num1 = sig_float("0923.2300")
-    >>> num2 = sig_float("0.0023000")
-    >>> num3 = sig_float("22000.0")
-    >>> num3 - num1 + num2
-    sig_float('44077')
-    >>> num1.sig_figs()
-    7
-    >>> num2.sig_figs()
-    2
-    >>> num3.sig_figs()
-    6
     """
     
     # Default start and end
@@ -78,7 +66,7 @@ class sig_float:
         break
 
     # Find stopping point of trailing zeros
-    if self._str.find(".") != -1:
+    if self._str.find(".") != -1: # Contains decimal point
       self._str = self._str[start:] # Update string representation
       # Add the negative back in
       if negative:
@@ -94,10 +82,8 @@ class sig_float:
       string_num_reversed = reversed(self._str)
       for digit in string_num_reversed:
         if digit != "0":
-          break       
+          break     
         end -= 1
-    self._str = self._str[start:end] # Update string representation
-  
     return end - start
   
   def precision(self)->int:
@@ -316,10 +302,16 @@ class sig_float:
 
 
 if __name__ == "__main__":
-  pass
-  # this = sig_float("000.0023000")
-  # that = sig_float("01623003") 
-  # print(f"This: {that.sig_figs()}")
-  # print(this * that)
-  # result = sig_float(str(this * that))
-  # print(result)
+  num1 = sig_float("1.457")
+  num2 = sig_float("83.2")
+  print(f"1. {num1} + {num2} = {num1 + num2}")
+
+  num1 = sig_float("0.0367")
+  num2 = sig_float("0.004322")
+  print(f"2. {num1} - {num2} = {num1 - num2}")
+
+  # Not working
+  num1 = sig_float("30000.")
+  num2 = sig_float("35")
+  num3 = sig_float("13")
+  print(f"3. {num1} + {num2} - {num3} = {num1 + num2 - num3}")
