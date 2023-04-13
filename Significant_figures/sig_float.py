@@ -84,6 +84,7 @@ class sig_float:
         if digit != "0":
           break     
         end -= 1
+      self._str = self._str[start:] # Update string representation
     return end - start
   
   def precision(self)->int:
@@ -313,5 +314,5 @@ if __name__ == "__main__":
   # Not working
   num1 = sig_float("30000.")
   num2 = sig_float("35")
-  num3 = sig_float("13")
+  num3 = sig_float("0013")
   print(f"3. {num1} + {num2} - {num3} = {num1 + num2 - num3}")
