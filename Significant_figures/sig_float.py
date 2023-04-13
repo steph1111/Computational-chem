@@ -37,7 +37,7 @@ class sig_float:
     self._sig_figs = self.sig_figs()
     self._precision = self.precision()
     self._float = float(self._str)
-    self._units = units
+    self._units = units # Not implemented yet. See github for idea
 
   def sig_figs(self)->int:
     """
@@ -49,8 +49,6 @@ class sig_float:
     end = len(self._str)
     negative = False
 
-    # print(f"First {self._str}") # >>> test_2 = sig_float(8829.9000) -> First 8829.9
-
     # Account for negative
     if self._str[0] == "-":
       negative = True
@@ -60,8 +58,8 @@ class sig_float:
     for digit in self._str:
       if digit == "0":
         start += 1
-      elif digit == ".":
-        break
+      # elif digit == ".":
+      #   break
       else:
         break
 
@@ -303,37 +301,4 @@ class sig_float:
 
 
 if __name__ == "__main__":
-  num1 = sig_float("13.0198")
-  num2 = sig_float("1.2")
-  print(f"1. {num1} + {num2} = {num1 + num2}")
-
-  num1 = sig_float("94")
-  num2 = sig_float("15")
-  num3 = sig_float("182.113")
-  print(f"2. {num1} + {num2} + {num3} = {num1 + num2 + num3}")
-
-  num1 = sig_float("59.21")
-  num2 = sig_float("18.8722")
-  print(f"3. {num1} - {num2} = {num1 - num2}")
-
-  num1 = sig_float("8.679")
-  num2 = sig_float("0.3")
-  num3 = sig_float("5.88")
-  print(f"4. {num1} + {num2} + {num3} = {num1 + num2 + num3}")
-
-  num1 = sig_float("2.36")
-  num2 = sig_float("5.4")
-  print(f"5. {num1} + {num2} = {num1 + num2}")
-
-  num1 = sig_float("7.2361")
-  num2 = sig_float("8.42")
-  print(f"6. {num1} + {num2} = {num1 + num2}")
-
-  num1 = sig_float("420.")
-  num2 = sig_float("3.51")
-  print(f"6. {num1} + {num2} = {num1 + num2}")
-
-  # Should be 500
-  num1 = sig_float("500")
-  num2 = sig_float("1.365")
-  print(f"7. {num1} + {num2} = {num1 + num2}")
+  pass
