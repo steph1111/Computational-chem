@@ -70,14 +70,18 @@ print(f"7) {num1} + {num2} = {num1 + num2}")
 # Should be 500
 num1 = sig_float("500")
 num2 = sig_float("1.365")
-print(RED + f"8) {num1} + {num2} = {num1 + num2}" + GREEN)
+print(f"8) {num1} + {num2} = {num1 + num2}")
 
 num1 = sig_float("-420.")
 num2 = sig_float("3.51")
 print(f"9) {num1} + {num2} = {num1 + num2}")
 
-num1 = sig_float("-50.")
+num1 = sig_float("-50")
 num2 = sig_float("-3.2")
 print(f"10) {num1} + {num2} = {num1 + num2}")
+
+num1 = sig_float("300")
+num2 = sig_float("47.465")
+print(f"11) {num1} - {num2} = {num1 - num2}")
 
 print(RESET)
