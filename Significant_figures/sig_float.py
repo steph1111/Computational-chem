@@ -82,38 +82,57 @@ class sig_float:
   def precision(self)->int:
     """
     Returns the number of decimal places to which the number is percise to
+    Returns a negative number if should be percise to a whole number value
+    Number:      138828.9823
+    Place:     -(543210)1234
     """
-    index_decimal = self._str.find(".")
-    if index_decimal != -1:
-      return len(self._str) - self._str.find(".") -1
-    return 0
-  
-  #TODO: Finish the section for when there is a decimal place
-  def round_sig(self, sig_figs:int): #->sig_float
-    # Deterine the number of digits
-    negative = False
-    if self._str[0] == "-":
-      negative = True
-    
-    decimal_index = self._str.find(".")
-    if decimal_index == -1:
-      return sig_float(str(round(self._float, -sig_figs)))
+    index = self._str.find(".")
+    if index != -1:
+      return len(self._str) - index -1
     else:
-      if not negative:
-        pass
-      else:
-        pass
+      index = 0
+      for digit in reversed(self._str):
+        if digit != "0":
+          break
+        index -= 1
+    return index
+  
+  # #TODO: Finish the section for when there is a decimal place
+  # def round_sig(self, sig_figs:int): #->sig_float
+  #   # Deterine the number of digits
+  #   negative = False
+  #   if self._str[0] == "-":
+  #     negative = True
+    
+  #   decimal_index = self._str.find(".")
+  #   if decimal_index == -1:
+  #     return sig_float(str(round(self._float, -sig_figs)))
+  #   else:
+  #     if not negative:
+  #       pass
+  #     else:
+  #       pass
+
+  def _round_place(self, val_1:int, val_2:int):
+    """
+    Given two place values, determines which to round to. Uses
+    the place convention defined in precision() 
+    Number:      138828.9823
+    Place:     -(543210)1234
+    """
+    if val_1 >= 0 and val_2 >= 0: # Rounding with two decimals
+      return min(val_1, val_2)
+    elif val_1 <= 0 and val_2 <= 0: # Rounding with two whole numbers
+      return -max(abs(val_1), abs(val_2))
+    else: # Rounding with a decimal and a whole number
+      return min(val_1, val_2)
   
   # TODO: Implicate
   def scientific(self)->str:
     """
     Converts to a scientific notation string representation 
     """
-    decimal_index = self._str.find(".")
-    # if decimal_index == -1: 
-    #   pass
-    # if self._str[0] == "-":
-    #   pass
+    pass
   
   def __mul__(self, other): # ->sig_float
     """
@@ -158,11 +177,11 @@ class sig_float:
     
     # Addition using sig fig rules
     sum = self._float + other._float
-    sum_precision = min(self._precision, other._precision)
+    sum_precision = self._round_place(self._precision, other._precision)
     temp_str = str(round(sum, sum_precision))
 
     # Remove trailing decimal python adds
-    if sum_precision == 0:
+    if sum_precision <= 0:
       return sig_float(temp_str[:-2])
 
     return sig_float(temp_str)
@@ -178,11 +197,11 @@ class sig_float:
 
     # Subtraction using sig fig rules
     diff = self._float - other._float
-    diff_precision = min(self._precision, other._precision)
+    diff_precision = self._round_place(self._precision, other._precision)
     temp_str = str(round(diff, diff_precision))
   
     # Remove trailing decimal python adds
-    if diff_precision == 0:
+    if diff_precision <= 0:
       return sig_float(temp_str[:-2])
   
     return sig_float(temp_str)
@@ -295,4 +314,4 @@ class sig_float:
 
 
 if __name__ == "__main__":
-  num = sig_float("-000001")
+  pass
