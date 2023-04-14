@@ -58,31 +58,25 @@ class sig_float:
     for digit in self._str:
       if digit == "0":
         start += 1
-      # elif digit == ".":
-      #   break
       else:
         break
 
+    self._str = self._str[start:] # Update string representation
+
+    if negative: 
+      self._str = "-" + self._str # Add the negative back in
+      start += 1 # Negative sign should not be counted as a sig fig
+    
     # Find stopping point of trailing zeros
     if self._str.find(".") != -1: # Contains decimal point
-      self._str = self._str[start:] # Update string representation
-      # Add the negative back in
-      if negative:
-        self._str = "-" + self._str
-        start += 1
       return end - start - 1 # -1 to account for the "." char
     else:
-      # Add the negative back in
-      if negative:
-        self._str = "-" + self._str
-        start += 1
       # Iterate reversed string to find stopping point of trailing zeros
       string_num_reversed = reversed(self._str)
       for digit in string_num_reversed:
         if digit != "0":
-          break     
+          break 
         end -= 1
-      self._str = self._str[start:] # Update string representation
     return end - start
   
   def precision(self)->int:
@@ -301,4 +295,4 @@ class sig_float:
 
 
 if __name__ == "__main__":
-  pass
+  num = sig_float("-000001")
