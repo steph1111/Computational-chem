@@ -29,11 +29,11 @@ print(f"7) 0.00033 -> {num.sig_figs()}")
 num = sig_float("12.09")
 print(f"8) 12.09 -> {num.sig_figs()}")
 
-num = sig_float("000001")
-print(f"9) 000001 -> {num.sig_figs()}")
+num = sig_float("-000001")
+print(f"9) -000001 -> {num.sig_figs()}")
 
-num = sig_float("10.")
-print(f"10) 10. -> {num.sig_figs()}")
+num = sig_float("-10.")
+print(f"10) -10. -> {num.sig_figs()}")
 
 
 print(RESET + "\nAddition and subtraction tests:" + GREEN)
@@ -70,6 +70,14 @@ print(f"7) {num1} + {num2} = {num1 + num2}")
 # Should be 500
 num1 = sig_float("500")
 num2 = sig_float("1.365")
-print(RED + f"8) {num1} + {num2} = {num1 + num2}")
+print(RED + f"8) {num1} + {num2} = {num1 + num2}" + GREEN)
+
+num1 = sig_float("-420.")
+num2 = sig_float("3.51")
+print(f"9) {num1} + {num2} = {num1 + num2}")
+
+num1 = sig_float("-50.")
+num2 = sig_float("-3.2")
+print(f"10) {num1} + {num2} = {num1 + num2}")
 
 print(RESET)
