@@ -7,7 +7,38 @@ of numbers that behave according to sig fig rules.
 __author__ = "Stephanie L'Heureux"
 
 import warnings
+import math
 
+def round_precision(val_1:int, val_2:int)->int:
+  """
+  Given two place values, determines which to round to. Uses
+  the place convention defined in precision() 
+  Number:      138828.9823
+  Place:     -(543210)1234
+  """
+  if val_1 >= 0 and val_2 >= 0: # Rounding with two decimals
+    return min(val_1, val_2)
+  elif val_1 <= 0 and val_2 <= 0: # Rounding with two whole numbers
+    return -max(abs(val_1), abs(val_2))
+  else: # Rounding with a decimal and a whole number
+    return min(val_1, val_2)
+
+def round_sig(number, sig_figs:int): #->sig_float
+  """
+  Rounds a number to a certain number of significant figures
+  """
+  # If given a number of type sig_float, use the numemeric atribute in calculations
+  if type(number) == sig_float:
+    number = number.numeric
+
+  # Rounds the number to the correct number of sig figs
+  rounded_number = str(round(number, sig_figs - int(math.floor(math.log10(abs(number)))) - 1))
+
+  # Remove trailing decimal python adds
+  if rounded_number[-2:] == ".0" and sig_figs != len(rounded_number) - 1:
+    rounded_number = rounded_number[:-2] 
+  
+  return sig_float(rounded_number)
 
 class sig_float:
   """
@@ -25,7 +56,6 @@ class sig_float:
     Initializes a sig_float object
     'str_number' has a default value of 0 
     """
-  
     # If the user did not provide a string arguement, arguement 
     # is converted to a string and warning is raised
     if not isinstance(str_number, str):
@@ -97,36 +127,6 @@ class sig_float:
         index -= 1
     return index
   
-  # #TODO: Finish the section for when there is a decimal place
-  # def round_sig(self, sig_figs:int): #->sig_float
-  #   # Deterine the number of digits
-  #   negative = False
-  #   if self._str[0] == "-":
-  #     negative = True
-    
-  #   decimal_index = self._str.find(".")
-  #   if decimal_index == -1:
-  #     return sig_float(str(round(self._float, -sig_figs)))
-  #   else:
-  #     if not negative:
-  #       pass
-  #     else:
-  #       pass
-
-  def _round_place(self, val_1:int, val_2:int):
-    """
-    Given two place values, determines which to round to. Uses
-    the place convention defined in precision() 
-    Number:      138828.9823
-    Place:     -(543210)1234
-    """
-    if val_1 >= 0 and val_2 >= 0: # Rounding with two decimals
-      return min(val_1, val_2)
-    elif val_1 <= 0 and val_2 <= 0: # Rounding with two whole numbers
-      return -max(abs(val_1), abs(val_2))
-    else: # Rounding with a decimal and a whole number
-      return min(val_1, val_2)
-  
   # TODO: Implicate
   def scientific(self)->str:
     """
@@ -148,7 +148,7 @@ class sig_float:
     product_sig_figs = min(self._sig_figs, other.sig_figs())
     
     # FIXME Rounding causing issue?????
-    return sig_float("404")
+    return round_sig(product, product_sig_figs)
   
   def __truediv__(self, other): # ->sig_float
     """
@@ -162,9 +162,8 @@ class sig_float:
     # Multiplication using sig fig rules  
     quotient = self._float / other._float
     quotient_sig_figs = min(self._sig_figs, other.sig_figs())
-    
-    # FIXME Rounding causing issue????? See _round_sig()
-    return sig_float("404")
+
+    return round_sig(quotient, quotient_sig_figs)
 
   def __add__(self, other): # ->sig_float
     """
@@ -177,7 +176,7 @@ class sig_float:
     
     # Addition using sig fig rules
     sum = self._float + other._float
-    sum_precision = self._round_place(self._precision, other._precision)
+    sum_precision = round_precision(self._precision, other._precision)
     temp_str = str(round(sum, sum_precision))
 
     # Remove trailing decimal python adds
@@ -197,7 +196,7 @@ class sig_float:
 
     # Subtraction using sig fig rules
     diff = self._float - other._float
-    diff_precision = self._round_place(self._precision, other._precision)
+    diff_precision = round_precision(self._precision, other._precision)
     temp_str = str(round(diff, diff_precision))
   
     # Remove trailing decimal python adds
@@ -260,7 +259,6 @@ class sig_float:
     Evaluates if two numbers of type sig_float are not equal
     """
     raise NotImplementedError("Not equal not implicated yet. Todo")
-    # TODO: Ask how equality should work
     if not isinstance(other, sig_float):
       other = sig_float(other)
       warnings.warn("Warning: Operands should be of type sig_float", PendingDeprecationWarning)
@@ -311,7 +309,6 @@ class sig_float:
       warnings.warn("Warning: Operands should be of type sig_float", PendingDeprecationWarning)
 
     return self._float >= other._float
-
 
 if __name__ == "__main__":
   pass
