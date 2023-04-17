@@ -23,9 +23,8 @@ print(f"5) 2536.000 -> {num.sig_figs()}")
 num = sig_float("1.000")
 print(f"6) 1.000 -> {num.sig_figs()}")
 
-# FIXME Incorrect
 num = sig_float("0.00033")
-print(RED + f"7) 0.00033 -> {num.sig_figs()}" + GREEN)
+print(f"7) 0.00033 -> {num.sig_figs()}")
 
 num = sig_float("12.09")
 print(f"8) 12.09 -> {num.sig_figs()}")
@@ -84,6 +83,10 @@ num1 = sig_float("300")
 num2 = sig_float("47.465")
 print(f"11) {num1} - {num2} = {num1 - num2}")
 
+num1 = sig_float("0.0007")
+num2 = sig_float("0.775")
+print(f"11) {num1} - {num2} = {num1 - num2}")
+
 print(RESET + "\nMultiplication and division tests:" + GREEN)
 num1 = sig_float("6")
 num2 = sig_float("0.30")
@@ -98,10 +101,9 @@ num1 = sig_float("11.6")
 num2 = sig_float("6.24")
 print(f"3) {num1} * {num2} = {num1 * num2}")
 
-# FIXME Incorrect
 num1 = sig_float("0.004")
 num2 = sig_float("5280")
-print(RED + f"4) {num1} * {num2} = {num1 * num2}" + GREEN)
+print(f"4) {num1} * {num2} = {num1 * num2}")
 
 num1 = sig_float("500.55")
 num2 = sig_float("5.11")
