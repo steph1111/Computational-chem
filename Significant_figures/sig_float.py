@@ -9,6 +9,7 @@ __author__ = "Stephanie L'Heureux"
 import warnings
 import math
 
+
 def round_precision(val_1:int, val_2:int)->int:
   """
   Given two place values, determines which to round to. Uses
@@ -46,6 +47,7 @@ def round_sig(number, sig_figs:int): #->sig_float
       rounded_number += ("0" *  (sig_figs - len(rounded_number) - 1))
 
   return sig_float(rounded_number)
+
 
 class sig_float:
   """
@@ -153,8 +155,7 @@ class sig_float:
     # Multiplication using sig fig rules  
     product = self._float * other._float
     product_sig_figs = min(self._sig_figs, other.sig_figs())
-    
-    # FIXME Rounding causing issue?????
+
     return round_sig(product, product_sig_figs)
   
   def __truediv__(self, other): # ->sig_float
