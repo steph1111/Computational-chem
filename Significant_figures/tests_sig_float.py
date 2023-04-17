@@ -133,7 +133,7 @@ num1 = sig_float("10.0")
 num2 = sig_float("0.200")
 print(f"11) {num1} * {num2} = {num1 * num2}")
 
-print(RESET + "\nMixed operations" + GREEN)
+print(RESET + "\nMixed operations tests:" + GREEN)
 num1 = sig_float("15.803")
 num2 = sig_float("4.76")
 num3 = sig_float("9.3")
