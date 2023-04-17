@@ -145,4 +145,9 @@ num3 = sig_float("8.4")
 num4 = sig_float("3.700")
 print(f"2) ({num1} + {num2} + {num3}) / {num4} = {(num1 + num2 + num3) / num4}")
 
+num1 = sig_float("2.8")
+num2 = sig_float("4.532")
+num3 = sig_float("12.690")
+print(f"3) ({num1} * {num2}) + {num3} = {num1 * num2 + num3}")
+
 print(RESET)
