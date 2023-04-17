@@ -129,9 +129,8 @@ num1 = sig_float("8000")
 num2 = sig_float("9.7")
 print(f"10) {num1} / {num2} = {num1 / num2}")
 
-# FIXME Incorrect
 num1 = sig_float("10.0")
 num2 = sig_float("0.200")
-print(RED + f"11) {num1} * {num2} = {num1 * num2}" + GREEN)
+print(f"11) {num1} * {num2} = {num1 * num2}")
 
 print(RESET)
