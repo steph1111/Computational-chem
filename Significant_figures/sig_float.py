@@ -30,7 +30,7 @@ def round_sig(number, sig_figs:int): #->sig_float
   """
   # If given a number of type sig_float, use the numemeric atribute in calculations
   if type(number) == sig_float:
-    number = number.numeric
+    number = number.float
 
   # Rounds the number to the correct number of sig figs
   rounded_number = str(round(number, sig_figs - int(math.floor(math.log10(abs(number)))) - 1))
@@ -46,7 +46,7 @@ def round_sig(number, sig_figs:int): #->sig_float
     else:
       rounded_number += ("0" *  (sig_figs - len(rounded_number) - 1))
 
-  return sig_float(rounded_number)
+  return sig_float(rounded_number, flo=number)
 
 
 class sig_float:
@@ -60,7 +60,7 @@ class sig_float:
   • Leading zeros are never significant.
   """
 
-  def __init__(self, str_number:str="0", units:str="")->None:
+  def __init__(self, str_number:str="0", units:str="", flo = None)->None:
     """
     Initializes a sig_float object
     'str_number' has a default value of 0 
@@ -75,7 +75,10 @@ class sig_float:
     self._str = str_number
     self._sig_figs = self.sig_figs()
     self._precision = self.precision()
-    self._float = float(self._str)
+    if flo != None:
+      self._float = flo
+    else:
+      self._float = float(self._str)
     self._units = units # Not implemented yet. See github for idea
 
   def sig_figs(self)->int:
@@ -191,7 +194,7 @@ class sig_float:
     if sum_precision <= 0:
       return sig_float(temp_str[:-2])
 
-    return sig_float(temp_str)
+    return sig_float(temp_str, flo=sum)
 
   def __sub__(self, other): # ->sig_float
     """
@@ -211,13 +214,13 @@ class sig_float:
     if diff_precision <= 0:
       return sig_float(temp_str[:-2])
   
-    return sig_float(temp_str)
+    return sig_float(temp_str, flo=diff)
   
   @property
-  def numeric(self)->float:
+  def float(self)->float:
     """
     Returns a float representation of the number, may have improper sig figs. Use with caution!!
-    Call by object.numeric
+    Call by object.float
     """
     return self._float
 
