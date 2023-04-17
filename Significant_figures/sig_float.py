@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-https://github.com/steph1111/Computational-chem/blob/main/Significant%20figures/sig_float.py
+https://github.com/steph1111/Computational-chem/blob/main/Significant_figures/sig_float.py
 Module sig_float contains the sig_float class--instances 
 of numbers that behave according to sig fig rules.
 """
@@ -73,7 +73,6 @@ class sig_float:
     """
     Returns the number of sig figs of a sig_float object
     """
-    
     # Default start and end
     start = 0
     end = len(self._str)
@@ -88,10 +87,11 @@ class sig_float:
     for digit in self._str:
       if digit == "0":
         start += 1
-      else:
+      elif digit != ".":
         break
-
-    self._str = self._str[start:] # Update string representation
+  
+    if self._str[:2] != "0.":
+      self._str = self._str[start:] # Update string representation
 
     if negative: 
       self._str = "-" + self._str # Add the negative back in
