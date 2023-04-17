@@ -38,6 +38,13 @@ def round_sig(number, sig_figs:int): #->sig_float
   if rounded_number[-2:] == ".0" and sig_figs != len(rounded_number) - 1:
     rounded_number = rounded_number[:-2] 
   
+  # If there should be trailing significant zeros
+  if len(rounded_number) < sig_figs:
+    if rounded_number.find(".") == -1:
+      rounded_number += "." +  (sig_figs - len(rounded_number)) * "0"
+    else:
+      rounded_number += ("0" *  (sig_figs - len(rounded_number) - 1))
+
   return sig_float(rounded_number)
 
 class sig_float:
