@@ -133,4 +133,16 @@ num1 = sig_float("10.0")
 num2 = sig_float("0.200")
 print(f"11) {num1} * {num2} = {num1 * num2}")
 
+print(RESET + "\nMixed operations" + GREEN)
+num1 = sig_float("15.803")
+num2 = sig_float("4.76")
+num3 = sig_float("9.3")
+print(f"1) ({num1} - {num2}) / {num3 } = {(num1 - num2) / num3}")
+
+num1 = sig_float("0.91")
+num2 = sig_float("1.2")
+num3 = sig_float("8.4")
+num4 = sig_float("3.700")
+print(f"2) ({num1} + {num2} + {num3}) / {num4} = {(num1 + num2 + num3) / num4}")
+
 print(RESET)
