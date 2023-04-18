@@ -36,8 +36,8 @@ This module provides the infastructure to preform calculations that behave accor
    ```
 2. Import the sig_float class and round_sig function to your workspace 
    ```python
-  from sig_float import sig_float
-  from sig_float import round_sig
+    from sig_float import sig_float
+    from sig_float import round_sig
    ```
 
 <br>
