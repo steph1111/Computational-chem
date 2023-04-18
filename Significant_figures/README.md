@@ -55,8 +55,6 @@ This module provides the infastructure to preform calculations that behave accor
     <li><a href="#division-">Division (/)</a></li>
     <li><a href="#addition-">Addition (+)</a></li>
     <li><a href="#subtraction--">Subtraction (-)</a></li>
-    <li><a href="#float">.float</a></li>
-    <li><a href="#string">.string</a></li>
     <li><a href="#str">str()</a></li>
     <li><a href="#bool">bool()</a></li>
     <li><a href="#float-">float()</a></li>
@@ -155,10 +153,32 @@ a - b
 ```
 <br>
 
-### .float
-### .string
 ### str()
+Overloaded python str() function. Python's builtin str() function converts an object to type string. The sig_float function provides the same functionality. 
+```python
+num = sig_float("047.00990")
+string(num)
+# Results in "47.00990"
+```
+<br>
+
 ### bool()
+Overloaded python bool() function. Python's builtin bool() function converts an object to type bool. Returns True unless the object is 0 in which the return value is False. The sig_float function provides the same functionality. 
+```python
+num = sig_float("0.889")
+bool(num)
+# Results in True
+```
+<br>
+
 ### float()
+Overloaded python float() function. Python's builtin float() function converts an object to type float. The sig_float function provides the same functionality. Use this operation with caution, the internal float is **not** stored to proper significant figures.
+```python
+num = sig_float("47")
+float(num)
+# Results in 47.0
+```
+<br>
+
 ### round_sig()
 *round_sig(number, sig_figs:int):->sig_float*
