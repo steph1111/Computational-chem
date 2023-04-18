@@ -54,7 +54,7 @@ This module provides the infastructure to preform calculations that behave accor
     <li><a href="multiplication-">Multiplication (*)</a></li>
     <li><a href="#division-">Division (/)</a></li>
     <li><a href="#addition-">Addition (+)</a></li>
-    <li><a href="#subtraction-">Subtraction (-)</a></li>
+    <li><a href="#subtraction--">Subtraction (-)</a></li>
     <li><a href="#float">.float</a></li>
     <li><a href="#string">.string</a></li>
     <li><a href="#str">str()</a></li>
