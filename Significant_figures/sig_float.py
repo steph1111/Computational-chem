@@ -46,7 +46,7 @@ def round_sig(number, sig_figs:int): #->sig_float
     else:
       rounded_number += ("0" *  (sig_figs - len(rounded_number) - 1))
 
-  return sig_float(rounded_number, flo=number)
+  return sig_float(rounded_number, float_num=number)
 
 
 class sig_float:
@@ -55,28 +55,27 @@ class sig_float:
   • All non-zero digits are significant.
   • All captive zeros are significant.
   • Trailing zeros are only significant if they
-    follow a decimal point or have a bar written
-    above them.
+    follow a decimal point
   • Leading zeros are never significant.
   """
 
-  def __init__(self, str_number:str="0", units:str="", flo = None)->None:
+  def __init__(self, str_num:str="0", float_num:float=None, units:str="")->None:
     """
     Initializes a sig_float object
     'str_number' has a default value of 0 
     """
     # If the user did not provide a string arguement, arguement 
     # is converted to a string and warning is raised
-    if not isinstance(str_number, str):
+    if not isinstance(str_num, str):
       warnings.warn("Warning: Arguement should be of type str", PendingDeprecationWarning)
-      str_number = str(str_number)
+      str_number = str(str_num)
     
     # Initializations
-    self._str = str_number
+    self._str = str_num
     self._sig_figs = self.sig_figs()
     self._precision = self.precision()
-    if flo != None:
-      self._float = flo
+    if float_num != None:
+      self._float = float_num
     else:
       self._float = float(self._str)
     self._units = units # Not implemented yet. See github for idea
@@ -194,7 +193,7 @@ class sig_float:
     if sum_precision <= 0:
       return sig_float(temp_str[:-2])
 
-    return sig_float(temp_str, flo=sum)
+    return sig_float(temp_str, float_num=sum)
 
   def __sub__(self, other): # ->sig_float
     """
@@ -214,7 +213,7 @@ class sig_float:
     if diff_precision <= 0:
       return sig_float(temp_str[:-2])
   
-    return sig_float(temp_str, flo=diff)
+    return sig_float(temp_str, float_num=diff)
   
   @property
   def float(self)->float:
