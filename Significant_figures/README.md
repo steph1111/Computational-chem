@@ -34,9 +34,10 @@ This module provides the infastructure to preform calculations that behave accor
    ```sh
    git clone https://github.com/steph1111/Computational-chem.git
    ```
-2. Install the module to your workspace 
+2. Import the sig_float class and round_sig function to your workspace 
    ```python
-   from sig_float import sig_float
+  from sig_float import sig_float
+  from sig_float import round_sig
    ```
 
 <br>
@@ -154,7 +155,7 @@ a - b
 <br>
 
 ### str()
-Overloaded python str() function. Python's builtin str() function converts an object to type string. The sig_float function provides the same functionality. 
+Overloaded python str() function. Python's builtin str() function converts an object to type string. The sig_float function provides the same functionality. Also enables usage of python's print() function.
 ```python
 num = sig_float("047.00990")
 string(num)
@@ -181,4 +182,20 @@ float(num)
 <br>
 
 ### round_sig()
-*round_sig(number, sig_figs:int):->sig_float*
+*round_sig(number, sig_figs:int)->sig_float:*
+
+Given a number and a number of significant figures, returns a sig_float object rounded the number given sig figs following standard sig fig rounding rules:
+* If the first nonsignificant digit is less than 5, drop all nonsignificant digits.
+* If the first nonsignificant digit is greater than or equal to 5, increase the last significant digit by 1 and drop all nonsignificant digits.
+
+round_sig() works with sig_float objects 
+```python
+num = sig_float("47033.2")
+round_sig(num, 4)
+# Results in 47030
+```
+Or any object which can be converted to a float using float()
+```python
+round_sig(98982.8, 3)
+# Results in 99000
+```
