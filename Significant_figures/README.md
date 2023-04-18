@@ -18,15 +18,17 @@
 <br>
 
 <!-- ABOUT THE PROJECT -->
-## About The Project
+
 ---
+## About The Project
 This module provides the infastructure to preform calculations that behave according to signficant figure rules. An instance of the sig_float class maybe added, subtracted, multiplied, or divided with another sig_float using standard operators and the resultant will retain the proper number of signifiant figures. 
 
 <br>
 
 <!-- GETTING STARTED -->
-## Getting Started
+
 ---
+## Getting Started
 
 1. Clone the repo
    ```sh
@@ -40,8 +42,9 @@ This module provides the infastructure to preform calculations that behave accor
 <br>
 
 <!-- USAGE -->
+
+---
 ## Usage
-___
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Usage table of contents</summary>
@@ -79,7 +82,7 @@ Pi = sig_float("0.250")
 Vf = sig_float("4.23")
 Tf = sig_float("212.1")
 Pf = (Tf * Pi * Vi) / (Vf * Ti) 
-# Pf has value in sig_float("0.906")
+# Pf has value of sig_float("0.906")
 ``` 
 <br>
 
@@ -99,7 +102,31 @@ num.sig_figs()
 <br>
 
 ### Multiplication (*)
+*sig_float * sig_float*
+
+Multiplies two operands of type sig_float using the standard multiplication operator (*). The resulting product is a number of type sig_float rounded to the proper number of sig figs according to the following sig fig rule:
+* In multiplication and division, the result should be rounded to the least number of significant figures of any one term. 
+```python
+a = sig_float("0.004")
+b = sig_float("5280")
+a * b
+# Results in 20
+```
+<br>
+
 ### Division (/)
+*sig_float / sig_float*
+
+Divides two operands of type sig_float using the standard division operator (/). The resulting quotient is a number of type sig_float rounded to the proper number of sig figs according to the following sig fig rule:
+* In multiplication and division, the result should be rounded to the least number of significant figures of any one term. 
+```python
+a = sig_float("1000")
+b = sig_float("8.2")
+a / b
+# Results in 100
+```
+<br>
+
 ### Addition (+)
 ### Subtraction (-)
 ### .float
