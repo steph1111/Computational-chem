@@ -214,22 +214,6 @@ class sig_float:
       return sig_float(temp_str[:-2])
   
     return sig_float(temp_str, float_num=diff)
-  
-  @property
-  def float(self)->float:
-    """
-    Returns a float representation of the number, may have improper sig figs. Use with caution!!
-    Call by object.float
-    """
-    return self._float
-
-  @property
-  def string(self)->str:
-    """
-    Returns a string represntation of the number
-    Call by object.string
-    """
-    return self._str
 
   def __str__(self)->str:
     """
