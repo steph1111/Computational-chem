@@ -128,7 +128,33 @@ a / b
 <br>
 
 ### Addition (+)
+*sig_float + sig_float*
+
+Adds two operands of type sig_float using the standard addition operator (+). The resulting sum is a number of type sig_float rounded to the proper precision according to the following rule:
+* In addition and subtraction, the result is rounded off to the least number of decimal
+places in any term, regardless of the significant figures of any one term.
+```python
+a = sig_float("13.0198")
+b = sig_float("1.2")
+a + b
+# Results in 14.2
+```
+<br>
+
 ### Subtraction (-)
+*sig_float - sig_float*
+
+Subtracts two operands of type sig_float using the standard subtraction operator (+). The resulting difference is a number of type sig_float rounded to the proper precision according to the following rule:
+* In addition and subtraction, the result is rounded off to the least number of decimal
+places in any term, regardless of the significant figures of any one term.
+```python
+a = sig_float("300")
+b = sig_float("47.465")
+a - b
+# Results in 300
+```
+<br>
+
 ### .float
 ### .string
 ### str()
