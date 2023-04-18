@@ -51,6 +51,7 @@ ___
     <li><a href="multiplication-">Multiplication (*)</a></li>
     <li><a href="#division-">Division (/)</a></li>
     <li><a href="#addition-">Addition (+)</a><li>
+    <li><a href="subtraction-">Subtraction (-) <a><li>
   </ol>
 </details>
 <br>
