@@ -150,13 +150,4 @@ num2 = sig_float("4.532")
 num3 = sig_float("12.690")
 print(f"3) ({num1} * {num2}) + {num3} = {num1 * num2 + num3}")
 
-Vi = sig_float("30.0")
-Ti = sig_float("415.2")
-Pi = sig_float("0.250")
-Vf = sig_float("4.23")
-Tf = sig_float("212.1")
-Pf = (Tf * Pi * Vi) / (Vf * Ti)
-
-print(Vi.sig_figs())
-
 print(RESET)
