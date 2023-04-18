@@ -144,7 +144,7 @@ a + b
 ### Subtraction (-)
 *sig_float - sig_float*
 
-Subtracts two operands of type sig_float using the standard subtraction operator (+). The resulting difference is a number of type sig_float rounded to the proper precision according to the following rule:
+Subtracts two operands of type sig_float using the standard subtraction operator (-). The resulting difference is a number of type sig_float rounded to the proper precision according to the following rule:
 * In addition and subtraction, the result is rounded off to the least number of decimal
 places in any term, regardless of the significant figures of any one term.
 ```python
