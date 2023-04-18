@@ -30,7 +30,7 @@ def round_sig(number, sig_figs:int): #->sig_float
   """
   # If given a number of type sig_float, use the numemeric atribute in calculations
   if type(number) == sig_float:
-    number = number.float
+    number = float(number)
 
   # Rounds the number to the correct number of sig figs
   rounded_number = str(round(number, sig_figs - int(math.floor(math.log10(abs(number)))) - 1))
