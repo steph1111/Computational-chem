@@ -15,7 +15,6 @@
   </p>
 </div>
 
-
 <br>
 
 <!-- ABOUT THE PROJECT -->
@@ -23,7 +22,7 @@
 ---
 This module provides the infastructure to preform calculations that behave according to signficant figure rules. An instance of the sig_float class maybe added, subtracted, multiplied, or divided with another sig_float using standard operators and the resultant will retain the proper number of signifiant figures. 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<br>
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -38,7 +37,7 @@ This module provides the infastructure to preform calculations that behave accor
    from sig_float import sig_float
    ```
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<br>
 
 <!-- USAGE -->
 ## Usage
@@ -47,10 +46,10 @@ ___
 <details>
   <summary>Usage table of contents</summary>
   <ol>
-    <li><a href="#sig_float()">sig_float()</a>
-    <li><a href="#.sig_figs()">.sig_figs()</a></li>
-    <li><a href="#Multiplication (*)">Multiplication (*)</a></li>
-    <li><a href="#Division (/)">Division (/)</a></li>
+    <li><a href="#sig_float">sig_float()</a>
+    <li><a href="#sig_figs">.sig_figs()</a></li>
+    <li><a href="multiplication-">Multiplication (*)</a></li>
+    <li><a href="#division-">Division (/)</a></li>
   </ol>
 </details>
 <br>
@@ -102,6 +101,3 @@ num.sig_figs()
 ### float()
 ### round_sig()
 *round_sig(number, sig_figs:int):->sig_float*
-
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
