@@ -50,6 +50,7 @@ ___
     <li><a href="#sig_figs">.sig_figs()</a></li>
     <li><a href="multiplication-">Multiplication (*)</a></li>
     <li><a href="#division-">Division (/)</a></li>
+    <li><a href="#addition-">Addition (+)</a><li>
   </ol>
 </details>
 <br>
