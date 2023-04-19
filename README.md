@@ -86,7 +86,7 @@ Pf = (Tf * Pi * Vi) / (Vf * Ti)
 <br>
 
 ### .sig_figs()
-*sig_float()->int:*
+*sig_figs()->int:*
 
 Returns the number of significant digits for a given sig_float object. Sig figs are calculated using the following sig fig rules:
 * All non-zero digits are significant.
