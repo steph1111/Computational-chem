@@ -4,14 +4,14 @@
   <p align="center">
     Project GitHub Repo
     <br />
-    <a href="https://github.com/steph1111/Computational-chem/tree/main/Significant_figures"><strong>sig_float »</strong></a>
+    <a href="https://github.com/steph1111/PRECISE-Precision-Rules-Enforced-Calculations-In-Scientific-Environments/tree/main/sig_float"><strong>sig_float »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/steph1111/Computational-chem/issues">Report Issue</a>
+    <a href="https://github.com/steph1111/PRECISE-Precision-Rules-Enforced-Calculations-In-Scientific-Environments/issues">Report Issue</a>
     ·
     <a href="https://github.com/users/steph1111/projects/1">Project status</a>
     ·
-    <a href="https://github.com/steph1111/Computational-chem/discussions">Discuss</a>
+    <a href="https://github.com/steph1111/PRECISE-Precision-Rules-Enforced-Calculations-In-Scientific-Environments/discussions/18">Discuss</a>
   </p>
 </div>
 
