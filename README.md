@@ -1,6 +1,6 @@
 <!-- PROJECT INTRO -->
 <h1 align="center">PERCISE</h1>
-<h2 align="center">Precision Rules Enforced Calculations In Scientific Environments</h2>
+<h3 align="center">Precision Rules Enforced Calculations In Scientific Environments</h3>
 
 <br>
   <p align="center">
