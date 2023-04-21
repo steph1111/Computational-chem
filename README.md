@@ -2,17 +2,18 @@
 <h1 align="center">PERCISE</h1>
 <h2 align="center">Precision Rules Enforced Calculations In Scientific Environments</h2>
 
+<br>
   <p align="center">
     Project GitHub Repo
     <br />
-    <a href="https://github.com/steph1111/PRECISE-Precision-Rules-Enforced-Calculations-In-Scientific-Environments"><strong>PERCISE »</strong></a>
+    <a href="https://github.com/steph1111/PERCISE"><strong>PERCISE »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/steph1111/PRECISE-Precision-Rules-Enforced-Calculations-In-Scientific-Environments/issues">Report Issue</a>
+    <a href="https://github.com/steph1111/PERCISE/issues">Report Issue</a>
     ·
     <a href="https://github.com/users/steph1111/projects/1">Project status</a>
     ·
-    <a href="https://github.com/steph1111/PRECISE-Precision-Rules-Enforced-Calculations-In-Scientific-Environments/discussions/18">Discuss</a>
+    <a href="https://github.com/steph1111/PERCISE/discussions">Discuss</a>
   </p>
 </div>
 
