@@ -47,7 +47,7 @@ FIXME
 <details>
   <summary>Modules table of contents</summary>
   <ol>
-    <li><a href="#sig_float-">sig_float</a>
+    <li><a href="#sig_float">sig_float</a>
   </ol>
 </details>
 <br>
