@@ -20,7 +20,7 @@
 <!-- ABOUT THE PROJECT -->
 
 ---
-## About The Project
+## About The Module
 This module provides the infastructure to preform calculations that behave according to signficant figure rules. An instance of the sig_float class maybe added, subtracted, multiplied, or divided with another sig_float using standard operators and the resultant will retain the proper number of signifiant figures. 
 
 <br>
