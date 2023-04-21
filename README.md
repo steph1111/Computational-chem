@@ -48,7 +48,7 @@ FIXME
 <details>
   <summary>Modules table of contents</summary>
   <ol>
-    <li><a href="#sig_float">sig_float</a>
+    <li><a href="#sig_float-">sig_float</a>
   </ol>
 </details>
 <br>
@@ -57,4 +57,4 @@ FIXME
 
 ### [sig_float »](https://github.com/steph1111/PERCISE/tree/main/sig_float)
 
-This module provides the infastructure to preform calculations that behave according to signficant figure rules. An instance of the sig_float class maybe added, subtracted, multiplied, or divided with another sig_float using standard operators and the resultant will retain the proper number of signifiant figures.
+This module provides the infastructure to preform calculations that behave according to signficant figure rules. An instance of the sig_float class may be added, subtracted, multiplied, or divided with another sig_float using standard operators and the resultant will retain the proper number of signifiant figures.
