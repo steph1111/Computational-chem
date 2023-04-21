@@ -4,14 +4,14 @@
   <p align="center">
     Project GitHub Repo
     <br />
-    <a href="https://github.com/steph1111/PRECISE-Precision-Rules-Enforced-Calculations-In-Scientific-Environments/tree/main/sig_float"><strong>sig_float »</strong></a>
+    <a href="https://github.com/steph1111/PERCISE/tree/main/sig_float"><strong>sig_float »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/steph1111/PRECISE-Precision-Rules-Enforced-Calculations-In-Scientific-Environments/issues">Report Issue</a>
+    <a href="https://github.com/steph1111/PERCISE/issues">Report Issue</a>
     ·
     <a href="https://github.com/users/steph1111/projects/1">Project status</a>
     ·
-    <a href="https://github.com/steph1111/PRECISE-Precision-Rules-Enforced-Calculations-In-Scientific-Environments/discussions/18">Discuss</a>
+    <a href="https://github.com/steph1111/PERCISE/discussions/18">Discuss</a>
   </p>
 </div>
 
@@ -32,7 +32,7 @@ This module provides the infastructure to preform calculations that behave accor
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/steph1111/Computational-chem.git
+   git clone https://github.com/steph1111/PERCISE.git
    ```
 2. Import the sig_float class and round_sig function to your workspace 
    ```python
