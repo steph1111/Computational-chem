@@ -8,6 +8,7 @@ __author__ = "Stephanie L'Heureux"
 
 import warnings
 import math
+from collections import Counter
 
 def round_precision(val_1:int, val_2:int)->int:
   """
@@ -29,7 +30,7 @@ def round_sig(number, sig_figs:int): #->sig_float
   """
   # Ensures only a valid number of sig figs is accepted
   if sig_figs > len(str(number)) or sig_figs <= 0:
-    raise IndexError("Number of sig figs invalid")
+    raise Exception("Number of sig figs invalid")
 
   # If given a number is not of type float, convert to float
   if not isinstance(number, float):
@@ -79,7 +80,7 @@ class sig_float:
   • Leading zeros are never significant.
   """
 
-  def __init__(self, str_num:str="0", float_num:float=None, units:str="")->None:
+  def __init__(self, str_num:str="0", numerator_units:list=[], denominator_units:list=[], float_num:float=None)->None:
     """
     Initializes a sig_float object
     'str_number' has a default value of 0 
@@ -94,11 +95,24 @@ class sig_float:
     self._str = str_num
     self._sig_figs = self.sig_figs()
     self._precision = self.precision()
+    
     if float_num != None:
       self._float = float_num
     else:
       self._float = float(self._str)
-    self._units = units # Not implemented yet. See github for idea
+
+    # # Expands any units in tuples
+    # def decompose_units(units):
+    #   index = 0
+    #   for unit in units:
+    #     if isinstance(unit, tuple):
+    #       del units[index]
+    #       units[index:index] = [unit[0] for i in range(unit[1])]
+    #     index += 1
+    #   return units
+    
+    self._numer_units = numerator_units
+    self._denom_units = denominator_units
 
   def sig_figs(self)->int:
     """
@@ -199,10 +213,15 @@ class sig_float:
     """
     Adds two numbers of type sig_float with + using sig fig rules
     """
+    # Ensures both opperands units are the same
+    if Counter(self._numer_units) != Counter(other._numer_units) or Counter(self._denom_units) != Counter(other._denom_units):
+      raise Exception("Error: Units must match")
+    
     # Ensures both operands are of type sig_float
     if not isinstance(other, sig_float):
       other = sig_float(other)
       warnings.warn("Warning: Operands should be of type sig_float", PendingDeprecationWarning)
+  
     
     # Addition using sig fig rules
     sum = self._float + other._float
@@ -213,12 +232,16 @@ class sig_float:
     if sum_precision <= 0:
       return sig_float(temp_str[:-2])
 
-    return sig_float(temp_str, float_num=sum)
+    return sig_float(temp_str, numerator_units=self._numer_units, denominator_units=self._denom_units, float_num=sum)
 
   def __sub__(self, other): # ->sig_float
     """
     Subtracts two numbers of type sig_float with + using sig fig rules
     """
+    # Ensures both opperands units are the same
+    if Counter(self._numer_units) != Counter(other._numer_units) or Counter(self._denom_units) != Counter(other._denom_units):
+      raise Exception("Error: Units must match")
+
     # Ensures both operands are of type sig_float
     if not isinstance(other, sig_float):
       other = sig_float(other)
@@ -233,13 +256,16 @@ class sig_float:
     if diff_precision <= 0:
       return sig_float(temp_str[:-2])
   
-    return sig_float(temp_str, float_num=diff)
+    return sig_float(temp_str, numerator_units=self._numer_units, denominator_units=self._denom_units, float_num=diff)
 
   def __str__(self)->str:
     """
     Returns a string represntation of the number with correct sig figs
     """
-    return self._str
+    unit_str = " " + " ".join(unit[0] + "^" + str(unit[1]) if isinstance(unit, tuple) else unit for unit in self._numer_units)
+    if len(self._denom_units):
+      unit_str += "/" + " ".join(unit[0] + "^" + str(unit[1]) if isinstance(unit, tuple) else unit for unit in self._denom_units)
+    return self._str + unit_str
   
   def __bool__(self)->bool:
     """
