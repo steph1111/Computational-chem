@@ -31,8 +31,8 @@ def round_sig(number, sig_figs:int): #->sig_float
   if sig_figs > len(str(number)) or sig_figs <= 0:
       raise IndexError("Number of sig figs invalid")
 
-  # If given a number of type sig_float, use the numemeric atribute in calculations
-  if type(number) == sig_float:
+  # If given a number is not of type float, convert to float
+  if not isinstance(number, float):
     number = float(number)
 
   # Rounds the number to the correct number of sig figs
