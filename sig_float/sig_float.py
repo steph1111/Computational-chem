@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-https://github.com/steph1111/Computational-chem/blob/main/Significant_figures/sig_float.py
+https://github.com/steph1111/PERCISE/blob/main/sig_float/sig_float.py
 Module sig_float contains the sig_float class--instances 
 of numbers that behave according to sig fig rules.
 """
@@ -28,16 +28,20 @@ def round_sig(number, sig_figs:int): #->sig_float
   """
   Rounds a number to a certain number of significant figures
   """
-  # Ensures only a valid number of sig figs is accepted
-  if sig_figs > len(str(number)) or sig_figs <= 0:
-    raise Exception("Number of sig figs invalid")
+  # Function that counts the number of valid digits in a string representation of a number
+  def digits(num:str)->int:
+    num_digits = len(num)
+    if num.find("-") != -1:
+      num_digits -= 1
+    if num.find(".") != -1:
+      num_digits -= 1
+    return num_digits
 
-  # If given a number is not of type float, convert to float
-  if not isinstance(number, float):
-    number = float(number)
-
+  # Float represntation
+  float_number = float(number)
+  
   # Rounds the number to the correct number of sig figs
-  rounded_number = str(round(number, sig_figs - int(math.floor(math.log10(abs(number)))) - 1))
+  rounded_number = str(round(float_number, sig_figs - int(math.floor(math.log10(abs(float_number)))) - 1))
 
   # Remove trailing decimal python adds
   if rounded_number[-2:] == ".0" and sig_figs != len(rounded_number) - 1:
@@ -53,22 +57,23 @@ def round_sig(number, sig_figs:int): #->sig_float
     else:
       rounded_number += ("0" *  (sig_figs - len(rounded_number) - 1))
   
-  rounded_sig_float = sig_float(rounded_number)
-  rounded_sig_float._float = number
-  
-  # Distinguish significant digit if necessary
-  if not decimal:
-    if len(rounded_number) > sig_figs and rounded_number[sig_figs-1] == "0":
-      rounded_sig_float._str = rounded_number[:sig_figs-1] + "0̅" + rounded_number[sig_figs:]
+  # Build the return sig_float
+  if isinstance(number, sig_float):
+    rounded_sig_float = sig_float(rounded_number, number._numer_units, number._denom_units)
   else:
-    if len(rounded_number) -1 > sig_figs and rounded_number[sig_figs-1] == "0":
-      rounded_sig_float._str = rounded_number[:sig_figs-1] + "0̅" + rounded_number[sig_figs:]
+    rounded_sig_float = sig_float(rounded_number)
+  rounded_sig_float._float = float_number
+  rounded_sig_float._sig_figs = sig_figs
   
-  if len(rounded_number) == sig_figs and rounded_number[-1] == "0" and decimal:
+  # Distinguish significant digit with oveline
+  if digits(rounded_number) > sig_figs and rounded_number[sig_figs-1] == "0":
+    rounded_sig_float._str = rounded_number[:sig_figs-1] + "0̅" + rounded_number[sig_figs:]
+  
+  # Decimal place after the number
+  if digits(rounded_number) + 1 == sig_figs and rounded_number[-1] == "0" and decimal:
     rounded_sig_float._str = rounded_number + "."
 
   return rounded_sig_float
-
 
 class sig_float:
   """
@@ -100,16 +105,6 @@ class sig_float:
       self._float = float_num
     else:
       self._float = float(self._str)
-
-    # # Expands any units in tuples
-    # def decompose_units(units):
-    #   index = 0
-    #   for unit in units:
-    #     if isinstance(unit, tuple):
-    #       del units[index]
-    #       units[index:index] = [unit[0] for i in range(unit[1])]
-    #     index += 1
-    #   return units
     
     self._numer_units = numerator_units
     self._denom_units = denominator_units
@@ -222,7 +217,6 @@ class sig_float:
       other = sig_float(other)
       warnings.warn("Warning: Operands should be of type sig_float", PendingDeprecationWarning)
   
-    
     # Addition using sig fig rules
     sum = self._float + other._float
     sum_precision = round_precision(self._precision, other._precision)
@@ -260,7 +254,7 @@ class sig_float:
 
   def __str__(self)->str:
     """
-    Returns a string represntation of the number with correct sig figs
+    Returns a string represntation of the number with correct sig figs and units
     """
     unit_str = " " + " ".join(unit[0] + "^" + str(unit[1]) if isinstance(unit, tuple) else unit for unit in self._numer_units)
     if len(self._denom_units):
@@ -359,7 +353,8 @@ class sig_float:
       self._sig_figs = other._sig_figs
       self._precision = other._precision
       self._float = other._float
-      self._units = other._units
+      self._numer_units = other._numer_units
+      self._denom_units = other._denom_units
     else:
       self = sig_float(other)
 
