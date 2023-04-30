@@ -29,7 +29,7 @@ def round_sig(number, sig_figs:int): #->sig_float
   """
   # Ensures only a valid number of sig figs is accepted
   if sig_figs > len(str(number)) or sig_figs <= 0:
-      raise IndexError("Number of sig figs invalid")
+    raise IndexError("Number of sig figs invalid")
 
   # If given a number is not of type float, convert to float
   if not isinstance(number, float):
