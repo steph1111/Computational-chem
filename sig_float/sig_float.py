@@ -9,7 +9,6 @@ __author__ = "Stephanie L'Heureux"
 import warnings
 import math
 
-
 def round_precision(val_1:int, val_2:int)->int:
   """
   Given two place values, determines which to round to. Uses
@@ -28,6 +27,10 @@ def round_sig(number, sig_figs:int): #->sig_float
   """
   Rounds a number to a certain number of significant figures
   """
+  # Ensures only a valid number of sig figs is accepted
+  if sig_figs > len(str(number)) or sig_figs <= 0:
+      raise IndexError("Number of sig figs invalid")
+
   # If given a number of type sig_float, use the numemeric atribute in calculations
   if type(number) == sig_float:
     number = float(number)
@@ -38,15 +41,32 @@ def round_sig(number, sig_figs:int): #->sig_float
   # Remove trailing decimal python adds
   if rounded_number[-2:] == ".0" and sig_figs != len(rounded_number) - 1:
     rounded_number = rounded_number[:-2] 
-  
+
+  # Notes if the number has a decimal place
+  decimal = rounded_number.find(".") == -1
+
   # If there should be trailing significant zeros
   if len(rounded_number) < sig_figs:
-    if rounded_number.find(".") == -1:
+    if decimal:
       rounded_number += "." +  (sig_figs - len(rounded_number)) * "0"
     else:
       rounded_number += ("0" *  (sig_figs - len(rounded_number) - 1))
+  
+  rounded_sig_float = sig_float(rounded_number)
+  rounded_sig_float._float = number
+  
+# Distinguish significant digit if necessary
+  if not decimal:
+    if len(rounded_number) > sig_figs and rounded_number[sig_figs-1] == "0":
+      rounded_sig_float._str = rounded_number[:sig_figs-1] + "0̅" + rounded_number[sig_figs:]
+  else:
+    if len(rounded_number) -1 > sig_figs and rounded_number[sig_figs-1] == "0":
+      rounded_sig_float._str = rounded_number[:sig_figs-1] + "0̅" + rounded_number[sig_figs:]
+  
+  if len(rounded_number) == sig_figs and rounded_number[-1] == "0" and not decimal:
+    rounded_sig_float._str = rounded_number + "."
 
-  return sig_float(rounded_number, float_num=number)
+  return rounded_sig_float
 
 
 class sig_float:
@@ -303,6 +323,19 @@ class sig_float:
       warnings.warn("Warning: Operands should be of type sig_float", PendingDeprecationWarning)
 
     return self._float >= other._float
+
+  def __assign__(self, other):
+    """
+    Assigns an object to an object of type sig_float
+    """
+    if isinstance(other, sig_float):
+      self._str = other._str
+      self._sig_figs = other._sig_figs
+      self._precision = other._precision
+      self._float = other._float
+      self._units = other._units
+    else:
+      self = sig_float(other)
 
 if __name__ == "__main__":
   pass
