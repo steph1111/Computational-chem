@@ -134,12 +134,6 @@ num1 = sig_float("10.0")
 num2 = sig_float("0.200")
 print(f"11) {num1} * {num2} = {num1 * num2}")
 
-num1 = sig_float("55")
-num2 = sig_float("55")
-num3 = sig_float("1.0")
-num4 = sig_float("1.0")
-print(RED + f"12) {num1} * {num2} * {num3} + {num4} = {num1 * num2 * num3 + num4}" + GREEN) # Should be overlined??
-
 print(RESET + "\nMixed operations tests:" + GREEN)
 num1 = sig_float("15.803")
 num2 = sig_float("4.76")
@@ -157,6 +151,12 @@ num2 = sig_float("4.532")
 num3 = sig_float("12.690")
 print(f"3) ({num1} * {num2}) + {num3} = {num1 * num2 + num3}")
 
+num1 = sig_float("55")
+num2 = sig_float("55")
+num3 = sig_float("1.0")
+num4 = sig_float("1.0")
+print(RED + f"4) {num1} * {num2} * {num3} + {num4} = {num1 * num2 * num3 + num4}" + GREEN) # Should be overlined??
+
 print(RESET + "\nRounding tests:" + GREEN)
 print(f"1) round_sig(8712082, 2) -> {round_sig(8712082, 2)}")
 print(f"2) round_sig(8000, 2) -> {round_sig(8000, 2)}")
@@ -168,6 +168,6 @@ print(f'5) round_sig(("120000", ["kg", "m"], [("s", 2)]), 4) -> {round_sig(num1,
 print(RESET + "\nUnits tests:" + GREEN)
 num1 = sig_float("2.8", ["kg", "m"], [("s", 2)])
 num2 = sig_float("2.2", ["kg", "m"], [("s", 2)])
-print(f"({num1}) + ({num2}) = {num1 + num2}")
+print(f"1) ({num1}) + ({num2}) = {num1 + num2}")
 
 print(RESET)
