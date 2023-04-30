@@ -55,7 +55,7 @@ def round_sig(number, sig_figs:int): #->sig_float
   rounded_sig_float = sig_float(rounded_number)
   rounded_sig_float._float = number
   
-# Distinguish significant digit if necessary
+  # Distinguish significant digit if necessary
   if not decimal:
     if len(rounded_number) > sig_figs and rounded_number[sig_figs-1] == "0":
       rounded_sig_float._str = rounded_number[:sig_figs-1] + "0̅" + rounded_number[sig_figs:]
@@ -63,7 +63,7 @@ def round_sig(number, sig_figs:int): #->sig_float
     if len(rounded_number) -1 > sig_figs and rounded_number[sig_figs-1] == "0":
       rounded_sig_float._str = rounded_number[:sig_figs-1] + "0̅" + rounded_number[sig_figs:]
   
-  if len(rounded_number) == sig_figs and rounded_number[-1] == "0" and not decimal:
+  if len(rounded_number) == sig_figs and rounded_number[-1] == "0" and decimal:
     rounded_sig_float._str = rounded_number + "."
 
   return rounded_sig_float
