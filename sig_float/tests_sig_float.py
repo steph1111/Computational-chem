@@ -86,7 +86,7 @@ print(f"11) {num1} - {num2} = {num1 - num2}")
 
 num1 = sig_float("0.0007")
 num2 = sig_float("0.775")
-print(f"11) {num1} - {num2} = {num1 - num2}")
+print(f"12) {num1} - {num2} = {num1 - num2}")
 
 print(RESET + "\nMultiplication and division tests:" + GREEN)
 num1 = sig_float("6")
@@ -150,5 +150,12 @@ num1 = sig_float("2.8")
 num2 = sig_float("4.532")
 num3 = sig_float("12.690")
 print(f"3) ({num1} * {num2}) + {num3} = {num1 * num2 + num3}")
+
+print(RESET + "\nRounding tests:" + GREEN)
+print(f"1) round_sig(8712082, 2) {round_sig(8712082, 2)}")
+print(f"2) round_sig(8000, 2) {round_sig(8000, 2)}")
+print(f"3) round_sig(980, 2) {round_sig(980, 2)}")
+print(f"4) round_sig(120000, 6) {round_sig(120000, 6)}")
+print(f"4) round_sig(120000, 4) {round_sig(120000, 4)}")
 
 print(RESET)
