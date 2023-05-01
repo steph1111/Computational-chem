@@ -8,7 +8,8 @@ __author__ = "Stephanie L'Heureux"
 
 import warnings
 import math
-from collections import Counter
+import itertools
+# from collections import Counter
 
 def round_precision(val_1:int, val_2:int)->int:
   """
@@ -48,12 +49,13 @@ def round_sig(number, sig_figs:int): #->sig_float
     rounded_number = rounded_number[:-2] 
 
   # Notes if the number has a decimal place
-  decimal = rounded_number.find(".") == -1
+  no_decimal = rounded_number.find(".") == -1
 
   # If there should be trailing significant zeros
   if len(rounded_number) < sig_figs:
-    if decimal:
+    if no_decimal:
       rounded_number += "." +  (sig_figs - len(rounded_number)) * "0"
+      no_decimal = False
     else:
       rounded_number += ("0" *  (sig_figs - len(rounded_number) - 1))
   
@@ -70,7 +72,7 @@ def round_sig(number, sig_figs:int): #->sig_float
     rounded_sig_float._str = rounded_number[:sig_figs-1] + "0̅" + rounded_number[sig_figs:]
   
   # Decimal place after the number
-  if digits(rounded_number) + 1 == sig_figs and rounded_number[-1] == "0" and decimal:
+  if digits(rounded_number) == sig_figs and rounded_number[-1] == "0" and no_decimal:
     rounded_sig_float._str = rounded_number + "."
 
   return rounded_sig_float
@@ -85,7 +87,7 @@ class sig_float:
   • Leading zeros are never significant.
   """
 
-  def __init__(self, str_num:str="0", numerator_units:list=[], denominator_units:list=[], float_num:float=None)->None:
+  def __init__(self, str_num:str="0", numerator_units:dict={}, denominator_units:dict={}, float_num:float=None)->None:
     """
     Initializes a sig_float object
     'str_number' has a default value of 0 
@@ -173,6 +175,31 @@ class sig_float:
     Converts to a scientific notation string representation 
     """
     pass
+
+  def cancel_units(self)->None:
+    """
+    Cancels common units
+    """
+    # TODO Look at improving efficency here
+    units_canceled = False # Increase speed of execution if no units canceled
+  
+    for unit in itertools.chain(self._numer_units, self._denom_units):
+      exponent_numer = self._numer_units.get(unit, 0)
+      exponent_denom = self._denom_units.get(unit, 0)
+      if exponent_numer >= exponent_denom and exponent_denom != 0:
+        units_canceled = True 
+        diff = exponent_numer - exponent_denom
+        self._numer_units[unit] = diff
+        self._denom_units[unit] = 0
+
+    if units_canceled:
+      for unit in list(self._numer_units):
+        if self._numer_units[unit] == 0:
+          del self._numer_units[unit]
+      
+      for unit in list(self._denom_units):
+        if self._denom_units[unit] == 0:
+          del self._denom_units[unit]
   
   def __mul__(self, other): # ->sig_float
     """
@@ -187,7 +214,17 @@ class sig_float:
     product = self._float * other._float
     product_sig_figs = min(self._sig_figs, other.sig_figs())
 
-    return round_sig(product, product_sig_figs)
+    # Update units
+    new_numerator = {unit: self._numer_units.get(unit, 0) + other._numer_units.get(unit, 0) for unit in itertools.chain(self._numer_units, other._numer_units)}
+    new_denominator = {unit: self._denom_units.get(unit, 0) + other._denom_units.get(unit, 0) for unit in itertools.chain(self._denom_units, other._denom_units)}
+
+    # Build return product as a sig_float
+    return_product = round_sig(product, product_sig_figs) # Rounds to proper sig figs
+    return_product._numer_units = new_numerator
+    return_product._denom_units = new_denominator
+    return_product.cancel_units()
+
+    return return_product
   
   def __truediv__(self, other): # ->sig_float
     """
@@ -202,14 +239,24 @@ class sig_float:
     quotient = self._float / other._float
     quotient_sig_figs = min(self._sig_figs, other.sig_figs())
 
-    return round_sig(quotient, quotient_sig_figs)
+    # Update units
+    new_numerator = {unit: self._numer_units.get(unit, 0) + other._denom_units.get(unit, 0) for unit in itertools.chain(self._numer_units, other._denom_units)}
+    new_denominator = {unit: self._denom_units.get(unit, 0) + other._numer_units.get(unit, 0) for unit in itertools.chain(self._denom_units, other._numer_units)}
+
+    # Build return quotient as a sig_float
+    return_quotient = round_sig(quotient, quotient_sig_figs) # Rounds to proper sig figs
+    return_quotient._numer_units = new_numerator
+    return_quotient._denom_units = new_denominator
+    return_quotient.cancel_units()
+
+    return return_quotient
 
   def __add__(self, other): # ->sig_float
     """
     Adds two numbers of type sig_float with + using sig fig rules
     """
     # Ensures both opperands units are the same
-    if Counter(self._numer_units) != Counter(other._numer_units) or Counter(self._denom_units) != Counter(other._denom_units):
+    if self._numer_units != other._numer_units or self._denom_units != other._denom_units:
       raise Exception("Error: Units must match")
     
     # Ensures both operands are of type sig_float
@@ -233,7 +280,7 @@ class sig_float:
     Subtracts two numbers of type sig_float with + using sig fig rules
     """
     # Ensures both opperands units are the same
-    if Counter(self._numer_units) != Counter(other._numer_units) or Counter(self._denom_units) != Counter(other._denom_units):
+    if self._numer_units != other._numer_units or self._denom_units != other._denom_units:
       raise Exception("Error: Units must match")
 
     # Ensures both operands are of type sig_float
@@ -256,9 +303,9 @@ class sig_float:
     """
     Returns a string represntation of the number with correct sig figs and units
     """
-    unit_str = " " + " ".join(unit[0] + "^" + str(unit[1]) if isinstance(unit, tuple) else unit for unit in self._numer_units)
+    unit_str = " " + " ".join(unit if exponent == 1 else unit + "^" + str(exponent) for unit, exponent in self._numer_units.items())
     if len(self._denom_units):
-      unit_str += "/" + " ".join(unit[0] + "^" + str(unit[1]) if isinstance(unit, tuple) else unit for unit in self._denom_units)
+      unit_str += "/" + " ".join(unit if exponent == 1 else unit + "^" + str(exponent) for unit, exponent in self._denom_units.items())
     return self._str + unit_str
   
   def __bool__(self)->bool:
