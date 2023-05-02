@@ -9,7 +9,6 @@ __author__ = "Stephanie L'Heureux"
 import warnings
 import math
 import itertools
-# from collections import Counter
 
 def round_precision(val_1:int, val_2:int)->int:
   """
@@ -61,7 +60,7 @@ def round_sig(number, sig_figs:int): #->sig_float
   
   # Build the return sig_float
   if isinstance(number, sig_float):
-    rounded_sig_float = sig_float(rounded_number, number._numer_units, number._denom_units)
+    rounded_sig_float = sig_float(rounded_number, number._n_units, number._d_units)
   else:
     rounded_sig_float = sig_float(rounded_number)
   rounded_sig_float._float = float_number
@@ -108,8 +107,8 @@ class sig_float:
     else:
       self._float = float(self._str)
     
-    self._numer_units = numerator_units
-    self._denom_units = denominator_units
+    self._n_units = numerator_units
+    self._d_units = denominator_units
 
   def sig_figs(self)->int:
     """
@@ -180,27 +179,23 @@ class sig_float:
     """
     Cancels common units
     """
-    # TODO Look at improving efficency here
-    units_canceled = False # Increase speed of execution if no units canceled
-  
-    for unit in itertools.chain(self._numer_units, self._denom_units):
-      exponent_numer = self._numer_units.get(unit, 0)
-      exponent_denom = self._denom_units.get(unit, 0)
-      if exponent_numer >= exponent_denom and exponent_denom != 0:
-        units_canceled = True 
-        diff = exponent_numer - exponent_denom
-        self._numer_units[unit] = diff
-        self._denom_units[unit] = 0
-
-    if units_canceled:
-      for unit in list(self._numer_units):
-        if self._numer_units[unit] == 0:
-          del self._numer_units[unit]
-      
-      for unit in list(self._denom_units):
-        if self._denom_units[unit] == 0:
-          del self._denom_units[unit]
-  
+    for unit in self._n_units: 
+      if unit in self._d_units:
+        ex_n = self._n_units[unit]
+        ex_d = self._d_units[unit]
+        if ex_n > ex_d:
+          self._n_units[unit] = ex_n - ex_d
+          del self._d_units[unit]
+        elif ex_n < ex_d:
+          self._d_units[unit] = ex_d - ex_n
+          self._n_units[unit] = 0
+        elif ex_n == ex_d:
+          del self._d_units[unit]
+          self._n_units[unit] = 0
+    for unit in list(self._n_units):
+      if self._n_units[unit] == 0:
+        del self._n_units[unit]
+   
   def __mul__(self, other): # ->sig_float
     """
     Multiplies two numbers of type sig_float with * using sig fig rules
@@ -215,13 +210,13 @@ class sig_float:
     product_sig_figs = min(self._sig_figs, other.sig_figs())
 
     # Update units
-    new_numerator = {unit: self._numer_units.get(unit, 0) + other._numer_units.get(unit, 0) for unit in itertools.chain(self._numer_units, other._numer_units)}
-    new_denominator = {unit: self._denom_units.get(unit, 0) + other._denom_units.get(unit, 0) for unit in itertools.chain(self._denom_units, other._denom_units)}
+    new_numerator = {unit: self._n_units.get(unit, 0) + other._n_units.get(unit, 0) for unit in itertools.chain(self._n_units, other._n_units)}
+    new_denominator = {unit: self._d_units.get(unit, 0) + other._d_units.get(unit, 0) for unit in itertools.chain(self._d_units, other._d_units)}
 
     # Build return product as a sig_float
     return_product = round_sig(product, product_sig_figs) # Rounds to proper sig figs
-    return_product._numer_units = new_numerator
-    return_product._denom_units = new_denominator
+    return_product._n_units = new_numerator
+    return_product._d_units = new_denominator
     return_product.cancel_units()
 
     return return_product
@@ -240,13 +235,13 @@ class sig_float:
     quotient_sig_figs = min(self._sig_figs, other.sig_figs())
 
     # Update units
-    new_numerator = {unit: self._numer_units.get(unit, 0) + other._denom_units.get(unit, 0) for unit in itertools.chain(self._numer_units, other._denom_units)}
-    new_denominator = {unit: self._denom_units.get(unit, 0) + other._numer_units.get(unit, 0) for unit in itertools.chain(self._denom_units, other._numer_units)}
+    new_numerator = {unit: self._n_units.get(unit, 0) + other._d_units.get(unit, 0) for unit in itertools.chain(self._n_units, other._d_units)}
+    new_denominator = {unit: self._d_units.get(unit, 0) + other._n_units.get(unit, 0) for unit in itertools.chain(self._d_units, other._n_units)}
 
     # Build return quotient as a sig_float
     return_quotient = round_sig(quotient, quotient_sig_figs) # Rounds to proper sig figs
-    return_quotient._numer_units = new_numerator
-    return_quotient._denom_units = new_denominator
+    return_quotient._n_units = new_numerator
+    return_quotient._d_units = new_denominator
     return_quotient.cancel_units()
 
     return return_quotient
@@ -256,7 +251,7 @@ class sig_float:
     Adds two numbers of type sig_float with + using sig fig rules
     """
     # Ensures both opperands units are the same
-    if self._numer_units != other._numer_units or self._denom_units != other._denom_units:
+    if self._n_units != other._n_units or self._d_units != other._d_units:
       raise Exception("Error: Units must match")
     
     # Ensures both operands are of type sig_float
@@ -273,14 +268,14 @@ class sig_float:
     if sum_precision <= 0:
       return sig_float(temp_str[:-2])
 
-    return sig_float(temp_str, numerator_units=self._numer_units, denominator_units=self._denom_units, float_num=sum)
+    return sig_float(temp_str, numerator_units=self._n_units, denominator_units=self._d_units, float_num=sum)
 
   def __sub__(self, other): # ->sig_float
     """
     Subtracts two numbers of type sig_float with + using sig fig rules
     """
     # Ensures both opperands units are the same
-    if self._numer_units != other._numer_units or self._denom_units != other._denom_units:
+    if self._n_units != other._n_units or self._d_units != other._d_units:
       raise Exception("Error: Units must match")
 
     # Ensures both operands are of type sig_float
@@ -297,15 +292,15 @@ class sig_float:
     if diff_precision <= 0:
       return sig_float(temp_str[:-2])
   
-    return sig_float(temp_str, numerator_units=self._numer_units, denominator_units=self._denom_units, float_num=diff)
+    return sig_float(temp_str, numerator_units=self._n_units, denominator_units=self._d_units, float_num=diff)
 
   def __str__(self)->str:
     """
     Returns a string represntation of the number with correct sig figs and units
     """
-    unit_str = " " + " ".join(unit if exponent == 1 else unit + "^" + str(exponent) for unit, exponent in self._numer_units.items())
-    if len(self._denom_units):
-      unit_str += "/" + " ".join(unit if exponent == 1 else unit + "^" + str(exponent) for unit, exponent in self._denom_units.items())
+    unit_str = " " + " ".join(unit if exponent == 1 else unit + "^" + str(exponent) for unit, exponent in self._n_units.items())
+    if len(self._d_units):
+      unit_str += "/" + " ".join(unit if exponent == 1 else unit + "^" + str(exponent) for unit, exponent in self._d_units.items())
     return self._str + unit_str
   
   def __bool__(self)->bool:
@@ -400,8 +395,8 @@ class sig_float:
       self._sig_figs = other._sig_figs
       self._precision = other._precision
       self._float = other._float
-      self._numer_units = other._numer_units
-      self._denom_units = other._denom_units
+      self._n_units = other._n_units
+      self._d_units = other._d_units
     else:
       self = sig_float(other)
 
