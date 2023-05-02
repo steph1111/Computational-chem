@@ -10,6 +10,15 @@ import warnings
 import math
 import itertools
 
+# TODO Implicate
+# DERIVED_UNITS = { 
+# ({}, {"s":-1}):"Hz",
+# ({"kg":1, "m":1}, {"s":2}):"N",
+# ({"kg":1}, {"m":1, "s":2}): "Pa",
+# ({"m":2, "kg":1},{"s":2}): "J",
+# ({"m":2, "kg":1}, {"s", 3}): "W"
+# }
+
 def round_precision(val_1:int, val_2:int)->int:
   """
   Given two place values, determines which to round to. Uses
@@ -195,7 +204,13 @@ class sig_float:
     for unit in list(self._n_units):
       if self._n_units[unit] == 0:
         del self._n_units[unit]
-   
+
+  def latex(self)->str:
+    if self._d_units and self._d_units:
+      return self._str + "\\frac{" + "".join(unit if exponent == 1 else unit + "^" + str(exponent) for unit, exponent in self._n_units.items()) + "}{" + "".join(unit if exponent == 1 else unit + "^" + str(exponent) for unit, exponent in self._d_units.items()) + "}"
+    else:
+      return self._str + "".join(unit if exponent == 1 else unit + "^" + str(exponent) for unit, exponent in self._n_units.items()) + "".join(unit if exponent == 1 else unit + "^" + str(exponent) for unit, exponent in self._d_units.items())
+  
   def __mul__(self, other): # ->sig_float
     """
     Multiplies two numbers of type sig_float with * using sig fig rules
