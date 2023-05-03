@@ -118,6 +118,7 @@ class sig_float:
     
     self._n_units = numerator_units
     self._d_units = denominator_units
+    self.cancel_units()
 
   def sig_figs(self)->int:
     """
@@ -205,6 +206,9 @@ class sig_float:
         elif ex_n == ex_d:
           del self._d_units[unit]
           self._n_units[unit] = 0
+      elif self._n_units[unit] < 0:
+        self._d_units[unit] = abs(self._n_units[unit])
+        self._n_units[unit] = 0
     for unit in list(self._n_units):
       if self._n_units[unit] == 0:
         del self._n_units[unit]
