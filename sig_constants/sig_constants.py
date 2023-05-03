@@ -8,6 +8,7 @@ __author__ = "Stephanie L'Heureux"
 
 # import sys 
 # sys.path.append("/Users/stephanie/Documents/PERCISE/sig_float/")
+# sys.path.insert(0, '/Users/cisco/Sync/Chem_code/Computational-chem/sig_float') #allows import of modules from non-system folder
 # import sig_float
 from PERCISE.sig_float import sig_float
 
