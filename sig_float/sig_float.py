@@ -19,8 +19,7 @@ import itertools
 # ({"m":2, "kg":1}, {"s", 3}): "W"
 # }
 
-
-def round_precision(val_1:int, val_2:int)->int:
+def _round_precision(val_1:int, val_2:int)->int:
   """
   Given two place values, determines which to round to. Uses
   the place convention defined in precision() 
@@ -223,7 +222,7 @@ class sig_float:
       if self._d_units and self._d_units:
         return self._str + "\\frac{" + " \cdot ".join(unit if exponent == 1 else unit + "^{" + str(exponent) + "}" for unit, exponent in self._n_units.items()) + "}{" + " \cdot ".join(unit if exponent == 1 else unit + "^{" + str(exponent) + "}" for unit, exponent in self._d_units.items()) + "}"
       else:
-        return self._str + " \cdot ".join(unit if exponent == 1 else unit + "^{" + str(exponent) + "}" for unit, exponent in self._n_units.items()) + " \cdot ".join(unit if exponent == 1 else unit + "^{" + str(exponent) + "}" for unit, exponent in self._d_units.items())
+        return self._str + " \; " + " \cdot ".join(unit if exponent == 1 else unit + "^{" + str(exponent) + "}" for unit, exponent in self._n_units.items()) + " \cdot ".join(unit if exponent == 1 else unit + "^{" + str(exponent) + "}" for unit, exponent in self._d_units.items())
     
   
   def __mul__(self, other): # ->sig_float
@@ -291,7 +290,7 @@ class sig_float:
   
     # Addition using sig fig rules
     sum = self._float + other._float
-    sum_precision = round_precision(self._precision, other._precision)
+    sum_precision = _round_precision(self._precision, other._precision)
     temp_str = str(round(sum, sum_precision))
 
     # Remove trailing decimal python adds
@@ -315,7 +314,7 @@ class sig_float:
 
     # Subtraction using sig fig rules
     diff = self._float - other._float
-    diff_precision = round_precision(self._precision, other._precision)
+    diff_precision = _round_precision(self._precision, other._precision)
     temp_str = str(round(diff, diff_precision))
   
     # Remove trailing decimal python adds
