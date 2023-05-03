@@ -19,6 +19,7 @@ import itertools
 # ({"m":2, "kg":1}, {"s", 3}): "W"
 # }
 
+
 def round_precision(val_1:int, val_2:int)->int:
   """
   Given two place values, determines which to round to. Uses
@@ -69,10 +70,9 @@ def round_sig(number, sig_figs:int): #->sig_float
   
   # Build the return sig_float
   if isinstance(number, sig_float):
-    rounded_sig_float = sig_float(rounded_number, number._n_units, number._d_units)
+    rounded_sig_float = sig_float(rounded_number, number._n_units, number._d_units, float_number)
   else:
-    rounded_sig_float = sig_float(rounded_number)
-  rounded_sig_float._float = float_number
+    rounded_sig_float = sig_float(rounded_number, float_num=float_number)
   rounded_sig_float._sig_figs = sig_figs
   
   # Distinguish significant digit with oveline
@@ -118,11 +118,16 @@ class sig_float:
     
     self._n_units = numerator_units
     self._d_units = denominator_units
+    self.cancel_units()
 
   def sig_figs(self)->int:
     """
     Returns the number of sig figs of a sig_float object
     """
+    # What if I found the number of trailing zeros, then converted to a float, found the digits of said float, + the number of trailing zeros if decimal
+    # then created a new string represnentation using the numeric and trailing zeros. Might result in cleaner code because leading zeros will be removed automatically 
+    # And the negative and decimal will be accounted for, this makes sense if python has a methord for counting the number of digits in an object. I think we may have used 
+    # A mathhmatical methord in 
     # Default start and end
     start = 0
     end = len(self._str)
@@ -201,15 +206,25 @@ class sig_float:
         elif ex_n == ex_d:
           del self._d_units[unit]
           self._n_units[unit] = 0
+      elif self._n_units[unit] < 0:
+        self._d_units[unit] = abs(self._n_units[unit])
+        self._n_units[unit] = 0
     for unit in list(self._n_units):
       if self._n_units[unit] == 0:
         del self._n_units[unit]
 
-  def latex(self)->str:
-    if self._d_units and self._d_units:
-      return self._str + "\\frac{" + "".join(unit if exponent == 1 else unit + "^" + str(exponent) for unit, exponent in self._n_units.items()) + "}{" + "".join(unit if exponent == 1 else unit + "^" + str(exponent) for unit, exponent in self._d_units.items()) + "}"
+  def latex(self, format=2)->str:
+    if format == 1:
+      temp = self._str + " \; " + " \cdot ".join(unit if exponent == 1 else unit + "^{" + str(exponent) + "}" for unit, exponent in self._n_units.items()) 
+      if self._d_units:
+         temp += " \cdot " + " \cdot ".join(unit + "^{-" + str(exponent) + "}" for unit, exponent in self._d_units.items())
+      return temp
     else:
-      return self._str + "".join(unit if exponent == 1 else unit + "^" + str(exponent) for unit, exponent in self._n_units.items()) + "".join(unit if exponent == 1 else unit + "^" + str(exponent) for unit, exponent in self._d_units.items())
+      if self._d_units and self._d_units:
+        return self._str + "\\frac{" + " \cdot ".join(unit if exponent == 1 else unit + "^{" + str(exponent) + "}" for unit, exponent in self._n_units.items()) + "}{" + " \cdot ".join(unit if exponent == 1 else unit + "^{" + str(exponent) + "}" for unit, exponent in self._d_units.items()) + "}"
+      else:
+        return self._str + " \cdot ".join(unit if exponent == 1 else unit + "^{" + str(exponent) + "}" for unit, exponent in self._n_units.items()) + " \cdot ".join(unit if exponent == 1 else unit + "^{" + str(exponent) + "}" for unit, exponent in self._d_units.items())
+    
   
   def __mul__(self, other): # ->sig_float
     """

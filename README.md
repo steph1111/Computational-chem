@@ -1,5 +1,5 @@
 <!-- PROJECT INTRO -->
-<h1 align="center">PERCISE</h1>
+<h1 align="center">PRECISE</h1>
 <h3 align="center">Precision Rules Enforced Calculations In Scientific Environments</h3>
 
 <br>
@@ -11,7 +11,7 @@
     <br />
     <a href="https://github.com/steph1111/PERCISE/issues">Report Issue</a>
     ·
-    <a href="https://github.com/users/steph1111/projects/1">Project status</a>
+    <a href="https://github.com/steph1111/PRECISE/projects?query=is%3Aopen">Project status</a>
     ·
     <a href="https://github.com/steph1111/PERCISE/discussions">Discuss</a>
   </p>
