@@ -1,5 +1,5 @@
 <!-- PROJECT INTRO -->
-<h1 align="center">PERCISE</h1>
+<h1 align="center">PRECISE</h1>
 <h3 align="center">Precision Rules Enforced Calculations In Scientific Environments</h3>
 
 <br>
