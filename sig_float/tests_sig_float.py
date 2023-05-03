@@ -180,11 +180,30 @@ V2 = (T2 * P1 * V1) / (P2 * T1)
 print(f"2) V2 = {V2}")
 
 F1 = sig_float("28.4", {"kg":1, "m":1}, {"s":2})
-g = sig_float("9.80", {"m":1}, {"s":1})
+g = sig_float("9.80", {"m":1}, {"s":2})
 F2 = sig_float("17.0", {"kg":1, "m":1}, {"s":2})
 density_fluid = sig_float("1000.", {"kg":1}, {"m":3})
 
 density_obj = (F1 / g) / ((F1 - F2)/(density_fluid * g))
 print(f"3) density_object: {density_obj}")
+
+R = sig_float("0.08206", {"L":1, "atm":1, "mol":-1, "K":-1})
+print(f"4) R: {R}")
+
+# FIXME: Incorrect:
+# Ts = sig_float("20.", {"kg":1, "m":1}, {"s":2})
+# L = sig_float("2.0", {"m":1})
+# delta_x = sig_float("2.0", {"m":1})
+# delta_t = sig_float("0.05", {"s":1})
+# m = (Ts * L) / ((delta_x / delta_t) * (delta_x / delta_t))
+# print(f"5) mass (m): {m}")
+
+print(RESET + "\nLaTeX tests:" + GREEN)
+print(density_obj.latex(format=1))
+print(density_obj.latex(format=2))
+print(R.latex(format=1))
+print(R.latex(format=2))
+print(V2.latex(format=1))
+print(V2.latex(format=2))
 
 print(RESET)
