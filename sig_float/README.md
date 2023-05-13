@@ -21,7 +21,7 @@
 
 ---
 ## About The Module
-This module provides the infastructure to preform calculations that behave according to signficant figure rules. An instance of the sig_float class maybe added, subtracted, multiplied, or divided with another sig_float using standard operators and the resultant will retain the proper number of signifiant figures. Units can optionally be provided.
+This module provides the infrastructure to preform calculations that behave according to significant figure rules. An instance of the sig_float class maybe added, subtracted, multiplied, or divided with another sig_float using standard operators and the resultant will retain the proper number of significant figures. Units can optionally be provided.
 
 <br>
 
@@ -76,7 +76,7 @@ sig_float("0012.0001")
 ```python
 sig_float("0.08206", {"L":1, "atm":1, "mol":-1, "K":-1})
 ```
-The recommended usage of a sig_float object is is to create variables of type sig_float then use those variables in a mathmatical expression.
+The recommended usage of a sig_float object is is to create variables of type sig_float then use those variables in a mathematical expression.
 ```python
 V1 = sig_float("2.00", {"L":1})
 P1 = sig_float("752.0", {"mmHg":1})
