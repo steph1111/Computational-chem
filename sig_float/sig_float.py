@@ -80,8 +80,8 @@ def round_sig(number, sig_figs: int):  #->sig_float
     rounded_sig_float._sig_figs = sig_figs
 
     # Distinguish significant digit with overline
-    if digits(rounded_number) > sig_figs and rounded_number[sig_figs -1] == "0":
-        rounded_sig_float._str = rounded_number[:sig_figs -1] + "0̅" + rounded_number[sig_figs:]
+    if digits(rounded_number) > sig_figs and rounded_number[sig_figs-1] == "0":
+        rounded_sig_float._str = rounded_number[:sig_figs-1] + "0̅" + rounded_number[sig_figs:]
 
     # Decimal place after the number
     if digits(rounded_number) == sig_figs and rounded_number[-1] == "0" and no_decimal:
@@ -100,16 +100,16 @@ class sig_float:
   • Leading zeros are never significant.
   """
 
-    def __init__(self, str_num: str = "0", units: dict = dict(), exact:bool = False, float_num: float = None) -> None:
+    def __init__(self,str_num: str = "0", units: dict = dict(), exact: bool = False, float_num: float = None) -> None:
         """
     Initializes a sig_float object
-    'str_number' has a default value of 0 
+    'str_num has a default value of 0 
     """
         # If the user did not provide a string argument, argument
         # is converted to a string and warning is raised
         if not isinstance(str_num, str):
             warnings.warn("Warning: Argument should be of type str", PendingDeprecationWarning)
-            str_number = str(str_num)
+            str_num = str(str_num)
 
         # Initializations
         self._str = str_num
@@ -126,53 +126,6 @@ class sig_float:
         """
     Returns the number of sig figs of a sig_float object
     """
-        # NEW CLEANER CODE ---- NOPE!!!!!
-        # def digits(num: str) -> int:
-        #     num_digits = len(num)
-        #     if num.find(".") != -1:
-        #         num_digits -= 1
-        #     if num.find("-") != -1:
-        #         num_digits -= 1
-        #     return num_digits
-        
-        # def trailing_zeros(num: str) -> int:
-        #     zeros = 0
-        #     for digit in reversed(self._str):
-        #         if digit != "0":
-        #             break
-        #         zeros += 1
-        #     return zeros
-
-        # sig_figs = 0
-
-        # # # Number of zeros after decimal
-        # zeros_after_decimal = trailing_zeros(self._str) if self._str.find('.') != -1 else 0 
-        # ending_decimal = "." if self._str[-1] == "." else ""
-
-        # temp = float(self._str)
-        # neg = True if temp < 0 else False
-        # self._str = str(abs(temp))
-
-        # self._str = self._str[:-1] if self._str[-2:] == ".0" and zeros_after_decimal != 0 else self._str[:-2] if self._str[-2:] == ".0" else self._str
-        # self._str += ending_decimal
-        # print(self._str)
-        
-        # leading_zero = -1 if self._str[:2] == "0." else 0
-
-        # if zeros_after_decimal != 0:
-        #     self._str = self._str + ("0" * zeros_after_decimal) if not neg else "-" + self._str + "." + ("0" * zeros_after_decimal)
-        #     return digits(self._str) + leading_zero
-        # else:
-        #     self._str = self._str if not neg else "-" + self._str
-        #     return digits(self._str) - trailing_zeros(self._str) + leading_zero
-
-
-        # OLD VERSION
-        # start = 0
-        # end = len(self._str)
-        # print(f"Str: {self._str}, figs {sig_figs_count}")
-
-        # LOOK ITS GORGEOUS. This version is spectacular. 10/10
         negative = True if self._str[0] == "-" else False
 
         # Remove leading zeros and negative
@@ -184,14 +137,16 @@ class sig_float:
         # Count the sig figs from the back
         if self._str.find(".") != -1 and self._str[0] != ".":
             sig_figs_count -= 1
-        else:
+        elif self._str.find(".") == -1 and self._str[0] != ".":
             for digit in reversed(self._str):
                 if digit != "0" and digit != "0̅":
                     break
                 sig_figs_count -= 1
 
         # Re build the string representation
-        self._str = "-0" + self._str if negative and self._str[0] == "." else "0" + self._str if self._str[0] == "." else "-" + self._str if negative else self._str
+        self._str = "-0" + self._str if negative and self._str[
+            0] == "." else "0" + self._str if self._str[
+                0] == "." else "-" + self._str if negative else self._str
 
         return sig_figs_count
 
@@ -245,7 +200,7 @@ class sig_float:
             if len(pos_units) == 0 and len(neg_units) == 0:
                 return self._str
             elif len(pos_units) == 0:
-                return self._str + " \; " + neg_units 
+                return self._str + " \; " + neg_units
             elif len(neg_units) == 0:
                 return self._str + " \; " + pos_units
             else:
