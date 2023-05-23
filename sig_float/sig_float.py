@@ -74,22 +74,17 @@ def round_sig(number, sig_figs: int):  #->sig_float
 
     # Build the return sig_float
     if isinstance(number, sig_float):
-        rounded_sig_float = sig_float(rounded_number, number._units,
-                                      float_number)
+        rounded_sig_float = sig_float(rounded_number, number._units, float_number)
     else:
         rounded_sig_float = sig_float(rounded_number, float_num=float_number)
     rounded_sig_float._sig_figs = sig_figs
 
     # Distinguish significant digit with overline
-    if digits(rounded_number) > sig_figs and rounded_number[sig_figs -
-                                                            1] == "0":
-        rounded_sig_float._str = rounded_number[:sig_figs -
-                                                1] + "0̅" + rounded_number[
-                                                    sig_figs:]
+    if digits(rounded_number) > sig_figs and rounded_number[sig_figs -1] == "0":
+        rounded_sig_float._str = rounded_number[:sig_figs -1] + "0̅" + rounded_number[sig_figs:]
 
     # Decimal place after the number
-    if digits(rounded_number
-              ) == sig_figs and rounded_number[-1] == "0" and no_decimal:
+    if digits(rounded_number) == sig_figs and rounded_number[-1] == "0" and no_decimal:
         rounded_sig_float._str = rounded_number + "."
 
     return rounded_sig_float
@@ -105,7 +100,7 @@ class sig_float:
   • Leading zeros are never significant.
   """
 
-    def __init__(self, str_num: str = "0", units: dict = dict(), float_num: float = None) -> None:
+    def __init__(self, str_num: str = "0", units: dict = dict(), exact:bool = False, float_num: float = None) -> None:
         """
     Initializes a sig_float object
     'str_number' has a default value of 0 
@@ -113,64 +108,92 @@ class sig_float:
         # If the user did not provide a string argument, argument
         # is converted to a string and warning is raised
         if not isinstance(str_num, str):
-            warnings.warn("Warning: Argument should be of type str",
-                          PendingDeprecationWarning)
+            warnings.warn("Warning: Argument should be of type str", PendingDeprecationWarning)
             str_number = str(str_num)
 
         # Initializations
         self._str = str_num
         self._sig_figs = self.sig_figs()
         self._precision = self.precision()
-
+        self._units = units
+        self._exact = exact
         if float_num != None:
             self._float = float_num
         else:
             self._float = float(self._str)
-        self._units = units
 
     def sig_figs(self) -> int:
         """
     Returns the number of sig figs of a sig_float object
     """
-        # What if I found the number of trailing zeros, then converted to a float, found the digits of said float, + the number of trailing zeros if decimal
-        # then created a new string representation using the numeric and trailing zeros. Might result in cleaner code because leading zeros will be removed automatically
-        # And the negative and decimal will be accounted for, this makes sense if python has a methord for counting the number of digits in an object. I think we may have used
-        # A mathematical methord in
-        # Default start and end
-        start = 0
-        end = len(self._str)
-        negative = False
+        # NEW CLEANER CODE ---- NOPE!!!!!
+        # def digits(num: str) -> int:
+        #     num_digits = len(num)
+        #     if num.find(".") != -1:
+        #         num_digits -= 1
+        #     if num.find("-") != -1:
+        #         num_digits -= 1
+        #     return num_digits
+        
+        # def trailing_zeros(num: str) -> int:
+        #     zeros = 0
+        #     for digit in reversed(self._str):
+        #         if digit != "0":
+        #             break
+        #         zeros += 1
+        #     return zeros
 
-        # Account for negative
-        if self._str[0] == "-":
-            negative = True
-            self._str = self._str[1:]
+        # sig_figs = 0
 
-        # Find stopping point of leading zeros
-        for digit in self._str:
-            if digit == "0":
-                start += 1
-            elif digit != ".":
-                break
+        # # # Number of zeros after decimal
+        # zeros_after_decimal = trailing_zeros(self._str) if self._str.find('.') != -1 else 0 
+        # ending_decimal = "." if self._str[-1] == "." else ""
 
-        if self._str[:2] != "0.":
-            self._str = self._str[start:]  # Update string representation
+        # temp = float(self._str)
+        # neg = True if temp < 0 else False
+        # self._str = str(abs(temp))
 
-        if negative:
-            self._str = "-" + self._str  # Add the negative back in
-            start += 1  # Negative sign should not be counted as a sig fig
+        # self._str = self._str[:-1] if self._str[-2:] == ".0" and zeros_after_decimal != 0 else self._str[:-2] if self._str[-2:] == ".0" else self._str
+        # self._str += ending_decimal
+        # print(self._str)
+        
+        # leading_zero = -1 if self._str[:2] == "0." else 0
 
-        # Find stopping point of trailing zeros
-        if self._str.find(".") != -1:  # Contains decimal point
-            return end - start - 1  # -1 to account for the "." char
+        # if zeros_after_decimal != 0:
+        #     self._str = self._str + ("0" * zeros_after_decimal) if not neg else "-" + self._str + "." + ("0" * zeros_after_decimal)
+        #     return digits(self._str) + leading_zero
+        # else:
+        #     self._str = self._str if not neg else "-" + self._str
+        #     return digits(self._str) - trailing_zeros(self._str) + leading_zero
+
+
+        # OLD VERSION
+        # start = 0
+        # end = len(self._str)
+        # print(f"Str: {self._str}, figs {sig_figs_count}")
+
+        # LOOK ITS GORGEOUS. This version is spectacular. 10/10
+        negative = True if self._str[0] == "-" else False
+
+        # Remove leading zeros and negative
+        self._str = self._str.lstrip("-00̅")
+
+        # Count the initial sig figs from the front
+        sig_figs_count = len(self._str.lstrip(".0"))
+
+        # Count the sig figs from the back
+        if self._str.find(".") != -1 and self._str[0] != ".":
+            sig_figs_count -= 1
         else:
-            # Iterate reversed string to find stopping point of trailing zeros
-            string_num_reversed = reversed(self._str)
-            for digit in string_num_reversed:
-                if digit != "0":
+            for digit in reversed(self._str):
+                if digit != "0" and digit != "0̅":
                     break
-                end -= 1
-        return end - start
+                sig_figs_count -= 1
+
+        # Re build the string representation
+        self._str = "-0" + self._str if negative and self._str[0] == "." else "0" + self._str if self._str[0] == "." else "-" + self._str if negative else self._str
+
+        return sig_figs_count
 
     def precision(self) -> int:
         """
