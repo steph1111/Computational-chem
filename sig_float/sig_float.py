@@ -49,7 +49,7 @@ def round_sig(number, sig_figs: int):  #->sig_float
             num_digits -= 1
         return num_digits
 
-    # Float represntation
+    # Float representation
     float_number = float(number)
 
     # Rounds the number to the correct number of sig figs
@@ -80,7 +80,7 @@ def round_sig(number, sig_figs: int):  #->sig_float
         rounded_sig_float = sig_float(rounded_number, float_num=float_number)
     rounded_sig_float._sig_figs = sig_figs
 
-    # Distinguish significant digit with oveline
+    # Distinguish significant digit with overline
     if digits(rounded_number) > sig_figs and rounded_number[sig_figs -
                                                             1] == "0":
         rounded_sig_float._str = rounded_number[:sig_figs -
@@ -105,18 +105,15 @@ class sig_float:
   • Leading zeros are never significant.
   """
 
-    def __init__(self,
-                 str_num: str = "0",
-                 units: dict = dict(),
-                 float_num: float = None) -> None:
+    def __init__(self, str_num: str = "0", units: dict = dict(), float_num: float = None) -> None:
         """
     Initializes a sig_float object
     'str_number' has a default value of 0 
     """
-        # If the user did not provide a string arguement, arguement
+        # If the user did not provide a string argument, argument
         # is converted to a string and warning is raised
         if not isinstance(str_num, str):
-            warnings.warn("Warning: Arguement should be of type str",
+            warnings.warn("Warning: Argument should be of type str",
                           PendingDeprecationWarning)
             str_number = str(str_num)
 
@@ -136,9 +133,9 @@ class sig_float:
     Returns the number of sig figs of a sig_float object
     """
         # What if I found the number of trailing zeros, then converted to a float, found the digits of said float, + the number of trailing zeros if decimal
-        # then created a new string represnentation using the numeric and trailing zeros. Might result in cleaner code because leading zeros will be removed automatically
+        # then created a new string representation using the numeric and trailing zeros. Might result in cleaner code because leading zeros will be removed automatically
         # And the negative and decimal will be accounted for, this makes sense if python has a methord for counting the number of digits in an object. I think we may have used
-        # A mathhmatical methord in
+        # A mathematical methord in
         # Default start and end
         start = 0
         end = len(self._str)
@@ -177,8 +174,8 @@ class sig_float:
 
     def precision(self) -> int:
         """
-    Returns the number of decimal places to which the number is percise to
-    Returns a negative number if should be percise to a whole number value
+    Returns the number of decimal places to which the number is precise to
+    Returns a negative number if should be precise to a whole number value
     Number:      138828.9823
     Place:     -(543210)1234
     """
@@ -209,24 +206,42 @@ class sig_float:
                 del self._units[unit]
 
     def latex(self, format: int = 1) -> str:
-      pos_units = " \cdot ".join(unit if exponent == 1 else unit + "^{" + str(exponent) + "}" for unit, exponent in [(filtered_unit, filtered_exponent) for filtered_unit, filtered_exponent in self._units.items() if filtered_exponent > 0])
-      if format == 1:
-        neg_units = " \cdot ".join(unit + "^{" + str(exponent) + "}" for unit, exponent in [(filtered_unit, filtered_exponent) for filtered_unit, filtered_exponent in self._units.items() if filtered_exponent < 0])
-        if len(neg_units) == 0:
-          return self._str + " \; " + pos_units
+        pos_units = " \cdot ".join(
+            unit if exponent == 1 else unit + "^{" + str(exponent) + "}"
+            for unit, exponent in [(filtered_unit, filtered_exponent)
+                                   for filtered_unit, filtered_exponent in
+                                   self._units.items()
+                                   if filtered_exponent > 0])
+        if format == 1:
+            neg_units = " \cdot ".join(
+                unit + "^{" + str(exponent) + "}"
+                for unit, exponent in [(filtered_unit, filtered_exponent)
+                                       for filtered_unit, filtered_exponent in
+                                       self._units.items()
+                                       if filtered_exponent < 0])
+            if len(pos_units) == 0 and len(neg_units) == 0:
+                return self._str
+            elif len(pos_units) == 0:
+                return self._str + " \; " + neg_units 
+            elif len(neg_units) == 0:
+                return self._str + " \; " + pos_units
+            else:
+                return self._str + " \; " + pos_units + " \cdot " + neg_units
         else:
-          return self._str + " \; " + pos_units + " \cdot " + neg_units
-      else:
-        neg_units = " \cdot ".join(unit if exponent == -1 else unit + "^{" + str(abs(exponent)) + "}" for unit, exponent in [(filtered_unit, filtered_exponent) for filtered_unit, filtered_exponent in self._units.items() if filtered_exponent < 0])
-        if len(pos_units) == 0 and len(neg_units) == 0:
-          return self._str
-        elif len(pos_units) == 0:
-          return self._str + " \\frac {" + "1" + "} {" + neg_units + "}"
-        elif len(neg_units) == 0:
-          return self._str + " \; " + pos_units
-        else:
-          return self._str + " \\frac{" + pos_units + "}{" + neg_units + "}"
-
+            neg_units = " \cdot ".join(
+                unit if exponent == -1 else unit + "^{" + str(abs(exponent)) +
+                "}" for unit, exponent in [(filtered_unit, filtered_exponent)
+                                           for filtered_unit, filtered_exponent
+                                           in self._units.items()
+                                           if filtered_exponent < 0])
+            if len(pos_units) == 0 and len(neg_units) == 0:
+                return self._str
+            elif len(pos_units) == 0:
+                return self._str + " \\frac {" + "1" + "}{" + neg_units + "}"
+            elif len(neg_units) == 0:
+                return self._str + " \; " + pos_units
+            else:
+                return self._str + " \\frac{" + pos_units + "}{" + neg_units + "}"
 
     def __mul__(self, other):  # ->sig_float
         """
@@ -287,7 +302,7 @@ class sig_float:
         """
     Adds two numbers of type sig_float with + using sig fig rules
     """
-        # Ensures both opperands units are the same
+        # Ensures both operands units are the same
         if self._units != other._units:
             raise Exception("Error: Units must match")
 
@@ -312,7 +327,7 @@ class sig_float:
         """
     Subtracts two numbers of type sig_float with + using sig fig rules
     """
-        # Ensures both opperands units are the same
+        # Ensures both operands units are the same
         if self._units != other._units:
             raise Exception("Error: Units must match")
 
@@ -335,7 +350,7 @@ class sig_float:
 
     def __str__(self) -> str:
         """
-    Returns a string represntation of the number with correct sig figs and units
+    Returns a string representation of the number with correct sig figs and units
     """
         return self._str + " " + " ".join(
             unit if exponent == 1 else unit + "^" + str(exponent)
@@ -349,7 +364,7 @@ class sig_float:
 
     def __float__(self) -> float:
         """
-    Returns a float represntation of the number, may have improper sig figs. Use with caution!!
+    Returns a float representation of the number, may have improper sig figs. Use with caution!!
     """
         return self._float
 
