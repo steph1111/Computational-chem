@@ -12,29 +12,17 @@ import itertools
 
 # TODO Implicate
 # DERIVED_UNITS = {
-# ({}, {"s":-1}):"Hz",
-# ({"kg":1, "m":1}, {"s":2}):"N",
-# ({"kg":1}, {"m":1, "s":2}): "Pa",
-# ({"m":2, "kg":1},{"s":2}): "J",
-# ({"m":2, "kg":1}, {"s", 3}): "W"
+# ({"s":-1}):"Hz",
+# ({"kg":1, "m":1, "s":-2}):"N",
+# ({"kg":1, "m":-1, "s":-2}): "Pa",
+# ({"m":2, "kg":1, "s":-2}): "J",
+# ({"m":2, "kg":1, "s":-3}): "W"
 # }
 
+# if units in DERIVED_UNITS:
+# Frozen set
 
-def _round_precision(val_1: int, val_2: int) -> int:
-  """
-  Given two place values, determines which to round to. Uses
-  the place convention defined in precision() 
-  Number:      138828.9823
-  Place:     -(543210)1234
-  """
-  if val_1 >= 0 and val_2 >= 0:  # Rounding with two decimals
-    return min(val_1, val_2)
-  elif val_1 <= 0 and val_2 <= 0:  # Rounding with two whole numbers
-    return -max(abs(val_1), abs(val_2))
-  else:  # Rounding with a decimal and a whole number
-    return min(val_1, val_2)
-
-
+# TODO: REWRITE THIS TO BE BETTER   
 def round_sig(number, sig_figs: int):  #->sig_float
   """
   Rounds a number to a certain number of significant figures
@@ -120,6 +108,21 @@ class sig_float:
     else:
       self._float = float(self._str)
 
+  @staticmethod
+  def _round_precision(val_1: int, val_2: int) -> int:
+    """
+    Given two place values, determines which to round to. Uses
+    the place convention defined in precision() 
+    Number:      138828.9823
+    Place:     -(543210)1234
+    """
+    if val_1 >= 0 and val_2 >= 0:  # Rounding with two decimals
+      return min(val_1, val_2)
+    elif val_1 <= 0 and val_2 <= 0:  # Rounding with two whole numbers
+      return -max(abs(val_1), abs(val_2))
+    else:  # Rounding with a decimal and a whole number
+      return min(val_1, val_2)
+
   def sig_figs(self) -> int:
     """
     Returns the number of sig figs of a sig_float object
@@ -136,6 +139,7 @@ class sig_float:
     if self._str.find(".") != -1 and self._str[0] != ".":
       sig_figs_count -= 1
     elif self._str.find(".") == -1 and self._str[0] != ".":
+      # sig_figs_count -= len(self._str) - len(self._str.rstrip("00̅"))
       for digit in reversed(self._str):
         if digit != "0" and digit != "0̅":
           break
@@ -276,7 +280,7 @@ class sig_float:
 
     # Addition using sig fig rules
     sum = self._float + other._float
-    sum_precision = _round_precision(self._precision, other._precision)
+    sum_precision = sig_float._round_precision(self._precision, other._precision)
     temp_str = str(round(sum, sum_precision))
 
     # Remove trailing decimal python adds
@@ -300,7 +304,7 @@ class sig_float:
 
     # Subtraction using sig fig rules
     diff = self._float - other._float
-    diff_precision = _round_precision(self._precision, other._precision)
+    diff_precision = sig_float._round_precision(self._precision, other._precision)
     temp_str = str(round(diff, diff_precision))
 
     # Remove trailing decimal python adds
