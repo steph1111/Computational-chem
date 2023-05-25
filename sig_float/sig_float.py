@@ -139,11 +139,7 @@ class sig_float:
     if self._str.find(".") != -1 and self._str[0] != ".":
       sig_figs_count -= 1
     elif self._str.find(".") == -1 and self._str[0] != ".":
-      # sig_figs_count -= len(self._str) - len(self._str.rstrip("00̅"))
-      for digit in reversed(self._str):
-        if digit != "0" and digit != "0̅":
-          break
-        sig_figs_count -= 1
+      sig_figs_count -= len(self._str) - len(self._str.rstrip("00̅"))
 
     # Re build the string representation
     self._str = "-0" + self._str if negative and self._str[0] == "." else "0" + self._str if self._str[
