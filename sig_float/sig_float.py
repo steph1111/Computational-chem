@@ -22,7 +22,8 @@ import itertools
 # if units in DERIVED_UNITS:
 # Frozen set
 
-# TODO: REWRITE THIS TO BE BETTER   
+
+# TODO: REWRITE THIS TO BE BETTER
 def round_sig(number, sig_figs: int):  #->sig_float
   """
   Rounds a number to a certain number of significant figures
@@ -66,8 +67,8 @@ def round_sig(number, sig_figs: int):  #->sig_float
   rounded_sig_float._sig_figs = sig_figs
 
   # Distinguish significant digit with overline
-  if digits(rounded_number) > sig_figs and rounded_number[sig_figs - 1] == "0":
-    rounded_sig_float._str = rounded_number[:sig_figs - 1] + "0̅" + rounded_number[sig_figs:]
+  # if digits(rounded_number) > sig_figs and rounded_number[sig_figs - 1] == "0":
+  #   rounded_sig_float._str = rounded_number[:sig_figs - 1] + "0̅" + rounded_number[sig_figs:]
 
   # Decimal place after the number
   if digits(rounded_number) == sig_figs and rounded_number[-1] == "0" and no_decimal:
@@ -219,20 +220,28 @@ class sig_float:
       other = sig_float(other)
       warnings.warn("Warning: Operands should be of type sig_float", PendingDeprecationWarning)
 
-    # Multiplication using sig fig rules
+    # Multiply
     product = self._float * other._float
-    product_sig_figs = min(self._sig_figs, other.sig_figs())
 
+    # Create new units of the product
     new_units = {
         unit: self._units.get(unit, 0) + other._units.get(unit, 0)
         for unit in itertools.chain(self._units, other._units)
     }
 
-    # Build return product as a sig_float
-    return_product = round_sig(product, product_sig_figs)  # Rounds to proper sig figs
-    return_product._units = new_units
-    return_product._clear_units()
+    # Choose product sig figs
+    product_sig_figs = None if self._exact and other._exact else other._sig_figs if self._exact else self._sig_figs if other._exact else min(
+        self._sig_figs, other._sig_figs)
 
+    # If both numbers are exact, build return product
+    if product_sig_figs == None:
+      return_product = sig_float(str(product), units=new_units, exact=True, float_num=product)
+    else:
+      # Build return product as a sig_float
+      return_product = round_sig(product, product_sig_figs)  # Rounds to proper sig figs
+      return_product._units = new_units
+    return_product._clear_units()
+  
     return return_product
 
   def __truediv__(self, other):  # ->sig_float
@@ -244,21 +253,28 @@ class sig_float:
       other = sig_float(other)
       warnings.warn("Warning: Operands should be of type sig_float", PendingDeprecationWarning)
 
-    # Multiplication using sig fig rules
+    # Divide
     quotient = self._float / other._float
-    quotient_sig_figs = min(self._sig_figs, other.sig_figs())
 
-    # Update units
+    # Create new units of the quotient
     new_units = {
         unit: self._units.get(unit, 0) - other._units.get(unit, 0)
         for unit in itertools.chain(self._units, other._units)
     }
 
-    # Build return quotient as a sig_float
-    return_quotient = round_sig(quotient, quotient_sig_figs)  # Rounds to proper sig figs
-    return_quotient._units = new_units
-    return_quotient._clear_units()
+    # Choose quotient sig figs
+    quotient_sig_figs = None if self._exact and other._exact else other._sig_figs if self._exact else self._sig_figs if other._exact else min(
+        self._sig_figs, other._sig_figs)
 
+    # If both numbers are exact, build return quotient
+    if quotient_sig_figs == None:
+      return_quotient = sig_float(str(quotient), units=new_units, exact=True, float_num=quotient)
+    else:
+      # Build return quotient as a sig_float
+      return_quotient = round_sig(quotient, quotient_sig_figs)  # Rounds to proper sig figs
+      return_quotient._units = new_units
+    return_quotient._clear_units()
+  
     return return_quotient
 
   def __add__(self, other):  # ->sig_float
@@ -276,12 +292,22 @@ class sig_float:
 
     # Addition using sig fig rules
     sum = self._float + other._float
-    sum_precision = sig_float._round_precision(self._precision, other._precision)
+
+    # Choose sum precision
+    sum_precision = None if self._exact and other._exact else other._sig_figs if self._exact else self._sig_figs if other._exact else sig_float._round_precision(
+        self._precision, other._precision)
+
+    # If both numbers are exact
+    if sum_precision == None:
+      return sig_float(str(sum), units=self._units, exact=True, float_num=sum)
+    # sum_precision = sig_float._round_precision(self._precision, other._precision)
+
+    # Round to correct precision
     temp_str = str(round(sum, sum_precision))
 
     # Remove trailing decimal python adds
     if sum_precision <= 0:
-      return sig_float(temp_str[:-2])
+      temp_str = temp_str[:-2]
 
     return sig_float(temp_str, units=self._units, float_num=sum)
 
@@ -300,12 +326,21 @@ class sig_float:
 
     # Subtraction using sig fig rules
     diff = self._float - other._float
-    diff_precision = sig_float._round_precision(self._precision, other._precision)
+
+    # Choose difference precision
+    diff_precision = None if self._exact and other._exact else other._sig_figs if self._exact else self._sig_figs if other._exact else sig_float._round_precision(
+        self._precision, other._precision)
+
+    # If both numbers are exact
+    if diff_precision == None:
+      return sig_float(str(diff), units=self._units, exact=True, float_num=diff)
+
+    # Round to correct precision
     temp_str = str(round(diff, diff_precision))
 
     # Remove trailing decimal python adds
     if diff_precision <= 0:
-      return sig_float(temp_str[:-2])
+      temp_str = temp_str[:-2]
 
     return sig_float(temp_str, units=self._units, float_num=diff)
 
@@ -408,6 +443,7 @@ class sig_float:
       self._precision = other._precision
       self._float = other._float
       self._units = other._units
+      self._exact = other._exact
     else:
       self = sig_float(other)
 
