@@ -91,8 +91,7 @@ class sig_float:
     Initializes a sig_float object
     'str_num has a default value of 0 
     """
-    # If the user did not provide a string argument, argument
-    # is converted to a string and warning is raised
+    # If the user did not provide a string argument, argument is converted to a string and warning is raised
     if not isinstance(str_num, str):
       warnings.warn("Warning: Argument should be of type str", PendingDeprecationWarning)
       str_num = str(str_num)
@@ -103,25 +102,7 @@ class sig_float:
     self._precision = self.precision()
     self._units = units
     self._exact = exact
-    if float_num != None:
-      self._float = float_num
-    else:
-      self._float = float(self._str)
-
-  @staticmethod
-  def _round_precision(val_1: int, val_2: int) -> int:
-    """
-    Given two place values, determines which to round to. Uses
-    the place convention defined in precision() 
-    Number:      138828.9823
-    Place:     -(543210)1234
-    """
-    if val_1 >= 0 and val_2 >= 0:  # Rounding with two decimals
-      return min(val_1, val_2)
-    elif val_1 <= 0 and val_2 <= 0:  # Rounding with two whole numbers
-      return -max(abs(val_1), abs(val_2))
-    else:  # Rounding with a decimal and a whole number
-      return min(val_1, val_2)
+    self._float = float(self._str) if float_num == None else float_num
 
   def sig_figs(self) -> int:
     """
@@ -146,6 +127,21 @@ class sig_float:
         0] == "." else "-" + self._str if negative else self._str
 
     return sig_figs_count
+  
+  @staticmethod
+  def _round_precision(val_1: int, val_2: int) -> int:
+    """
+    Given two place values, determines which to round to. Uses
+    the place convention defined in precision() 
+    Number:      138828.9823
+    Place:     -(543210)1234
+    """
+    if val_1 >= 0 and val_2 >= 0:  # Rounding with two decimals
+      return min(val_1, val_2)
+    elif val_1 <= 0 and val_2 <= 0:  # Rounding with two whole numbers
+      return -max(abs(val_1), abs(val_2))
+    else:  # Rounding with a decimal and a whole number
+      return min(val_1, val_2)
 
   def precision(self) -> int:
     """
@@ -165,27 +161,21 @@ class sig_float:
         index -= 1
     return index
 
-  # TODO: Implicate
-  def scientific(self) -> str:
-    """
-    Converts to a scientific notation string representation 
-    """
-    pass
-
-  def _clear_units(self) -> None:
-    """
-    Clears units with value 0
-    """
-    for unit in list(self._units):
-      if self._units[unit] == 0:
-        del self._units[unit]
-
   def latex(self, format: int = 1) -> str:
+    """
+    Returns a string formatted using LaTeX
+    format=1 (default): Units represented on one line
+    format=2: Units represented as a fraction
+    """
+    # If there are any overlined digits, replace them with LaTeX format
     latex_str = self._str.replace("0̅", "\\bar{0}")
+
+    # Join positive units around " \cdot ". Formatted as unit^{exponent} or unit (if exponent is 1)
     pos_units = " \cdot ".join(unit if exponent == 1 else unit + "^{" + str(exponent) + "}" for unit, exponent in [(
         filtered_unit,
         filtered_exponent) for filtered_unit, filtered_exponent in self._units.items() if filtered_exponent > 0])
     if format == 1:
+      # Join negative units around " \cdot ". Formatted as unit^{exponent}
       neg_units = " \cdot ".join(unit + "^{" + str(exponent) + "}" for unit, exponent in [(
           filtered_unit,
           filtered_exponent) for filtered_unit, filtered_exponent in self._units.items() if filtered_exponent < 0])
@@ -198,6 +188,7 @@ class sig_float:
       else:
         return latex_str + " \; " + pos_units + " \cdot " + neg_units
     else:
+      # Join negative units around " \cdot ". Formatted as unit^{abs(exponent)}
       neg_units = " \cdot ".join(
           unit if exponent == -1 else unit + "^{" + str(abs(exponent)) + "}" for unit, exponent in [(
               filtered_unit,
@@ -210,6 +201,14 @@ class sig_float:
         return latex_str + " \; " + pos_units
       else:
         return latex_str + " \\frac{" + pos_units + "}{" + neg_units + "}"
+    
+  def _clear_units(self) -> None:
+    """
+    Clears units with value 0
+    """
+    for unit in list(self._units):
+      if self._units[unit] == 0:
+        del self._units[unit]
 
   def __mul__(self, other):  # ->sig_float
     """
@@ -300,7 +299,6 @@ class sig_float:
     # If both numbers are exact
     if sum_precision == None:
       return sig_float(str(sum), units=self._units, exact=True, float_num=sum)
-    # sum_precision = sig_float._round_precision(self._precision, other._precision)
 
     # Round to correct precision
     temp_str = str(round(sum, sum_precision))
@@ -343,6 +341,9 @@ class sig_float:
       temp_str = temp_str[:-2]
 
     return sig_float(temp_str, units=self._units, float_num=diff)
+  
+  def exact(self) ->bool:
+    return self._exact
 
   def __str__(self) -> str:
     """
