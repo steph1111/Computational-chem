@@ -177,9 +177,9 @@ $0.08206 \frac{L \cdot atm}{mol \cdot K}$
 **format**=3: Units represented on one line using a fraction
 ```python
 print(R.latex(format=3))
-# Outputs: 0.08206 \; L \cdot atm \slash mol \cdot K
+# Outputs: 0.08206 \; L \cdot atm / mol \cdot K
 ```
-$0.08206 \; L \cdot atm \slash mol \cdot K$
+$0.08206 \; L \cdot atm / mol \cdot K$
 
 <br>
 
