@@ -161,7 +161,7 @@ R = sig_float("0.08206", {"L":1, "atm":1, "mol":-1, "K":-1}, exact=True)
 print(R.latex(format=1))  # Or print(R.latex())
 # Outputs: 0.08206 \; L \cdot atm \cdot mol^{-1} \cdot K^{-1}
 ```
-$0.08206 \; L \cdot atm \cdot mol^{-1} \cdot K^{-1}$
+$\large 0.08206 \; L \cdot atm \cdot mol^{-1} \cdot K^{-1}$
 
 <br>
 
@@ -170,7 +170,7 @@ $0.08206 \; L \cdot atm \cdot mol^{-1} \cdot K^{-1}$
 print(R.latex(format=2))
 # Outputs: 0.08206 \frac{L \cdot atm}{mol \cdot K}
 ```
-$0.08206 \frac{L \cdot atm}{mol \cdot K}$
+$\large 0.08206 \frac{L \cdot atm}{mol \cdot K}$
 
 <br>
 
@@ -179,7 +179,7 @@ $0.08206 \frac{L \cdot atm}{mol \cdot K}$
 print(R.latex(format=3))
 # Outputs: 0.08206 \; L \cdot atm / mol \cdot K
 ```
-$0.08206 \; L \cdot atm / mol \cdot K$
+$\large 0.08206 \; L \cdot atm / mol \cdot K$
 
 <br>
 
