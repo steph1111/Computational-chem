@@ -164,8 +164,9 @@ class sig_float:
   def latex(self, format: int = 1) -> str:
     """
     Returns a string formatted using LaTeX
-    format=1 (default): Units represented on one line
+    format=1 (default): Units represented on one line using negative exponents
     format=2: Units represented as a fraction
+    format=3: Units represented on one line using a fraction
     """
     # If there are any overlined digits, replace them with LaTeX format
     latex_str = self._str.replace("0̅", "\\bar{0}")
@@ -196,12 +197,18 @@ class sig_float:
       if len(pos_units) == 0 and len(neg_units) == 0:
         return latex_str
       elif len(pos_units) == 0:
-        return latex_str + " \\frac {" + "1" + "}{" + neg_units + "}"
+        return latex_str + " \\frac {" + "1" + "}{" + neg_units + "}" if format == 2 else latex_str + " \; 1 \slash " + neg_units
       elif len(neg_units) == 0:
         return latex_str + " \; " + pos_units
       else:
-        return latex_str + " \\frac{" + pos_units + "}{" + neg_units + "}"
-    
+        return latex_str + " \\frac{" + pos_units + "}{" + neg_units + "}" if format == 2 else latex_str + " \; " + pos_units + " \slash " + neg_units
+  
+  def exact(self) ->bool:
+    """
+    Returns if a sig_float is exact
+    """
+    return self._exact
+
   def _clear_units(self) -> None:
     """
     Clears units with value 0
@@ -341,9 +348,6 @@ class sig_float:
       temp_str = temp_str[:-2]
 
     return sig_float(temp_str, units=self._units, float_num=diff)
-  
-  def exact(self) ->bool:
-    return self._exact
 
   def __str__(self) -> str:
     """
