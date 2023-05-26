@@ -197,11 +197,11 @@ class sig_float:
       if len(pos_units) == 0 and len(neg_units) == 0:
         return latex_str
       elif len(pos_units) == 0:
-        return latex_str + " \\frac {" + "1" + "}{" + neg_units + "}" if format == 2 else latex_str + " \; 1 \slash " + neg_units
+        return latex_str + " \\frac {" + "1" + "}{" + neg_units + "}" if format == 2 else latex_str + " \; 1 / " + neg_units
       elif len(neg_units) == 0:
         return latex_str + " \; " + pos_units
       else:
-        return latex_str + " \\frac{" + pos_units + "}{" + neg_units + "}" if format == 2 else latex_str + " \; " + pos_units + " \slash " + neg_units
+        return latex_str + " \\frac{" + pos_units + "}{" + neg_units + "}" if format == 2 else latex_str + " \; " + pos_units + " / " + neg_units
   
   def exact(self) ->bool:
     """
