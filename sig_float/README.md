@@ -61,7 +61,7 @@ This module provides the infrastructure to preform calculations that behave acco
     <li><a href="#subtraction--">Subtraction (-)</a></li>
     <li><a href="#str">str()</a></li>
     <li><a href="#bool">bool()</a></li>
-    <li><a href="#float-">float()</a></li>
+    <li><a href="#float">float()</a></li>
     <li><a href="#round_sig">round_sig()</a></li>
   </ol>
 </details>
@@ -123,7 +123,6 @@ What does the precision value mean? Given the number 1234.567, the following pre
 |  |  |  |  |  |  |  |  |  |
 | :---------------- | :--: | :--: |:--: |:--: |:--: |:--: |:--: |:--: |
 | Number | 1 | 2 | 3 | 4 | . | 5 | 6 | 7 |
-|---|---|---|---|---|---|---|---|---|
 | Precision | -3 | -2 | -1 | 0 |   | 1 | 2 | 3 |
 
 <br>
@@ -162,7 +161,7 @@ R = sig_float("0.08206", {"L":1, "atm":1, "mol":-1, "K":-1}, exact=True)
 print(R.latex(format=1))  # Or print(R.latex())
 # Outputs: 0.08206 \; L \cdot atm \cdot mol^{-1} \cdot K^{-1}
 ```
-$0.08206 \frac{L \cdot atm}{mol \cdot K}$
+$0.08206 \; L \cdot atm \cdot mol^{-1} \cdot K^{-1}$
 
 <br>
 
