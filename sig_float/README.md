@@ -185,6 +185,7 @@ $0.08206 \; L \cdot atm \slash mol \cdot K$
 
 ### .exact()
 *.exact() -> bool*
+
 Returns if a given sig_float is exact or not.
 ```python 
 a = sig_float("1", exact=True)
