@@ -28,7 +28,6 @@ def round_sig(number, sig_figs: int):  #->sig_float
   """
   Rounds a number to a certain number of significant figures
   """
-
   # Function that counts the number of valid digits in a string representation of a number
   def digits(num: str) -> int:
     num_digits = len(num)
@@ -59,20 +58,20 @@ def round_sig(number, sig_figs: int):  #->sig_float
     else:
       rounded_number += ("0" * (sig_figs - len(rounded_number) - 1))
 
+  # Decimal place after the number
+  if digits(rounded_number) == sig_figs and rounded_number[-1] == "0" and no_decimal:
+    rounded_number += "."
+
+  # Distinguish significant digit with overline
+  if digits(rounded_number) > sig_figs and rounded_number[sig_figs - 1] == "0" and sig_figs - 1 != 0:
+    rounded_number = rounded_number[:sig_figs - 1] + "0̅" + rounded_number[sig_figs:]
+
   # Build the return sig_float
   if isinstance(number, sig_float):
-    rounded_sig_float = sig_float(rounded_number, number._units, float_number)
+    rounded_sig_float = sig_float(rounded_number, number._units, float_num=float_number)
   else:
     rounded_sig_float = sig_float(rounded_number, float_num=float_number)
   rounded_sig_float._sig_figs = sig_figs
-
-  # Distinguish significant digit with overline
-  # if digits(rounded_number) > sig_figs and rounded_number[sig_figs - 1] == "0":
-  #   rounded_sig_float._str = rounded_number[:sig_figs - 1] + "0̅" + rounded_number[sig_figs:]
-
-  # Decimal place after the number
-  if digits(rounded_number) == sig_figs and rounded_number[-1] == "0" and no_decimal:
-    rounded_sig_float._str = rounded_number + "."
 
   return rounded_sig_float
 
@@ -182,6 +181,7 @@ class sig_float:
         del self._units[unit]
 
   def latex(self, format: int = 1) -> str:
+    latex_str = self._str.replace("0̅", "\\bar{0}")
     pos_units = " \cdot ".join(unit if exponent == 1 else unit + "^{" + str(exponent) + "}" for unit, exponent in [(
         filtered_unit,
         filtered_exponent) for filtered_unit, filtered_exponent in self._units.items() if filtered_exponent > 0])
@@ -190,26 +190,26 @@ class sig_float:
           filtered_unit,
           filtered_exponent) for filtered_unit, filtered_exponent in self._units.items() if filtered_exponent < 0])
       if len(pos_units) == 0 and len(neg_units) == 0:
-        return self._str
+        return latex_str
       elif len(pos_units) == 0:
-        return self._str + " \; " + neg_units
+        return latex_str + " \; " + neg_units
       elif len(neg_units) == 0:
-        return self._str + " \; " + pos_units
+        return latex_str + " \; " + pos_units
       else:
-        return self._str + " \; " + pos_units + " \cdot " + neg_units
+        return latex_str + " \; " + pos_units + " \cdot " + neg_units
     else:
       neg_units = " \cdot ".join(
           unit if exponent == -1 else unit + "^{" + str(abs(exponent)) + "}" for unit, exponent in [(
               filtered_unit,
               filtered_exponent) for filtered_unit, filtered_exponent in self._units.items() if filtered_exponent < 0])
       if len(pos_units) == 0 and len(neg_units) == 0:
-        return self._str
+        return latex_str
       elif len(pos_units) == 0:
-        return self._str + " \\frac {" + "1" + "}{" + neg_units + "}"
+        return latex_str + " \\frac {" + "1" + "}{" + neg_units + "}"
       elif len(neg_units) == 0:
-        return self._str + " \; " + pos_units
+        return latex_str + " \; " + pos_units
       else:
-        return self._str + " \\frac{" + pos_units + "}{" + neg_units + "}"
+        return latex_str + " \\frac{" + pos_units + "}{" + neg_units + "}"
 
   def __mul__(self, other):  # ->sig_float
     """
