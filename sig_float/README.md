@@ -56,6 +56,7 @@ This module provides the infrastructure to preform calculations that behave acco
     <li><a href="#latex">.latex()</a></li>
     <li><a href="#exact">.exact()</a></li>
     <li><a href="#multiplication-">Multiplication (*)</a></li>
+    <li><a href="#exponential-">Exponential (**)</a></li>
     <li><a href="#division-">Division (/)</a></li>
     <li><a href="#addition-">Addition (+)</a></li>
     <li><a href="#subtraction--">Subtraction (-)</a></li>
@@ -208,6 +209,20 @@ a = sig_float("0.004")
 b = sig_float("5280")
 a * b
 # Results in 20
+```
+<br>
+
+### Exponential  (**)
+*sig_float ** int/float*
+
+Raises an operand of type sig_float to an integer or float power using the exponential operator (**). The resulting product is a number of type sig_float rounded to the proper number of sig figs according to the following sig fig rule:
+* In multiplication and division, the result should be rounded to the least number of significant figures of any one term. 
+
+If provided, units are also accounted for.
+```python
+v = sig_float("7.30", {"m":1, "s":-1})
+print(v ** 2)
+# Results in sig_float("53.3", {"m":2, "s":-2})
 ```
 <br>
 
