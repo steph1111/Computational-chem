@@ -383,8 +383,9 @@ class sig_float:
     """
     Returns a string representation of the number with correct sig figs and units
     """
-    return self._str + " " + " ".join(
+    temp = self._str + " " + " ".join(
         unit if exponent == 1 else unit + "^" + str(exponent) for unit, exponent in self._units.items())
+    return temp.strip()
 
   def __bool__(self) -> bool:
     """
