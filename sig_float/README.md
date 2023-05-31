@@ -56,7 +56,7 @@ This module provides the infrastructure to preform calculations that behave acco
     <li><a href="#latex">.latex()</a></li>
     <li><a href="#exact">.exact()</a></li>
     <li><a href="#multiplication-">Multiplication (*)</a></li>
-    <li><a href="#exponential-">Exponential (**)</a></li>
+    <li><a href="#exponential--">Exponential (**)</a></li>
     <li><a href="#division-">Division (/)</a></li>
     <li><a href="#addition-">Addition (+)</a></li>
     <li><a href="#subtraction--">Subtraction (-)</a></li>
