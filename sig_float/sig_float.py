@@ -349,6 +349,36 @@ class sig_float:
 
     return sig_float(temp_str, units=self._units, float_num=diff)
 
+  def __pow__(self, other): # -> sig_float
+    """
+    Raises a sig_float to a power. Intended to be used with floats and ints
+    """
+    if isinstance(other, sig_float):
+      product = math.pow(self._float, other._float)
+      other = other._float
+    else:
+      product = math.pow(self._float, other)
+    other = int(other) if other - int(other) == 0 else other
+    
+    # Construct new units
+    new_units = {
+        unit: self._units.get(unit, 0) * other for unit in self._units
+    }
+    
+    # Choose sig figs for answer
+    product_sig_figs = None if self._exact else self._sig_figs
+
+    # If both numbers are exact, build return product
+    if product_sig_figs == None:
+      return_product = sig_float(str(product), units=new_units, exact=True, float_num=product)
+    else:
+      # Build return product as a sig_float
+      return_product = round_sig(product, product_sig_figs)  # Rounds to proper sig figs
+      return_product._units = new_units
+    return_product._clear_units()
+
+    return return_product
+
   def __str__(self) -> str:
     """
     Returns a string representation of the number with correct sig figs and units
