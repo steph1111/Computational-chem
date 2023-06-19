@@ -203,11 +203,17 @@ delta_t = sig_float("0.05", {"s":1})
 m = (Ts * L) / ((delta_x / delta_t) * (delta_x / delta_t))
 print(f"5) mass (m): {m}")
 
+x = sig_float("20.", {"m":1})
+t = sig_float("4", {"s":1})
+v = x/t
+print(v.latex(3))
+
 print(RESET + "\nLaTeX tests:" + GREEN)
 print(density_obj.latex(format=1))
 print(density_obj.latex(format=2))
 print(R.latex(format=1))
 print(R.latex(format=2))
+print(R.latex(format=3))
 print(V2.latex(format=1))
 print(V2.latex(format=2))
 f = sig_float("300.0", {"s":-1})
