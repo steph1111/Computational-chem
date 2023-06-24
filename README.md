@@ -32,11 +32,7 @@ FIXME
 ---
 ## Getting Started
 
-1. Clone the repo
-   ```sh
-   https://github.com/steph1111/PERCISE.git
-   ```
-2. FIXME 
+1. FIXME 
 
 <br>
 
