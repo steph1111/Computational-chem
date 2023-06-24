@@ -6,14 +6,14 @@
   <p align="center">
     Project GitHub Repo
     <br />
-    <a href="https://github.com/steph1111/PERCISE"><strong>PERCISE »</strong></a>
+    <a href="https://github.com/steph1111/PRECISE"><strong>PRECISE »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/steph1111/PERCISE/issues">Report Issue</a>
+    <a href="https://github.com/steph1111/PRECISE/issues">Report Issue</a>
     ·
     <a href="https://github.com/steph1111/PRECISE/projects?query=is%3Aopen">Project status</a>
     ·
-    <a href="https://github.com/steph1111/PERCISE/discussions">Discuss</a>
+    <a href="https://github.com/steph1111/PRECISE/discussions">Discuss</a>
   </p>
 </div>
 
