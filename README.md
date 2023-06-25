@@ -2,6 +2,10 @@
 <h1 align="center">PRECISE</h1>
 <h3 align="center">Precision Rules Enforced Calculations In Scientific Environments</h3>
 
+<p style="text-align: center;"> [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa] </p>
+
+<a align="center">[![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]</a>
+
 <br>
   <p align="center">
     Project GitHub Repo
@@ -49,7 +53,16 @@ FIXME
 </details>
 <br>
 
+# License
 
+This work is licensed under a
+[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][cc-by-nc-sa].
+
+[![CC BY-NC-SA 4.0][cc-by-nc-sa-image]][cc-by-nc-sa]
+
+[cc-by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/4.0/
+[cc-by-nc-sa-image]: https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png
+[cc-by-nc-sa-shield]: https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg
 
 ### [sig_float »](https://github.com/steph1111/PERCISE/tree/main/sig_float)
 
