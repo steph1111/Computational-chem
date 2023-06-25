@@ -32,7 +32,7 @@ This module provides the infrastructure to preform calculations that behave acco
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/steph1111/PERCISE.git
+   # FIXME
    ```
 2. Import the sig_float class and round_sig function to your workspace 
    ```python
@@ -125,7 +125,6 @@ What does the precision value mean? Given the number 1234.567, the following pre
 | :---------------- | :--: | :--: |:--: |:--: |:--: |:--: |:--: |:--: |
 | Number | 1 | 2 | 3 | 4 | . | 5 | 6 | 7 |
 | Precision | -3 | -2 | -1 | 0 |   | 1 | 2 | 3 |
-
 <br>
 
 ```python
