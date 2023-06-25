@@ -4,11 +4,12 @@
 
 <br>
 
-<div style="font-style: italic; text-align: center;" markdown="1">
+<div style="text-align:center;">
 
 ![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]
 
 </div>
+
 
 <br>
   <p align="center">
