@@ -171,7 +171,7 @@ class sig_float:
     latex_str = self._str.replace("0̅", "\\bar{0}")
 
     if sci:
-      latex_str = self.scientific().replace("x", "\\times")
+      latex_str = self._scientific().replace("x", "\\times")
 
     # Join positive units around " \cdot ". Formatted as unit^{exponent} or unit (if exponent is 1)
     pos_units = " \cdot ".join(unit if exponent == 1 else unit + "^{" + str(exponent) + "}" for unit, exponent in [(
@@ -205,7 +205,7 @@ class sig_float:
       else:  # Both negative and positive unit
         return latex_str + " \\frac{" + pos_units + "}{" + neg_units + "}" if format == 2 else latex_str + " \; " + pos_units + " / " + neg_units
 
-  def scientific(self) -> str:
+  def _scientific(self) -> str:
     """
     Returns the sig_float in scientific notation
     """
@@ -396,9 +396,10 @@ class sig_float:
     """
     Returns a string representation of the number with correct sig figs and units
     """
-    temp = self._str + " " + " ".join(
-        unit if exponent == 1 else unit + "^" + str(exponent) for unit, exponent in self._units.items())
-    return temp.strip()
+    # temp = self._str + " " + " ".join(
+    #     unit if exponent == 1 else unit + "^" + str(exponent) for unit, exponent in self._units.items())
+    # return temp.strip()
+    return self.latex()
 
   def __bool__(self) -> bool:
     """
