@@ -68,6 +68,7 @@ This module provides the infrastructure to preform calculations that behave acco
 </details>
 <br>
 
+---
 ### sig_float()
 *sig_float(str_num:str="0", units:dict=dict(), exact:bool=False) -> None:*
 
@@ -100,6 +101,7 @@ V2 = (T2 * P1 * V1) / (P2 * T1)
 ``` 
 <br>
 
+---
 ### .sig_figs()
 *.sig_figs()->int:*
 
@@ -115,6 +117,7 @@ num.sig_figs()
 ```
 <br>
 
+---
 ### .precision() 
 *.precision() -> int:*
 
@@ -144,12 +147,13 @@ c.precision()
 ```
 <br>
 
+---
 ### .latex()
-*.latex(format:int=1)->str:*
+*.latex(format:int=1, sci:bool=False)->str:*
 
-Formats sig_float to a $\LaTeX{}$ string. An argument may be provided to choose a unit format type.
+Formats sig_float to a $\LaTeX{}$ string. An argument may be provided to choose a unit format type. An additional argument may be used to change the number format to scientific. 
 
-The following sig_float is used in subsequent examples:
+*The following sig_float is used in subsequent examples:*
 ```python 
 R = sig_float("0.08206", {"L":1, "atm":1, "mol":-1, "K":-1}, exact=True)
 ```
@@ -183,6 +187,32 @@ $\large 0.08206 \; L \cdot atm / mol \cdot K$
 
 <br>
 
+The following sig_float is used in subsequent examples:
+```python 
+d = sig_float("123.000", {"m":1})
+```
+
+<br><br>
+
+**sci**=False (default): Number represented in standard format
+```python
+print(d.latex(sci=False))
+# Outputs: 123.000 \; m
+```
+$\large 123.000 \; m$
+
+<br>
+
+**sci**=True (default): Number represented in standard format
+```python
+print(d.latex(sci=True))
+# Outputs: 1.23000 \times 10^{2} \; m
+```
+$\large 1.23000 \times 10^{2} \; m$
+
+<br>
+
+---
 ### .exact()
 *.exact() -> bool*
 
@@ -196,6 +226,7 @@ print(f"{a} / {b} = {c}. Exact? {c.exact()}")
 ```
 <br>
 
+---
 ### Multiplication (*)
 *sig_float * sig_float*
 
@@ -211,6 +242,7 @@ a * b
 ```
 <br>
 
+---
 ### Exponential  (**)
 *sig_float ** int/float*
 
@@ -225,6 +257,7 @@ print(v ** 2)
 ```
 <br>
 
+---
 ### Division (/)
 *sig_float / sig_float*
 
@@ -240,6 +273,7 @@ a / b
 ```
 <br>
 
+---
 ### Addition (+)
 *sig_float + sig_float*
 
@@ -256,6 +290,7 @@ a + b
 ```
 <br>
 
+---
 ### Subtraction (-)
 *sig_float - sig_float*
 
@@ -272,15 +307,17 @@ a - b
 ```
 <br>
 
+---
 ### str()
 Overloaded python str() function. Python's builtin str() function converts an object to type string. The sig_float function provides the same functionality. Also enables usage of python's print() function.
 ```python
 num = sig_float("047.00990")
-string(num)
+str(num)
 # Results in "47.00990"
 ```
 <br>
 
+---
 ### bool()
 Overloaded python bool() function. Python's builtin bool() function converts an object to type bool. Returns True unless the object is 0 in which the return value is False. The sig_float function provides the same functionality. 
 ```python
@@ -290,6 +327,7 @@ bool(num)
 ```
 <br>
 
+---
 ### float()
 Overloaded python float() function. Python's builtin float() function converts an object to type float. The sig_float function provides the same functionality. Use this operation with caution, the internal float is **not** stored to proper significant figures.
 ```python
@@ -299,6 +337,7 @@ float(num)
 ```
 <br>
 
+---
 ### round_sig()
 *round_sig(number, sig_figs:int)->sig_float:*
 
