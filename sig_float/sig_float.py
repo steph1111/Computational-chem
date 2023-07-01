@@ -10,7 +10,7 @@ import warnings
 import math
 import itertools
 
-# TODO Implicate
+# TODO Implicate. Non hashable type this does not work
 # DERIVED_UNITS = {
 # ({"s":-1}):"Hz",
 # ({"kg":1, "m":1, "s":-2}):"N",
@@ -19,7 +19,6 @@ import itertools
 # ({"m":2, "kg":1, "s":-3}): "W"
 # }
 
-# if units in DERIVED_UNITS:
 # Frozen set
 
 
@@ -127,7 +126,7 @@ class sig_float:
         0] == "." else "-" + self._str if negative else self._str
 
     return sig_figs_count
-  
+
   @staticmethod
   def _round_precision(val_1: int, val_2: int) -> int:
     """
@@ -161,7 +160,7 @@ class sig_float:
         index -= 1
     return index
 
-  def latex(self, format: int = 1) -> str:
+  def latex(self, format: int = 1, sci: bool = False) -> str:
     """
     Returns a string formatted using LaTeX
     format=1 (default): Units represented on one line using negative exponents
@@ -170,6 +169,9 @@ class sig_float:
     """
     # If there are any overlined digits, replace them with LaTeX format
     latex_str = self._str.replace("0̅", "\\bar{0}")
+
+    if sci:
+      latex_str = self.scientific().replace("x", "\\times")
 
     # Join positive units around " \cdot ". Formatted as unit^{exponent} or unit (if exponent is 1)
     pos_units = " \cdot ".join(unit if exponent == 1 else unit + "^{" + str(exponent) + "}" for unit, exponent in [(
@@ -180,13 +182,13 @@ class sig_float:
       neg_units = " \cdot ".join(unit + "^{" + str(exponent) + "}" for unit, exponent in [(
           filtered_unit,
           filtered_exponent) for filtered_unit, filtered_exponent in self._units.items() if filtered_exponent < 0])
-      if len(pos_units) == 0 and len(neg_units) == 0:
+      if len(pos_units) == 0 and len(neg_units) == 0:  # If there are no units
         return latex_str
-      elif len(pos_units) == 0:
+      elif len(pos_units) == 0:  # If there are only negative units
         return latex_str + " \; " + neg_units
-      elif len(neg_units) == 0:
+      elif len(neg_units) == 0:  # If there are only positive units
         return latex_str + " \; " + pos_units
-      else:
+      else:  # Both negative and positive units
         return latex_str + " \; " + pos_units + " \cdot " + neg_units
     else:
       # Join negative units around " \cdot ". Formatted as unit^{abs(exponent)}
@@ -194,16 +196,29 @@ class sig_float:
           unit if exponent == -1 else unit + "^{" + str(abs(exponent)) + "}" for unit, exponent in [(
               filtered_unit,
               filtered_exponent) for filtered_unit, filtered_exponent in self._units.items() if filtered_exponent < 0])
-      if len(pos_units) == 0 and len(neg_units) == 0:
+      if len(pos_units) == 0 and len(neg_units) == 0:  # If there are no units
         return latex_str
-      elif len(pos_units) == 0:
+      elif len(pos_units) == 0:  # If there are only negative units
         return latex_str + " \\frac {" + "1" + "}{" + neg_units + "}" if format == 2 else latex_str + " \; 1 / " + neg_units
-      elif len(neg_units) == 0:
+      elif len(neg_units) == 0:  # If there are only positive units
         return latex_str + " \; " + pos_units
-      else:
+      else:  # Both negative and positive unit
         return latex_str + " \\frac{" + pos_units + "}{" + neg_units + "}" if format == 2 else latex_str + " \; " + pos_units + " / " + neg_units
-  
-  def exact(self) ->bool:
+
+  def scientific(self) -> str:
+    """
+    Returns the sig_float in scientific notation
+    """
+    scientific_notation = "{:e}".format(self._float)  # Python's builtin scientific notation conversion
+    index = scientific_notation.find("e")  # Find the index of e to split on
+    coefficient_temp = str(round(float(scientific_notation[:index]), self._sig_figs - 1))  # Split and round it
+    coefficient = coefficient_temp if len(coefficient_temp) - 1 == self._sig_figs else coefficient_temp + "0" * (
+        self._sig_figs - (len(coefficient_temp) - 1))  # Add extra zeros if needed
+    exp = str(int(scientific_notation[index + 1:]))  # Split exponent
+
+    return coefficient + " x 10^{" + exp + "}" if exp != "0" else self._str
+
+  def exact(self) -> bool:
     """
     Returns if a sig_float is exact
     """
@@ -247,7 +262,7 @@ class sig_float:
       return_product = round_sig(product, product_sig_figs)  # Rounds to proper sig figs
       return_product._units = new_units
     return_product._clear_units()
-  
+
     return return_product
 
   def __truediv__(self, other):  # ->sig_float
@@ -280,7 +295,7 @@ class sig_float:
       return_quotient = round_sig(quotient, quotient_sig_figs)  # Rounds to proper sig figs
       return_quotient._units = new_units
     return_quotient._clear_units()
-  
+
     return return_quotient
 
   def __add__(self, other):  # ->sig_float
@@ -349,7 +364,7 @@ class sig_float:
 
     return sig_float(temp_str, units=self._units, float_num=diff)
 
-  def __pow__(self, other): # -> sig_float
+  def __pow__(self, other):  # -> sig_float
     """
     Raises a sig_float to a power. Intended to be used with floats and ints
     """
@@ -359,12 +374,10 @@ class sig_float:
     else:
       product = math.pow(self._float, other)
     other = int(other) if other - int(other) == 0 else other
-    
+
     # Construct new units
-    new_units = {
-        unit: self._units.get(unit, 0) * other for unit in self._units
-    }
-    
+    new_units = {unit: self._units.get(unit, 0) * other for unit in self._units}
+
     # Choose sig figs for answer
     product_sig_figs = None if self._exact else self._sig_figs
 
