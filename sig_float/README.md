@@ -185,14 +185,16 @@ print(R.latex(format=3))
 ```
 $\large 0.08206 \; L \cdot atm / mol \cdot K$
 
+<br> 
+<h4 align="center">- - -</h1>
 <br>
 
-The following sig_float is used in subsequent examples:
+*The following sig_float is used in subsequent examples:*
 ```python 
 d = sig_float("123.000", {"m":1})
 ```
 
-<br><br>
+<br>
 
 **sci**=False (default): Number represented in standard format
 ```python
