@@ -94,14 +94,31 @@ class sig_float:
     if not isinstance(str_num, str):
       warnings.warn("Warning: Argument should be of type str", PendingDeprecationWarning)
       str_num = str(str_num)
-
-    # Initializations
-    self._str = str_num
-    self._sig_figs = self.sig_figs()
-    self._precision = self.precision()
+    
     self._units = units
     self._exact = exact
-    self._float = float(self._str) if float_num == None else float_num
+    self._float = float(str_num) if float_num == None else float_num
+
+    e_index = str_num.find("e")
+
+    if e_index != -1: # The number is in scientific
+      # Counts the number of sig figs in the number
+      self._sig_figs = len(str_num[:e_index]) - 1 if str_num.find(".") != -1 else len(str_num[:e_index])
+
+      # **SURPRESS SCIENTIFIC**
+      exp = str_num[e_index + 1:] # Exponent
+      # Number of decimal places for negative exponent
+      n_places = -int(exp) + self._sig_figs - 1 # NEGATIVE
+      # n_places # POSITIVE
+      print(f"Surpress: {self._float:.{n_places}f}") # f'{number:.(required_number_of_decimal_places)f}'
+
+      # self._str = str(self._float) + "0" * (self._sig_figs - (str(self._float) - 1))
+      # Add overlined zero if needed
+    else:
+      self._str = str_num
+      self._sig_figs = self.sig_figs() # Should be defined by 
+      self._precision = self.precision()
+      
 
   def sig_figs(self) -> int:
     """
@@ -119,7 +136,7 @@ class sig_float:
     if self._str.find(".") != -1 and self._str[0] != ".":
       sig_figs_count -= 1
     elif self._str.find(".") == -1 and self._str[0] != ".":
-      sig_figs_count -= len(self._str) - len(self._str.rstrip("00̅"))
+      sig_figs_count -= len(self._str) - len(self._str.rstrip("00̅")) # What happens to overlined zeros?? This seems wrong
 
     # Re build the string representation
     self._str = "-0" + self._str if negative and self._str[0] == "." else "0" + self._str if self._str[
