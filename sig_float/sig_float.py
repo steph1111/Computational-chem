@@ -9,6 +9,7 @@ __author__ = "Stephanie L'Heureux"
 import warnings
 import math
 import itertools
+# import numpy as np
 
 # TODO Implicate. Non hashable type this does not work
 # DERIVED_UNITS = {
@@ -104,21 +105,32 @@ class sig_float:
     if e_index != -1: # The number is in scientific
       # Counts the number of sig figs in the number
       self._sig_figs = len(str_num[:e_index]) - 1 if str_num.find(".") != -1 else len(str_num[:e_index])
+      str_num = sig_float.surpress_sci(str_num, self._sig_figs)
 
-      # **SURPRESS SCIENTIFIC**
-      exp = str_num[e_index + 1:] # Exponent
-      # Number of decimal places for negative exponent
-      n_places = -int(exp) + self._sig_figs - 1 # NEGATIVE
-      # n_places # POSITIVE
-      print(f"Surpress: {self._float:.{n_places}f}") # f'{number:.(required_number_of_decimal_places)f}'
+      # # **SURPRESS SCIENTIFIC**
+      # exp = str_num[e_index + 1:] # Exponent
+      # # Number of decimal places for negative exponent
+      # n_places = -int(exp) + self._sig_figs - 1 # NEGATIVE
+      # # n_places # POSITIVE
+      # print(f"Surpress: {self._float:.{n_places}f}") # f'{number:.(required_number_of_decimal_places)f}'
 
-      # self._str = str(self._float) + "0" * (self._sig_figs - (str(self._float) - 1))
-      # Add overlined zero if needed
+      # # self._str = str(self._float) + "0" * (self._sig_figs - (str(self._float) - 1))
+      # # Add overlined zero if needed
     else:
       self._str = str_num
-      self._sig_figs = self.sig_figs() # Should be defined by 
+      self._sig_figs = self.sig_figs() 
       self._precision = self.precision()
-      
+  
+  @staticmethod
+  def surpress_sci(x: str, sig_figs: int) -> str:
+    """
+    Returns a string of a number with scientific notation surpressed
+    """
+    e_index = x.find("e")
+    exp = x[e_index + 1:] 
+    n_places = sig_figs + abs(int(exp)) - 1
+    print(f"Surpress: {float(x):.{n_places}f}")
+  
 
   def sig_figs(self) -> int:
     """
