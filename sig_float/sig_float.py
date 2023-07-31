@@ -18,7 +18,6 @@ import itertools
 # ({"m":2, "kg":1, "s":-2}): "J",
 # ({"m":2, "kg":1, "s":-3}): "W"
 # }
-# Frozen set
 
 def digits(num: str) -> int:
   # Helper function that counts the number of valid digits in a 
