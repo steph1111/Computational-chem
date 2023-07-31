@@ -33,6 +33,15 @@ def digits(num: str) -> int:
 def round_sig(number, sig_figs: int):  #->sig_float
   """
   Rounds a number to a certain number of significant figures
+
+  Parameters:
+    number : Type supports float() (includes sig_float)
+      The number to round
+    sig_figs : int
+      THe number of sig figs to round 'number' to
+  
+  Returns:
+    'number' rounded to have 'sig_figs' sig figs
   """
   # Float representation
   float_number = float(number)
@@ -88,13 +97,14 @@ class sig_float:
     Initializes a sig_float object
 
     Parameters:
-    str_num : str
-      Default value of 0. A string of the number to make a sig_float out of
-    units : dict
+    str_num : str = "0"
+      A string of the number to make a sig_float out of
+    units : dict = dict()
       A dictionary of units and the power to which they are raised. 
       Keys are units and values are powers.
-    exact : bool
-      Default value of False. If True, the number is exact and sig figs are infinite. 
+    exact : bool = False
+      If True, the number is exact and sig figs are infinite. Otherwise (False), 
+      sigfigs are determined by standard rules
     """
     # If the user did not provide a string argument, argument is converted to a string and warning is raised
     if not isinstance(str_num, str):
@@ -182,6 +192,15 @@ class sig_float:
     Uses the place convention defined in precision() 
     Number:      138828.9823
     Place:     -(543210)1234
+
+    Parameters: 
+      val_1 : int
+        First precision value
+      val_2 : int
+        Second precision value
+
+    Returns:
+      The precision that takes precedence in an operation
     """
     if val_1 >= 0 and val_2 >= 0:  # Rounding with two decimals
       return min(val_1, val_2)
@@ -192,10 +211,14 @@ class sig_float:
 
   def precision(self) -> int:
     """
-    Returns the number of decimal places to which the number is precise to
-    Returns a negative number if should be precise to a whole number value
+    The number of decimal places to which the number is precise to
     Number:      138828.9823
     Place:     -(543210)1234
+    
+    Returns: 
+    A interger value in which the precision of decimals is positive, 
+    and a negative number is returned if precise to a whole number value. 
+    Refer to the convention above.
     """
     index = self._str.find(".")
     if index != -1:
@@ -210,10 +233,18 @@ class sig_float:
 
   def latex(self, format: int = 1, sci: bool = False) -> str:
     """
-    Returns a string formatted using LaTeX
-    format=1 (default): Units represented on one line using negative exponents
-    format=2: Units represented as a fraction
-    format=3: Units represented on one line using a fraction
+    String formatted using LaTeX
+
+    Parameters: 
+      format : int = 1
+        format=1 (default): Units represented on one line using negative exponents
+        format=2: Units represented as a fraction
+        format=3: Units represented on one line using a fraction
+      sci : bool = False 
+        If True, uses scientific notation. Otherwise, standard notation is used
+
+      Returns:
+        A string representation of the sig_float formatted with LaTeX
     """
     # If there are any overlined digits, replace them with LaTeX format
     latex_str = self._str.replace("0̅", "\\bar{0}")
@@ -255,7 +286,10 @@ class sig_float:
 
   def _scientific(self) -> str:
     """
-    Returns the sig_float in scientific notation
+    Helper function that converts to scientific notation
+
+    Returns: 
+      A string of the sig_float in scientific notation 
     """
     scientific_notation = "{:e}".format(self._float)  # Python's builtin scientific notation conversion
     index = scientific_notation.find("e")  # Find the index of e to split on
@@ -268,13 +302,16 @@ class sig_float:
 
   def exact(self) -> bool:
     """
-    Returns if a sig_float is exact
+    Determines if a sig_float is exact
+
+    Returns: 
+      True if the sig_float is exact, otherwise False
     """
     return self._exact
 
   def _clear_units(self) -> None:
     """
-    Clears units with value 0
+    Helper function that clears units with value 0
     """
     for unit in list(self._units):
       if self._units[unit] == 0:
@@ -283,6 +320,9 @@ class sig_float:
   def __mul__(self, other):  # ->sig_float
     """
     Multiplies two numbers of type sig_float with * using sig fig rules
+
+    Returns:
+      The product of the values
     """
     # Ensures both operands are of type sig_float
     if not isinstance(other, sig_float):
@@ -316,6 +356,9 @@ class sig_float:
   def __truediv__(self, other):  # ->sig_float
     """
     Divides two numbers of type sig_float with / using sig fig rules
+
+    Returns:
+      The quotient of the values
     """
     # Ensures both operands are of type sig_float
     if not isinstance(other, sig_float):
@@ -349,6 +392,9 @@ class sig_float:
   def __add__(self, other):  # ->sig_float
     """
     Adds two numbers of type sig_float with + using sig fig rules
+
+    Returns:
+      The sum of the values
     """
     # Ensures both operands units are the same
     if self._units != other._units:
@@ -382,6 +428,9 @@ class sig_float:
   def __sub__(self, other):  # ->sig_float
     """
     Subtracts two numbers of type sig_float with + using sig fig rules
+
+    Returns:
+      The difference of the values
     """
     # Ensures both operands units are the same
     if self._units != other._units:
@@ -412,9 +461,12 @@ class sig_float:
 
     return sig_float(temp_str, units=self._units, float_num=diff)
 
-  def __pow__(self, other):  # -> sig_float
+  def __pow__(self, other : int):  # -> sig_float
     """
     Raises a sig_float to a power. Intended to be used with floats and ints
+
+    Returns:
+      The resultant of a sig_float raised to an int
     """
     if isinstance(other, sig_float):
       product = math.pow(self._float, other._float)
@@ -442,7 +494,11 @@ class sig_float:
 
   def __str__(self) -> str:
     """
-    Returns a string representation of the number with correct sig figs and units
+    String representation of the number with correct sig figs and units. 
+    Enables usage of print()
+
+    Returns: 
+      The return value of the .latex()
     """
     # temp = self._str + " " + " ".join(
     #     unit if exponent == 1 else unit + "^" + str(exponent) for unit, exponent in self._units.items())
@@ -451,22 +507,37 @@ class sig_float:
 
   def __bool__(self) -> bool:
     """
-    Applies standard numeric to bool coversions. 0 is false, non-zero is true
+    Applies standard numeric to bool coversions
+
+    Returns:
+      0 is False, non-zero is True
     """
     return bool(self._float)
 
   def __float__(self) -> float:
     """
-    Returns a float representation of the number, may have improper sig figs. Use with caution!!
+    Float representation of the number, may have improper sig figs. Use with caution!!
+
+    Returns:
+      Float representation
     """
     return self._float
 
   def __repr__(self) -> str:
+    """
+    Representation of sig_float for REPL usage
+
+    Returns:
+      A string formatted as sig_float('value')
+    """
     return f"{type(self).__name__}('{self}')"
 
   def __eq__(self, other) -> bool:
     """
     Evaluates if two numbers of type sig_float are equal
+
+    Returns: 
+      True if the two values are equal, otherwise False
     """
     # TODO: Ask how equality should work
     raise NotImplementedError("Equality not implicated yet. Todo")
@@ -479,6 +550,9 @@ class sig_float:
   def __ne__(self, other) -> bool:
     """
     Evaluates if two numbers of type sig_float are not equal
+
+    Returns: 
+      True if the two values are not equal, otherwise False
     """
     raise NotImplementedError("Not equal not implicated yet. Todo")
     if not isinstance(other, sig_float):
