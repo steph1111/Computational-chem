@@ -137,8 +137,10 @@ class sig_float:
     str_num = "{num:.{precision}f}".format(num=float(x), precision=prec)
     
     # Add overlined zero if needed
-    if coef[-1] == "0" and exp > sig_figs:
-      str_num = str_num[:sig_figs] + "0̅" + str_num[sig_figs+1:]
+    if coef[-1] == "0" and exp >= sig_figs:
+      str_num = str_num[:sig_figs-1] + "0̅" + str_num[sig_figs:]
+    elif coef[-1] == "0" and exp + 1 == sig_figs:
+      str_num += "."
 
     return str_num
 
