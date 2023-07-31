@@ -9,9 +9,8 @@ __author__ = "Stephanie L'Heureux"
 import warnings
 import math
 import itertools
-# import numpy as np
 
-# TODO Implicate. Non hashable type this does not work
+# TODO Implement. Non hashable type this does not work
 # DERIVED_UNITS = {
 # ({"s":-1}):"Hz",
 # ({"kg":1, "m":1, "s":-2}):"N",
@@ -19,24 +18,23 @@ import itertools
 # ({"m":2, "kg":1, "s":-2}): "J",
 # ({"m":2, "kg":1, "s":-3}): "W"
 # }
-
 # Frozen set
 
+def digits(num: str) -> int:
+  # Helper function that counts the number of valid digits in a 
+  # string representation of a number
+  num_digits = len(num)
+  if num.find("-") != -1:
+    num_digits -= 1
+  if num.find(".") != -1:
+    num_digits -= 1
+  return num_digits
 
 # TODO: REWRITE THIS TO BE BETTER
 def round_sig(number, sig_figs: int):  #->sig_float
   """
   Rounds a number to a certain number of significant figures
   """
-  # Function that counts the number of valid digits in a string representation of a number
-  def digits(num: str) -> int:
-    num_digits = len(num)
-    if num.find("-") != -1:
-      num_digits -= 1
-    if num.find(".") != -1:
-      num_digits -= 1
-    return num_digits
-
   # Float representation
   float_number = float(number)
 
@@ -89,7 +87,15 @@ class sig_float:
   def __init__(self, str_num: str = "0", units: dict = dict(), exact: bool = False, float_num: float = None) -> None:
     """
     Initializes a sig_float object
-    'str_num has a default value of 0 
+
+    Parameters:
+    str_num : str
+      Default value of 0. A string of the number to make a sig_float out of
+    units : dict
+      A dictionary of units and the power to which they are raised. 
+      Keys are units and values are powers.
+    exact : bool
+      Default value of False. If True, the number is exact and sig figs are infinite. 
     """
     # If the user did not provide a string argument, argument is converted to a string and warning is raised
     if not isinstance(str_num, str):
@@ -99,42 +105,50 @@ class sig_float:
     self._units = units
     self._exact = exact
     self._float = float(str_num) if float_num == None else float_num
-
     e_index = str_num.find("e")
-
     if e_index != -1: # The number is in scientific
-      # Counts the number of sig figs in the number
-      self._sig_figs = len(str_num[:e_index]) - 1 if str_num.find(".") != -1 else len(str_num[:e_index])
-      str_num = sig_float.surpress_sci(str_num, self._sig_figs)
-
-      # # **SURPRESS SCIENTIFIC**
-      # exp = str_num[e_index + 1:] # Exponent
-      # # Number of decimal places for negative exponent
-      # n_places = -int(exp) + self._sig_figs - 1 # NEGATIVE
-      # # n_places # POSITIVE
-      # print(f"Surpress: {self._float:.{n_places}f}") # f'{number:.(required_number_of_decimal_places)f}'
-
-      # # self._str = str(self._float) + "0" * (self._sig_figs - (str(self._float) - 1))
-      # # Add overlined zero if needed
+      self._sig_figs = digits(str_num[:e_index])
+      self._str = sig_float._surpress_sci(str_num, self._sig_figs)
     else:
       self._str = str_num
       self._sig_figs = self.sig_figs() 
-      self._precision = self.precision()
+    self._precision = self.precision()
   
   @staticmethod
-  def surpress_sci(x: str, sig_figs: int) -> str:
+  def _surpress_sci(x: str, sig_figs: int) -> str:
     """
-    Returns a string of a number with scientific notation surpressed
+    Format a string representation of a number with scientific notation surpressed
+
+    Parameters:
+      x : str 
+        The value to be formatted
+      sig_figs : int 
+        The number of sig_figs 'x' has
+    
+    Returns:
+      A formatted string representation of x in standard notation 
     """
-    e_index = x.find("e")
-    exp = x[e_index + 1:] 
-    n_places = sig_figs + abs(int(exp)) - 1
-    print(f"Surpress: {float(x):.{n_places}f}")
-  
+    exp = int(x[x.find("e")+1:]) # Exponent integer
+    coef = x[:x.find("e")] # Coefficient 
+    
+    # Precision for string formatter
+    prec = sig_figs + abs(exp) - 1 if exp < 0 else sig_figs - exp - 1 if exp < sig_figs else 0
+    
+    # Format x as a string without scientific notation
+    str_num = "{num:.{precision}f}".format(num=float(x), precision=prec)
+    
+    # Add overlined zero if needed
+    if coef[-1] == "0" and exp > sig_figs:
+      str_num = str_num[:sig_figs] + "0̅" + str_num[sig_figs+1:]
+
+    return str_num
 
   def sig_figs(self) -> int:
     """
-    Returns the number of sig figs of a sig_float object
+    Count the number of sig figs of a sig_float object
+
+    Returns:
+      An interger specifying the number of sig_figs in a number
     """
     negative = True if self._str[0] == "-" else False
 
@@ -144,11 +158,15 @@ class sig_float:
     # Count the initial sig figs from the front
     sig_figs_count = len(self._str.lstrip(".0"))
 
+    # Python counts 0̅ as two characters somehow 
+    if self._str.find("0̅") != -1:
+      sig_figs_count -= 1
+
     # Count the sig figs from the back
     if self._str.find(".") != -1 and self._str[0] != ".":
       sig_figs_count -= 1
     elif self._str.find(".") == -1 and self._str[0] != ".":
-      sig_figs_count -= len(self._str) - len(self._str.rstrip("00̅")) # What happens to overlined zeros?? This seems wrong
+      sig_figs_count -= len(self._str) - len(self._str.rstrip("0")) # What happens to overlined zeros?? This seems wrong
 
     # Re build the string representation
     self._str = "-0" + self._str if negative and self._str[0] == "." else "0" + self._str if self._str[
@@ -159,8 +177,8 @@ class sig_float:
   @staticmethod
   def _round_precision(val_1: int, val_2: int) -> int:
     """
-    Given two place values, determines which to round to. Uses
-    the place convention defined in precision() 
+    Given two place values, helper function determines which to round to. 
+    Uses the place convention defined in precision() 
     Number:      138828.9823
     Place:     -(543210)1234
     """
@@ -200,7 +218,7 @@ class sig_float:
     latex_str = self._str.replace("0̅", "\\bar{0}")
 
     if sci:
-      latex_str = self._scientific().replace("x", "\\times")
+      latex_str = self._scientific()
 
     # Join positive units around " \cdot ". Formatted as unit^{exponent} or unit (if exponent is 1)
     pos_units = " \cdot ".join(unit if exponent == 1 else unit + "^{" + str(exponent) + "}" for unit, exponent in [(
@@ -245,7 +263,7 @@ class sig_float:
         self._sig_figs - (len(coefficient_temp) - 1))  # Add extra zeros if needed
     exp = str(int(scientific_notation[index + 1:]))  # Split exponent
 
-    return coefficient + " x 10^{" + exp + "}" if exp != "0" else self._str
+    return coefficient + " \\times 10^{" + exp + "}" if exp != "0" else self._str
 
   def exact(self) -> bool:
     """

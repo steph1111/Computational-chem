@@ -6,6 +6,7 @@ RED = "\033[91m"
 RESET = "\033[0m"
 
 print("Sig fig count tests:" + GREEN)
+# print("Sig fig count tests:")
 num = sig_float("00122.9800")
 print(f"1) 00122.9800 -> {num.sig_figs()}")
 
@@ -40,6 +41,7 @@ num = sig_float("0.2000")
 print(f"11) 0.2000 -> {num.sig_figs()}")
 
 print(RESET + "\nAddition and subtraction tests:" + GREEN)
+# print("\nAddition and subtraction tests:")
 num1 = sig_float("13.0198")
 num2 = sig_float("1.2")
 print(f"1) {num1} + {num2} = {num1 + num2}")
@@ -91,6 +93,7 @@ num2 = sig_float("0.775")
 print(f"12) {num1} - {num2} = {num1 - num2}")
 
 print(RESET + "\nMultiplication and division tests:" + GREEN)
+# print("\nMultiplication and division tests:")
 num1 = sig_float("6")
 num2 = sig_float("0.30")
 print(f"1) {num1} * {num2} = {num1 * num2}")
@@ -141,6 +144,7 @@ num2 = sig_float("3", exact=True)
 print(f"12) {num1} / {num2} = {num1 / num2}")
 
 print(RESET + "\nMixed operations tests:" + GREEN)
+# print("\nMixed operations tests:")
 num1 = sig_float("15.803")
 num2 = sig_float("4.76")
 num3 = sig_float("9.3")
@@ -161,9 +165,10 @@ num1 = sig_float("55")
 num2 = sig_float("55")
 num3 = sig_float("1.0")
 num4 = sig_float("1.0")
-print(RED + f"4) {num1} * {num2} * {num3} + {num4} = {num1 * num2 * num3 + num4}" + GREEN) # Should be overlined??
+print(f"4) {num1} * {num2} * {num3} + {num4} = {num1 * num2 * num3 }") # Should be overlined??
 
 print(RESET + "\nRounding tests:" + GREEN)
+# print("\nRounding tests:")
 print(f"1) round_sig(8712082, 2) -> {round_sig(8712082, 2)}")
 print(f"2) round_sig(8000, 2) -> {round_sig(8000, 2)}")
 print(f"3) round_sig(980, 2) -> {round_sig(980, 2)}")
@@ -172,10 +177,10 @@ num1 = sig_float("120000", {"kg":1, "m":1, "s":-2})
 print('5) round_sig(("120000", {"kg":1, "m":1, "s":-2}), 4) ->' , round_sig(num1, 4))
 
 print(RESET + "\nUnits tests:" + GREEN)
-
-num1 = sig_float("2.8", {"kg":2, "m":5})
-num2 = sig_float("2.2", {"kg":2, "m":1})
-print(f"1) ({num1}) / ({num2}) = {num1 / num2}")
+# print("\nUnits tests:")
+num2 = sig_float("2.8", {"kg":2, "m":5})
+num3 = sig_float("2.2", {"kg":2, "m":1})
+print(f"1) ({num2}) / ({num3}) = {num2 / num3}")
 
 V1 = sig_float("2.00", {"L":1})
 P1 = sig_float("752.0", {"mmHg":1})
@@ -203,22 +208,28 @@ delta_t = sig_float("0.05", {"s":1})
 m = (Ts * L) / ((delta_x / delta_t) * (delta_x / delta_t))
 print(f"5) mass (m): {m}")
 
-x = sig_float("20.", {"m":1})
-t = sig_float("4", {"s":1})
-v = x/t
-print(v.latex(3))
-
 print(RESET + "\nLaTeX tests:" + GREEN)
-print(density_obj.latex(format=1))
-print(density_obj.latex(format=2))
-print(R.latex(format=1))
-print(R.latex(format=2))
-print(R.latex(format=3))
-print(V2.latex(format=1))
-print(V2.latex(format=2))
+# print("\nLaTeX tests:")
+print(f"1) density_obj in format=1: {density_obj.latex(format=1)}")
+print(f"2) density_obj in format=2: {density_obj.latex(format=2)}")
+print(f"3) R in format=1: {R.latex(format=1)}")
+
+print(f"4) R in format=2: {R.latex(format=2)}")
+print(f"5) R in format=3: {R.latex(format=3)}")
+
+print(f"6) V2 in format=1: {V2.latex(format=1)}")
+print(f"7) V2 in format=2: {V2.latex(format=2)}")
+
 f = sig_float("300.0", {"s":-1})
-f = round_sig(f, 2)
-print(f.latex(format=2))
-print(f.latex(format=1))
+f = round_sig(f, 4)
+print(f"8) f in format=2: {f.latex(format=2)}")
+print(f"9) f in format=3: {f.latex(format=1)}")
+
+print(RESET + "\nScientific tests: " + GREEN)
+# print("\nScientific tests: ")
+print(f"1) {f.latex(sci=True)}")
+print(f"2) {num1.latex(sci=True)}")
+d = sig_float("123.000", {"m":1})
+print(f"3) {d.latex(sci=True)}")
 
 print(RESET)
