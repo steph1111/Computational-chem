@@ -74,19 +74,20 @@ This module provides the infrastructure to preform calculations that behave acco
 
 A sig_float object is designed to be used in situations in which the user wants to preform calculations which retain the proper significant figures and units. the recommended usage of a sig_float object is is to create variables of type sig_float then use those variables in a mathematical expressions.
 
-**str_num**="0": A string argument containing a numeric value
+**str_num**="0": A string argument containing a numeric value. Scientific notation may also be used with standard python scientific formatting.
 ```python
-sig_float("0.08206")
+R = sig_float("0.08206")
+C = sig_float("3.00e+8", {"m":1, "s":-1})
 ```
 
 **units**=dict(): A dictionary of units in which the key is a string representation of the unit, and the value is the power to which it is raised. Negative exponents may be used.
 ```python
-sig_float("0.08206", {"L":1, "atm":1, "mol":-1, "K":-1})
+R = sig_float("0.08206", {"L":1, "atm":1, "mol":-1, "K":-1})
 ```
 
 **exact**=False: A boolean describing if a number is exact. If exact is set to True, this sig_float will not affect the rounding of operations.
 ```python
-sig_float("0.08206", {"L":1, "atm":1, "mol":-1, "K":-1}, exact=True)
+R = sig_float("0.08206", {"L":1, "atm":1, "mol":-1, "K":-1}, exact=True)
 ```
 
 Usage example
@@ -191,26 +192,26 @@ $\large 0.08206 \; L \cdot atm / mol \cdot K$
 
 *The following sig_float is used in subsequent examples:*
 ```python 
-d = sig_float("123.000", {"m":1})
+C = sig_float("3.00e+8", {"m":1, "s":-1})
 ```
 
 <br>
 
 **sci**=False (default): Number represented in standard format
 ```python
-print(d.latex(sci=False))
-# Outputs: 123.000 \; m
+print(C.latex(sci=False))
+# Outputs: 30\bar{0}000000 \; m \cdot s^{-1}
 ```
-$\large 123.000 \; m$
+$\large 30\bar{0}000000 \; m \cdot s^{-1}$
 
 <br>
 
 **sci**=True (default): Number represented in standard format
 ```python
-print(d.latex(sci=True))
-# Outputs: 1.23000 \times 10^{2} \; m
+print(C.latex(sci=True))
+# Outputs: 3.00 \times 10^{8} \; m \cdot s^{-1}
 ```
-$\large 1.23000 \times 10^{2} \; m$
+$\large 3.00 \times 10^{8} \; m \cdot s^{-1}$
 
 <br>
 
