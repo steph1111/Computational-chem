@@ -19,9 +19,18 @@ import itertools
 # ({"m":2, "kg":1, "s":-3}): "W"
 # }
 
-def digits(num: str) -> int:
-  # Helper function that counts the number of valid digits in a 
-  # string representation of a number
+def _digits(num: str) -> int:
+  """
+  Helper function that counts the number of valid digits in a string 
+  representation of a number
+
+  Parameters:
+    num : str 
+      The number to count the digits of 
+    
+  Returns:
+    THe number of digits in 'num'
+  """
   num_digits = len(num)
   if num.find("-") != -1:
     num_digits -= 1
@@ -65,11 +74,11 @@ def round_sig(number, sig_figs: int):  #->sig_float
       rounded_number += ("0" * (sig_figs - len(rounded_number) - 1))
 
   # Decimal place after the number
-  if digits(rounded_number) == sig_figs and rounded_number[-1] == "0" and no_decimal:
+  if _digits(rounded_number) == sig_figs and rounded_number[-1] == "0" and no_decimal:
     rounded_number += "."
 
   # Distinguish significant digit with overline
-  if digits(rounded_number) > sig_figs and rounded_number[sig_figs - 1] == "0" and sig_figs - 1 != 0:
+  if _digits(rounded_number) > sig_figs and rounded_number[sig_figs - 1] == "0" and sig_figs - 1 != 0:
     rounded_number = rounded_number[:sig_figs - 1] + "0̅" + rounded_number[sig_figs:]
 
   # Build the return sig_float
@@ -116,7 +125,7 @@ class sig_float:
     self._float = float(str_num) if float_num == None else float_num
     e_index = str_num.find("e")
     if e_index != -1: # The number is in scientific
-      self._sig_figs = digits(str_num[:e_index])
+      self._sig_figs = _digits(str_num[:e_index])
       self._str = sig_float._surpress_sci(str_num, self._sig_figs)
     else:
       self._str = str_num
