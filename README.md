@@ -50,6 +50,7 @@ FIXME
   <summary>Modules table of contents</summary>
   <ol>
     <li><a href="#sig_float-">sig_float</a>
+    <li><a href="#sig_constants-">sig_constants</a>
   </ol>
 </details>
 <br>
@@ -60,6 +61,12 @@ This module provides the infrastructure to preform calculations that behave acco
 
 <br>
 
+### [sig_constants »](https://github.com/steph1111/PRECISE/blob/main/sig_constants/sig_constants.py)
+This module provides several commonly used constants of type [sig_float](https://github.com/steph1111/PERCISE/tree/main/sig_float).
+
+<br>
+
+---
 ## License
 
 This work is licensed under a
