@@ -1,46 +1,31 @@
 #!/usr/bin/env python3
 import textwrap, random
 from sigfig import round
-from math import log10
+
+def generate_choice(base, exponent, variation=2, exp_variation=4):
+	mantissa_variation = round(base + random.uniform(-variation, variation), sigfigs=3)
+	exponent_variation = exponent + random.randint(-exp_variation, exp_variation)
+	return f"${mantissa_variation} \\times 10^{{{exponent_variation}}}$"
 
 random.seed()
-for x in range(1, 51, 1):
-	a = random.uniform(1, 14)		#mantissa
+for question_number in range(1, 51):
+	mantissa = random.uniform(1, 14)
+	pH_value = round(mantissa, sigfigs=3)
+	H3O_calculation = pow(10, -pH_value)
+	scientific_notation = round(H3O_calculation, sigfigs=3, notation='sci')
+	mantissa_str, exponent_str = str(scientific_notation).split('E')
+	correct_answer = f"${mantissa_str} \\times 10^{{{exponent_str}}}$"
+	mantissa_float = float(mantissa_str)
+	exponent_int = int(exponent_str)
 	
-	g = round(a, sigfigs=3)
-
-	calculation = pow(10, -g)
+	incorrect_answers = [generate_choice(mantissa_float, exponent_int) for _ in range(4)]
 	
-	r = round(calculation, sigfigs=3, notation='sci')
-	
-	qwe = str(r)
-	
-	m = qwe.split('E')
-
-	rty = "$" + m[0] + "\\times 10^{" + m[1] + "}$"
-	
-	n = round(float(m[0]) + random.uniform(-2,2), sigfigs=3)
-	o = int(m[1]) + random.randint(-4, 4)
-	p = "$" + str(n) + "\\times 10^{" + str(o) + "}$"
-
-	q = round(float(m[0]) + random.uniform(-2,2), sigfigs=3)
-	r = int(m[1]) + random.randint(-4, 4)
-	s = "$" + str(q) + "\\times 10^{" + str(r) + "}$"
-	
-	t = round(float(m[0]) + random.uniform(-2,2), sigfigs=3)
-	u = int(m[1]) + random.randint(-4, 4)
-	v = "$" + str(t) + "\\times 10^{" + str(u) + "}$"
-	
-	w = round(float(m[0]) + random.uniform(-2,2), sigfigs=3)
-	z = int(m[1]) + random.randint(-4, 4)
-	y = "$" + str(w) + "\\times 10^{" + str(z) + "}$"
-
 	print(textwrap.dedent(rf"""
-		{x}. Calculate the $[\text{{H}}_3\text{{O}}^{{+}}]$ of a solution with pH ${g}$.
-		[*] {rty}
-		[] {p}
-		[] {s}
-		[] {v}
-		[] {y}
+		{question_number}. Calculate the $[\text{{H}}_3\text{{O}}^{{+}}]$ of a solution with pH ${pH_value}$.
+		[*] {correct_answer}
+		[] {incorrect_answers[0]}
+		[] {incorrect_answers[1]}
+		[] {incorrect_answers[2]}
+		[] {incorrect_answers[3]}
 		"""))
 	
