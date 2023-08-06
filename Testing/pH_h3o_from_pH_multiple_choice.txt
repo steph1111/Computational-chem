@@ -1,0 +1,383 @@
+GROUP
+pick: 5 
+points per question: 1
+
+1. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $6.11$.
+[*] $7.76\times 10^{-7}$
+[] $9.13\times 10^{-9}$
+[] $9.42\times 10^{-6}$
+[] $8.36\times 10^{-7}$
+[] $6.33\times 10^{-5}$
+
+
+2. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $8.18$.
+[*] $6.61\times 10^{-9}$
+[] $7.77\times 10^{-5}$
+[] $6.9\times 10^{-8}$
+[] $8.43\times 10^{-7}$
+[] $5.0\times 10^{-9}$
+
+
+3. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $6.6$.
+[*] $2.51\times 10^{-7}$
+[] $2.88\times 10^{-9}$
+[] $1.73\times 10^{-10}$
+[] $2.99\times 10^{-11}$
+[] $3.02\times 10^{-6}$
+
+
+4. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $7.69$.
+[*] $2.04\times 10^{-8}$
+[] $3.19\times 10^{-8}$
+[] $1.58\times 10^{-12}$
+[] $3.3\times 10^{-6}$
+[] $2.26\times 10^{-10}$
+
+
+5. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $3.69$.
+[*] $2.04\times 10^{-4}$
+[] $3.53\times 10^{-1}$
+[] $3.3\times 10^{-7}$
+[] $2.83\times 10^{-3}$
+[] $2.17\times 10^{-7}$
+
+
+6. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $9.87$.
+[*] $1.35\times 10^{-10}$
+[] $2.42\times 10^{-10}$
+[] $2.8\times 10^{-12}$
+[] $0.133\times 10^{-8}$
+[] $0.848\times 10^{-12}$
+
+
+7. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $3.5$.
+[*] $3.16\times 10^{-4}$
+[] $2.17\times 10^{0}$
+[] $3.45\times 10^{-5}$
+[] $5.11\times 10^{-6}$
+[] $3.83\times 10^{-6}$
+
+
+8. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $8.5$.
+[*] $3.16\times 10^{-9}$
+[] $3.94\times 10^{-11}$
+[] $3.62\times 10^{-10}$
+[] $3.54\times 10^{-12}$
+[] $4.19\times 10^{-6}$
+
+
+9. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $9.52$.
+[*] $3.02\times 10^{-10}$
+[] $2.57\times 10^{-13}$
+[] $4.81\times 10^{-14}$
+[] $2.05\times 10^{-14}$
+[] $4.03\times 10^{-11}$
+
+
+10. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $1.73$.
+[*] $1.86\times 10^{-2}$
+[] $0.322\times 10^{2}$
+[] $3.44\times 10^{-5}$
+[] $2.24\times 10^{-6}$
+[] $0.832\times 10^{-3}$
+
+
+11. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $5.27$.
+[*] $5.37\times 10^{-6}$
+[] $6.84\times 10^{-6}$
+[] $3.4\times 10^{-10}$
+[] $4.16\times 10^{-8}$
+[] $3.88\times 10^{-2}$
+
+
+12. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $12.8$.
+[*] $1.58\times 10^{-13}$
+[] $0.304\times 10^{-10}$
+[] $1.83\times 10^{-17}$
+[] $0.366\times 10^{-16}$
+[] $-0.316\times 10^{-10}$
+
+
+13. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $11.6$.
+[*] $2.51\times 10^{-12}$
+[] $4.31\times 10^{-15}$
+[] $3.39\times 10^{-8}$
+[] $1.36\times 10^{-16}$
+[] $4.22\times 10^{-10}$
+
+
+14. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $6.37$.
+[*] $4.27\times 10^{-7}$
+[] $5.36\times 10^{-11}$
+[] $4.8\times 10^{-9}$
+[] $5.53\times 10^{-7}$
+[] $3.68\times 10^{-7}$
+
+
+15. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $12.5$.
+[*] $3.16\times 10^{-13}$
+[] $3.91\times 10^{-13}$
+[] $1.7\times 10^{-16}$
+[] $1.85\times 10^{-10}$
+[] $4.81\times 10^{-12}$
+
+
+16. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $11.7$.
+[*] $2.00\times 10^{-12}$
+[] $1.03\times 10^{-15}$
+[] $0.739\times 10^{-13}$
+[] $3.39\times 10^{-8}$
+[] $1.72\times 10^{-12}$
+
+
+17. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $13.5$.
+[*] $3.16\times 10^{-14}$
+[] $1.86\times 10^{-16}$
+[] $2.94\times 10^{-18}$
+[] $3.4\times 10^{-11}$
+[] $2.35\times 10^{-12}$
+
+
+18. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $13.6$.
+[*] $2.51\times 10^{-14}$
+[] $1.75\times 10^{-17}$
+[] $4.43\times 10^{-17}$
+[] $3.28\times 10^{-14}$
+[] $1.99\times 10^{-17}$
+
+
+19. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $11.3$.
+[*] $5.01\times 10^{-12}$
+[] $6.27\times 10^{-13}$
+[] $3.5\times 10^{-10}$
+[] $5.55\times 10^{-14}$
+[] $6.2\times 10^{-9}$
+
+
+20. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $1.07$.
+[*] $8.51\times 10^{-2}$
+[] $10.3\times 10^{0}$
+[] $9.05\times 10^{0}$
+[] $8.55\times 10^{-1}$
+[] $6.81\times 10^{-3}$
+
+
+21. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $7.12$.
+[*] $7.59\times 10^{-8}$
+[] $5.96\times 10^{-7}$
+[] $9.01\times 10^{-12}$
+[] $8.09\times 10^{-5}$
+[] $7.56\times 10^{-10}$
+
+
+22. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $10.2$.
+[*] $6.31\times 10^{-11}$
+[] $6.15\times 10^{-13}$
+[] $4.79\times 10^{-15}$
+[] $4.68\times 10^{-12}$
+[] $5.78\times 10^{-8}$
+
+
+23. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $10.9$.
+[*] $1.26\times 10^{-11}$
+[] $0.96\times 10^{-12}$
+[] $0.829\times 10^{-11}$
+[] $1.71\times 10^{-13}$
+[] $0.0807\times 10^{-9}$
+
+
+24. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $3.61$.
+[*] $2.45\times 10^{-4}$
+[] $1.45\times 10^{-3}$
+[] $2.28\times 10^{0}$
+[] $1.68\times 10^{-8}$
+[] $3.61\times 10^{-1}$
+
+
+25. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $5.56$.
+[*] $2.75\times 10^{-6}$
+[] $3.07\times 10^{-4}$
+[] $1.82\times 10^{-9}$
+[] $1.56\times 10^{-7}$
+[] $1.93\times 10^{-9}$
+
+
+26. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $10.6$.
+[*] $2.51\times 10^{-11}$
+[] $3.66\times 10^{-13}$
+[] $2.39\times 10^{-11}$
+[] $0.993\times 10^{-7}$
+[] $2.99\times 10^{-11}$
+
+
+27. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $5.5$.
+[*] $3.16\times 10^{-6}$
+[] $4.41\times 10^{-4}$
+[] $1.49\times 10^{-4}$
+[] $1.27\times 10^{-7}$
+[] $2.26\times 10^{-9}$
+
+
+28. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $1.22$.
+[*] $6.03\times 10^{-2}$
+[] $6.27\times 10^{2}$
+[] $7.84\times 10^{1}$
+[] $5.48\times 10^{-4}$
+[] $6.02\times 10^{-5}$
+
+
+29. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $6.63$.
+[*] $2.34\times 10^{-7}$
+[] $0.794\times 10^{-11}$
+[] $0.979\times 10^{-5}$
+[] $1.85\times 10^{-3}$
+[] $2.05\times 10^{-3}$
+
+
+30. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $6.78$.
+[*] $1.66\times 10^{-7}$
+[] $3.02\times 10^{-5}$
+[] $1.89\times 10^{-11}$
+[] $0.856\times 10^{-6}$
+[] $1.2\times 10^{-7}$
+
+
+31. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $8.17$.
+[*] $6.76\times 10^{-9}$
+[] $6.94\times 10^{-6}$
+[] $8.33\times 10^{-13}$
+[] $6.07\times 10^{-13}$
+[] $4.81\times 10^{-6}$
+
+
+32. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $5.94$.
+[*] $1.15\times 10^{-6}$
+[] $1.02\times 10^{-2}$
+[] $1.69\times 10^{-8}$
+[] $1.17\times 10^{-9}$
+[] $2.79\times 10^{-2}$
+
+
+33. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $4.8$.
+[*] $1.58\times 10^{-5}$
+[] $2.61\times 10^{-9}$
+[] $1.41\times 10^{-5}$
+[] $-0.305\times 10^{-8}$
+[] $1.95\times 10^{-8}$
+
+
+35. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $3.23$.
+[*] $5.89\times 10^{-4}$
+[] $5.83\times 10^{-1}$
+[] $7.82\times 10^{-2}$
+[] $7.58\times 10^{-2}$
+[] $5.83\times 10^{-3}$
+
+
+36. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $6.68$.
+[*] $2.09\times 10^{-7}$
+[] $3.59\times 10^{-5}$
+[] $0.609\times 10^{-10}$
+[] $2.38\times 10^{-7}$
+[] $1.08\times 10^{-6}$
+
+
+37. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $12.1$.
+[*] $7.94\times 10^{-13}$
+[] $8.96\times 10^{-17}$
+[] $6.46\times 10^{-15}$
+[] $7.45\times 10^{-13}$
+[] $9.48\times 10^{-11}$
+
+
+38. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $6.65$.
+[*] $2.24\times 10^{-7}$
+[] $2.11\times 10^{-8}$
+[] $0.709\times 10^{-6}$
+[] $2.77\times 10^{-11}$
+[] $3.38\times 10^{-4}$
+
+
+39. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $5.6$.
+[*] $2.51\times 10^{-6}$
+[] $4.01\times 10^{-9}$
+[] $1.43\times 10^{-7}$
+[] $2.66\times 10^{-3}$
+[] $3.74\times 10^{-2}$
+
+
+40. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $9.05$.
+[*] $8.91\times 10^{-10}$
+[] $10.5\times 10^{-7}$
+[] $7.15\times 10^{-9}$
+[] $10.4\times 10^{-11}$
+[] $8.83\times 10^{-13}$
+
+
+
+42. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $7.52$.
+[*] $3.02\times 10^{-8}$
+[] $1.18\times 10^{-8}$
+[] $2.38\times 10^{-7}$
+[] $3.39\times 10^{-12}$
+[] $3.62\times 10^{-12}$
+
+
+43. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $6.46$.
+[*] $3.47\times 10^{-7}$
+[] $1.7\times 10^{-4}$
+[] $2.68\times 10^{-3}$
+[] $4.79\times 10^{-4}$
+[] $4.61\times 10^{-9}$
+
+
+44. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $3.8$.
+[*] $1.58\times 10^{-4}$
+[] $1.39\times 10^{-4}$
+[] $2.75\times 10^{-5}$
+[] $0.26\times 10^{-5}$
+[] $1.15\times 10^{-6}$
+
+
+45. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $5.53$.
+[*] $2.95\times 10^{-6}$
+[] $1.96\times 10^{-2}$
+[] $1.98\times 10^{-10}$
+[] $2.01\times 10^{-4}$
+[] $2.33\times 10^{-3}$
+
+
+47. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $6.28$.
+[*] $5.25\times 10^{-7}$
+[] $4.79\times 10^{-10}$
+[] $4.66\times 10^{-4}$
+[] $6.19\times 10^{-9}$
+[] $3.53\times 10^{-3}$
+
+
+48. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $7.66$.
+[*] $2.19\times 10^{-8}$
+[] $3.11\times 10^{-11}$
+[] $2.4\times 10^{-4}$
+[] $0.479\times 10^{-6}$
+[] $3.14\times 10^{-4}$
+
+
+49. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $11.5$.
+[*] $3.16\times 10^{-12}$
+[] $3.16\times 10^{-8}$
+[] $1.72\times 10^{-11}$
+[] $1.35\times 10^{-13}$
+[] $4.66\times 10^{-10}$
+
+
+50. Calculate the $[\text{H}_3\text{O}^{+}]$ of a solution with pH $4.25$.
+[*] $5.62\times 10^{-5}$
+[] $6.09\times 10^{-4}$
+[] $6.37\times 10^{-9}$
+[] $6.49\times 10^{-1}$
+[] $5.65\times 10^{-4}$
+
+
+
+END_GROUP
