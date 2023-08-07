@@ -48,19 +48,20 @@ FIXME
   <summary>Modules table of contents</summary>
   <ol>
     <li><a href="#sig_float-">sig_float</a>
-    <li><a href="#sig_constants-">sig_constants</a>
+    <li><a href="#sig_constants-">sig_const</a>
   </ol>
 </details>
 <br>
 
-### [sig_float »](https://github.com/steph1111/PRECISE#sig_float)
+<a href="#sig_float">sig_float » </a>
 
 This module provides the infrastructure to preform calculations that behave according to significant figure rules. An instance of the sig_float class may be added, subtracted, multiplied, or divided with another sig_float using standard operators. The resultant will retain the proper number of significant figures. Units can optionally be provided.
 
 <br>
 
-### [sig_constants »](https://github.com/steph1111/PRECISE#sig_const)
-This module provides several commonly used constants of type [sig_float](https://github.com/steph1111/PERCISE/tree/main/sig_float).
+<a href="#sig_const">sig_const »</a>
+
+This module provides several commonly used constants of type `sig_float`.
 
 <br>
 
