@@ -43,16 +43,6 @@ FIXME
 
 ---
 ## Available modules
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Modules table of contents</summary>
-  <ol>
-    <li><a href="#sig_float-">sig_float</a>
-    <li><a href="#sig_constants-">sig_const</a>
-  </ol>
-</details>
-<br>
-
 <a href="#sig_float">sig_float » </a>
 
 This module provides the infrastructure to preform calculations that behave according to significant figure rules. An instance of the sig_float class may be added, subtracted, multiplied, or divided with another sig_float using standard operators. The resultant will retain the proper number of significant figures. Units can optionally be provided.
