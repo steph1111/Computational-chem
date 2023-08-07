@@ -1,0 +1,204 @@
+GROUP
+pick: 5 
+points per question: 1
+
+1. A gas with a mass of $101.09\text{g}$ occupies $49.4\text{L}$ at $672\text{mmHg}$ and $25.8\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 56.778 +- 2.839
+
+
+2. A gas with a mass of $106.44\text{g}$ occupies $35.4\text{L}$ at $647\text{mmHg}$ and $27.3\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 86.954 +- 4.348
+
+
+3. A gas with a mass of $114.35\text{g}$ occupies $35.4\text{L}$ at $609\text{mmHg}$ and $23.4\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 97.976 +- 4.899
+
+
+4. A gas with a mass of $93.85\text{g}$ occupies $31.7\text{L}$ at $645\text{mmHg}$ and $22.7\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 84.639 +- 4.232
+
+
+5. A gas with a mass of $105.26\text{g}$ occupies $50.0\text{L}$ at $789\text{mmHg}$ and $21.5\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 49.1 +- 2.455
+
+
+6. A gas with a mass of $115.37\text{g}$ occupies $49.0\text{L}$ at $780\text{mmHg}$ and $24.7\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 56.07 +- 2.804
+
+
+7. A gas with a mass of $108.15\text{g}$ occupies $35.3\text{L}$ at $659\text{mmHg}$ and $22.3\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 85.627 +- 4.281
+
+
+8. A gas with a mass of $95.25\text{g}$ occupies $41.8\text{L}$ at $758\text{mmHg}$ and $33.2\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 57.407 +- 2.87
+
+
+9. A gas with a mass of $95.14\text{g}$ occupies $48.8\text{L}$ at $659\text{mmHg}$ and $25.3\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 55.09 +- 2.755
+
+
+10. A gas with a mass of $112.68\text{g}$ occupies $44.8\text{L}$ at $680\text{mmHg}$ and $25.3\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 68.88 +- 3.444
+
+
+11. A gas with a mass of $98.16\text{g}$ occupies $49.0\text{L}$ at $707\text{mmHg}$ and $28.5\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 53.338 +- 2.667
+
+
+12. A gas with a mass of $105.87\text{g}$ occupies $36.1\text{L}$ at $715\text{mmHg}$ and $34.1\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 78.661 +- 3.933
+
+
+13. A gas with a mass of $93.58\text{g}$ occupies $45.9\text{L}$ at $708\text{mmHg}$ and $28.8\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 54.235 +- 2.712
+
+
+14. A gas with a mass of $98.91\text{g}$ occupies $33.5\text{L}$ at $620\text{mmHg}$ and $34.3\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 91.15 +- 4.558
+
+
+15. A gas with a mass of $107.19\text{g}$ occupies $31.4\text{L}$ at $753\text{mmHg}$ and $35.0\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 87.12 +- 4.356
+
+
+16. A gas with a mass of $92.30\text{g}$ occupies $48.3\text{L}$ at $658\text{mmHg}$ and $39.9\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 56.74 +- 2.837
+
+
+17. A gas with a mass of $113.68\text{g}$ occupies $43.2\text{L}$ at $602\text{mmHg}$ and $27.4\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 81.995 +- 4.1
+
+
+18. A gas with a mass of $106.32\text{g}$ occupies $49.4\text{L}$ at $624\text{mmHg}$ and $29.5\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 65.08 +- 3.254
+
+
+19. A gas with a mass of $90.36\text{g}$ occupies $41.4\text{L}$ at $619\text{mmHg}$ and $22.4\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 64.923 +- 3.246
+
+
+20. A gas with a mass of $118.40\text{g}$ occupies $46.5\text{L}$ at $655\text{mmHg}$ and $22.1\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 71.548 +- 3.577
+
+
+21. A gas with a mass of $113.81\text{g}$ occupies $32.1\text{L}$ at $655\text{mmHg}$ and $36.7\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 104.721 +- 5.236
+
+
+22. A gas with a mass of $94.74\text{g}$ occupies $34.3\text{L}$ at $671\text{mmHg}$ and $34.9\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 79.096 +- 3.955
+
+
+23. A gas with a mass of $93.75\text{g}$ occupies $33.9\text{L}$ at $607\text{mmHg}$ and $26.9\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 85.145 +- 4.257
+
+
+24. A gas with a mass of $105.64\text{g}$ occupies $31.5\text{L}$ at $715\text{mmHg}$ and $25.7\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 87.396 +- 4.37
+
+
+25. A gas with a mass of $105.00\text{g}$ occupies $44.5\text{L}$ at $772\text{mmHg}$ and $36.5\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 58.988 +- 2.949
+
+
+26. A gas with a mass of $115.24\text{g}$ occupies $46.0\text{L}$ at $645\text{mmHg}$ and $35.3\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 74.707 +- 3.735
+
+
+27. A gas with a mass of $114.23\text{g}$ occupies $37.9\text{L}$ at $635\text{mmHg}$ and $24.8\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 88.268 +- 4.413
+
+
+28. A gas with a mass of $106.95\text{g}$ occupies $41.0\text{L}$ at $693\text{mmHg}$ and $27.1\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 70.592 +- 3.53
+
+
+29. A gas with a mass of $108.85\text{g}$ occupies $33.3\text{L}$ at $782\text{mmHg}$ and $35.9\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 80.599 +- 4.03
+
+
+30. A gas with a mass of $114.31\text{g}$ occupies $44.6\text{L}$ at $720\text{mmHg}$ and $23.2\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 65.85 +- 3.292
+
+
+31. A gas with a mass of $97.07\text{g}$ occupies $42.0\text{L}$ at $774\text{mmHg}$ and $20.3\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 54.66 +- 2.733
+
+
+32. A gas with a mass of $98.72\text{g}$ occupies $47.0\text{L}$ at $754\text{mmHg}$ and $25.7\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 52.01 +- 2.601
+
+
+33. A gas with a mass of $115.33\text{g}$ occupies $37.5\text{L}$ at $623\text{mmHg}$ and $27.6\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 92.736 +- 4.637
+
+
+34. A gas with a mass of $113.29\text{g}$ occupies $36.3\text{L}$ at $677\text{mmHg}$ and $23.1\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 85.108 +- 4.255
+
+
+35. A gas with a mass of $93.65\text{g}$ occupies $47.8\text{L}$ at $734\text{mmHg}$ and $32.7\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 50.926 +- 2.546
+
+
+36. A gas with a mass of $118.80\text{g}$ occupies $32.9\text{L}$ at $647\text{mmHg}$ and $32.0\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 106.15 +- 5.308
+
+
+37. A gas with a mass of $117.94\text{g}$ occupies $37.2\text{L}$ at $766\text{mmHg}$ and $29.4\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 78.115 +- 3.906
+
+
+38. A gas with a mass of $92.75\text{g}$ occupies $44.1\text{L}$ at $791\text{mmHg}$ and $23.5\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 49.199 +- 2.46
+
+
+39. A gas with a mass of $100.80\text{g}$ occupies $31.4\text{L}$ at $715\text{mmHg}$ and $26.9\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 84.178 +- 4.209
+
+
+40. A gas with a mass of $92.61\text{g}$ occupies $41.5\text{L}$ at $749\text{mmHg}$ and $23.8\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 55.158 +- 2.758
+
+
+41. A gas with a mass of $119.73\text{g}$ occupies $34.8\text{L}$ at $623\text{mmHg}$ and $20.4\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 101.13 +- 5.056
+
+
+42. A gas with a mass of $94.78\text{g}$ occupies $33.6\text{L}$ at $687\text{mmHg}$ and $34.1\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 78.659 +- 3.933
+
+
+43. A gas with a mass of $109.11\text{g}$ occupies $48.8\text{L}$ at $797\text{mmHg}$ and $31.3\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 53.27 +- 2.664
+
+
+44. A gas with a mass of $102.60\text{g}$ occupies $31.7\text{L}$ at $631\text{mmHg}$ and $30.1\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 96.95 +- 4.848
+
+
+45. A gas with a mass of $110.23\text{g}$ occupies $48.9\text{L}$ at $728\text{mmHg}$ and $24.2\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 57.382 +- 2.869
+
+
+46. A gas with a mass of $109.33\text{g}$ occupies $38.5\text{L}$ at $605\text{mmHg}$ and $29.8\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 88.794 +- 4.44
+
+
+47. A gas with a mass of $95.44\text{g}$ occupies $46.2\text{L}$ at $794\text{mmHg}$ and $37.3\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 50.428 +- 2.521
+
+
+48. A gas with a mass of $102.65\text{g}$ occupies $39.5\text{L}$ at $760\text{mmHg}$ and $26.3\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 63.87 +- 3.194
+
+
+49. A gas with a mass of $94.35\text{g}$ occupies $41.7\text{L}$ at $743\text{mmHg}$ and $34.5\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 58.394 +- 2.92
+
+
+50. A gas with a mass of $91.12\text{g}$ occupies $31.7\text{L}$ at $616\text{mmHg}$ and $23.7\text{°C}$. What is its molecular weight?<br /> <br /> Use $0.08206\cdot\text{L}\cdot\text{atm}\cdot\text{K}^{-1}\cdot\text{mol}^{-1}$ for your gas constant.<br /><br />Express your answer in the correct units, but enter only the numeric portion into Canvas. <br /> <br /> **Be sure to use correct sig. figs!**
+= 86.359 +- 4.318
+
+END_GROUP
