@@ -123,12 +123,11 @@ class sig_float:
     
     self._units = units
     self._exact = exact
-    self._float = float(str_num) if float_num == None else float_num
-    e_index = str_num.find("e")
-    if e_index != -1: # The number is in scientific
-      self._sig_figs = _digits(str_num[:e_index])
-      self._str = sig_float._surpress_sci(str_num, self._sig_figs)
-    else:
+    self._float = float(str_num) if float_num is None else float_num # Should ALWAYS be None for users. The option to assign a float value is used internally only 
+    if str_num.find("e") != -1: # The number is in scientific
+      self._sig_figs = _digits(str_num.split("e")[0]) # Count the number of digits in the coefficient. All are significant
+      self._str = sig_float._surpress_sci(str_num, self._sig_figs) # Surpresses scientific notation for the string interpretation
+    else: # Not scientific
       self._str = str_num
       self._sig_figs = self.sig_figs() 
     self._precision = self.precision()
@@ -147,8 +146,8 @@ class sig_float:
     Returns:
       A formatted string representation of x in standard notation 
     """
-    exp = int(x[x.find("e")+1:]) # Exponent integer
-    coef = x[:x.find("e")] # Coefficient 
+    coef, exp = x.split("e")  # Split coefficient and exponent on e character 
+    exp = int(exp)  # Exponent must be an int for math to happen
     
     # Precision for string formatter
     prec = sig_figs + abs(exp) - 1 if exp < 0 else sig_figs - exp - 1 if exp < sig_figs else 0
@@ -258,8 +257,6 @@ class sig_float:
       Returns:
         A string representation of the sig_float formatted with LaTeX
     """
-    # TODO: Finish this
-    # If sci is not specified
     if sci is None:
       digits = _digits(self._str)
       leading = digits - len(self._str.lstrip("0."))
@@ -315,16 +312,16 @@ class sig_float:
       A string of the sig_float in scientific notation 
     """
     scientific_notation = "{:e}".format(self._float)  # Python's builtin scientific notation conversion
-    index = scientific_notation.find("e")  # Find the index of e to split on
+    temp_coef, temp_exp = scientific_notation.split("e")  # Split coefficient and exponent on e character
     if self._sig_figs > 1:
-      coefficient_temp = str(round(float(scientific_notation[:index]), self._sig_figs - 1)) # Split and round it
-      coefficient = coefficient_temp if len(coefficient_temp) - 1 == self._sig_figs else coefficient_temp + "0" * (
-          self._sig_figs - (len(coefficient_temp) - 1))  # Add extra zeros if needed
+      rounded_coef = str(round(float(temp_coef), self._sig_figs - 1)) # Round coefficient
+      coef = rounded_coef if len(rounded_coef) - 1 == self._sig_figs else rounded_coef + "0" * (
+          self._sig_figs - (len(rounded_coef) - 1))  # Add extra zeros if needed
     else:
-      coefficient = str(int(float(scientific_notation[:index])))
-    exp = str(int(scientific_notation[index + 1:]))  # Split exponent
+      coef = str(int(float(temp_coef)))
+    exp = str(int(temp_exp))  # Exponent
 
-    return coefficient + " \\times 10^{" + exp + "}" if exp != "0" else self._str
+    return coef + " \\times 10^{" + exp + "}" if exp != "0" else self._str
 
   def exact(self) -> bool:
     """
