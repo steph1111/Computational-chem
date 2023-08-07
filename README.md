@@ -53,13 +53,13 @@ FIXME
 </details>
 <br>
 
-### [sig_float »]()
+### [sig_float »](https://github.com/steph1111/PRECISE#sig_float)
 
 This module provides the infrastructure to preform calculations that behave according to significant figure rules. An instance of the sig_float class may be added, subtracted, multiplied, or divided with another sig_float using standard operators. The resultant will retain the proper number of significant figures. Units can optionally be provided.
 
 <br>
 
-### [sig_constants »]()
+### [sig_constants »](https://github.com/steph1111/PRECISE#sig_const)
 This module provides several commonly used constants of type [sig_float](https://github.com/steph1111/PERCISE/tree/main/sig_float).
 
 <br>
@@ -75,16 +75,11 @@ This module provides the infrastructure to preform calculations that behave acco
 ---
 ## Getting Started
 
-1. Clone the repo
-   ```sh
-   # FIXME
-   ```
-2. Import the sig_float class and round_sig function to your workspace 
-   ```python
-    from sig_float import sig_float
-    from sig_float import round_sig
-   ```
-
+Import the sig_float class and round_sig function to your workspace 
+```python
+from sig_float import sig_float
+from sig_float import round_sig
+```
 <br>
 
 ---
@@ -403,13 +398,17 @@ round_sig(98982.8, 3)
 ```
 
 <br>
----
+
 # sig_const
 
 ## About The Module
 This module provides several commonly used constants of type [sig_float](https://github.com/steph1111/PRECISE/tree/main/sig_float).
 
+<br>
+
 ## Getting started
+
+Import the sig_const class to your workspace 
 ```py
 from precise import sig_const
 ```
