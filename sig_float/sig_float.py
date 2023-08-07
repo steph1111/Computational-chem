@@ -10,6 +10,7 @@ import warnings
 import math
 import itertools
 
+
 # TODO Implement. Non hashable type this does not work
 # DERIVED_UNITS = {
 # ({"s":-1}):"Hz",
@@ -225,9 +226,9 @@ class sig_float:
     Place:     -(543210)1234
     
     Returns: 
-    A interger value in which the precision of decimals is positive, 
-    and a negative number is returned if precise to a whole number value. 
-    Refer to the convention above.
+      A interger value in which the precision of decimals is positive, 
+      and a negative number is returned if precise to a whole number value. 
+      Refer to the convention above.
     """
     index = self._str.find(".")
     if index != -1:
@@ -240,7 +241,7 @@ class sig_float:
         index -= 1
     return index
 
-  def latex(self, format: int = 1, sci: bool = False) -> str:
+  def latex(self, format: int = 1, sci: bool = None) -> str:
     """
     String formatted using LaTeX
 
@@ -249,12 +250,25 @@ class sig_float:
         format=1 (default): Units represented on one line using negative exponents
         format=2: Units represented as a fraction
         format=3: Units represented on one line using a fraction
-      sci : bool = False 
-        If True, uses scientific notation. Otherwise, standard notation is used
+      sci : bool = None 
+        If True, uses scientific notation. If False, does not use scientific. If not
+        provided, scientific is used when the number contains more than `MAX=6` 
+        trailing/leading zeros
 
       Returns:
         A string representation of the sig_float formatted with LaTeX
     """
+    # TODO: Finish this
+    # If sci is not specified
+    if sci is None:
+      digits = _digits(self._str)
+      leading = digits - len(self._str.lstrip("0."))
+      trailing = digits - len(self._str.rstrip("0."))
+      zeros = leading if leading > trailing else trailing  # Maximum number of trailing/leading zeros before sci=True is applied
+      MAX = 6
+      # Determine if scientific notation should be used
+      sci = zeros >= MAX
+
     # If there are any overlined digits, replace them with LaTeX format
     latex_str = self._str.replace("0̅", "\\bar{0}")
 
@@ -302,9 +316,12 @@ class sig_float:
     """
     scientific_notation = "{:e}".format(self._float)  # Python's builtin scientific notation conversion
     index = scientific_notation.find("e")  # Find the index of e to split on
-    coefficient_temp = str(round(float(scientific_notation[:index]), self._sig_figs - 1))  # Split and round it
-    coefficient = coefficient_temp if len(coefficient_temp) - 1 == self._sig_figs else coefficient_temp + "0" * (
-        self._sig_figs - (len(coefficient_temp) - 1))  # Add extra zeros if needed
+    if self._sig_figs > 1:
+      coefficient_temp = str(round(float(scientific_notation[:index]), self._sig_figs - 1)) # Split and round it
+      coefficient = coefficient_temp if len(coefficient_temp) - 1 == self._sig_figs else coefficient_temp + "0" * (
+          self._sig_figs - (len(coefficient_temp) - 1))  # Add extra zeros if needed
+    else:
+      coefficient = str(int(float(scientific_notation[:index])))
     exp = str(int(scientific_notation[index + 1:]))  # Split exponent
 
     return coefficient + " \\times 10^{" + exp + "}" if exp != "0" else self._str
