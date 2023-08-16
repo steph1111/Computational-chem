@@ -1,5 +1,7 @@
-from sig_float import sig_float
-from sig_float import round_sig
+from precise import sig_float
+from precise import round_sig
+# from sig_float import sig_const
+# import sig_float
 
 GREEN = "\033[92m"
 RED = "\033[91m"
@@ -223,5 +225,9 @@ print(f"1) {f.latex(sci=True)}")
 print(f"2) {num1.latex(sci=True)}")
 d = sig_float("123.000", {"m":1})
 print(f"3) {d.latex(sci=True)}")
+
+# # C = sig_float("3.00e+8", {"m":1, "s":-1})
+# # print(C.latex(sci=False))
+# # print(C.latex(sci=True))
 
 print(RESET)
