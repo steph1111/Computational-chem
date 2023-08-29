@@ -1,5 +1,9 @@
 from precise import sig_float
 
+"""
+Defines several common constants of type sig_float
+"""
+
 PI = sig_float("3.141592653589793238462643383279502884197", exact=True)  # Pi
 e = sig_float("2.71828182845904523536028747135266249", exact=True)  # Euler's number
 C = sig_float("299792458", {"m":1, "s":1}, exact=True)  # Speed of light
