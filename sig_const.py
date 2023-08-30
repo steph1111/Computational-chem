@@ -1,3 +1,9 @@
+"""
+https://github.com/steph1111/PRECISE/blob/main/sig_const.py
+Defines several common constants of type sig_float
+"""
+__author__ = "Stephanie L'Heureux"
+
 from precise import sig_float
 
 """
