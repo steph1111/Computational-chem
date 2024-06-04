@@ -1,290 +1,171 @@
-#!/usr/bin/env python3
 """
-https://github.com/steph1111/PRECISE/blob/main/precise.py
-Module sig_float contains the sig_float class--instances 
+Module SigFloat contains the SigFloat class, 
 of numbers that behave according to sig fig rules.
 """
+from itertools import chain
+from math import floor, log10, pow
+
 __author__ = "Stephanie L'Heureux"
 
-import warnings
-import math
-import itertools
 
-
-# TODO Implement. Non hashable type this does not work
-# DERIVED_UNITS = {
-# ({"s":-1}):"Hz",
-# ({"kg":1, "m":1, "s":-2}):"N",
-# ({"kg":1, "m":-1, "s":-2}): "Pa",
-# ({"m":2, "kg":1, "s":-2}): "J",
-# ({"m":2, "kg":1, "s":-3}): "W"
-# }
-
-
-def _digits(num: str) -> int:
+class SigFloat:
     """
-    Helper function that counts the number of valid digits in a string
-    representation of a number
-
-    Parameters:
-      num : str
-        The number to count the digits of
-
-    Returns:
-      THe number of digits in 'num'
-    """
-    num_digits = len(num)
-    if num.find("-") != -1:
-        num_digits -= 1
-    if num.find(".") != -1:
-        num_digits -= 1
-    return num_digits
-
-
-# TODO: REWRITE THIS TO BE BETTER
-def round_sig(number, sig_figs: int):  # ->sig_float
-    """
-    Rounds a number to a certain number of significant figures
-
-    Parameters:
-      number : Type supports float() (includes sig_float)
-        The number to round
-      sig_figs : int
-        THe number of sig figs to round 'number' to
-
-    Returns:
-      'number' rounded to have 'sig_figs' sig figs
-    """
-    # Float representation
-    float_number = float(number)
-
-    # Rounds the number to the correct number of sig figs
-    rounded_number = str(
-        round(
-            float_number, sig_figs - int(math.floor(math.log10(abs(float_number)))) - 1
-        )
-    )
-
-    # Remove trailing decimal python adds
-    if rounded_number[-2:] == ".0" and sig_figs != len(rounded_number) - 1:
-        rounded_number = rounded_number[:-2]
-
-    # Notes if the number has a decimal place
-    no_decimal = rounded_number.find(".") == -1
-
-    # If there should be trailing significant zeros
-    if len(rounded_number) < sig_figs:
-        if no_decimal:
-            rounded_number += "." + (sig_figs - len(rounded_number)) * "0"
-            no_decimal = False
-        else:
-            rounded_number += "0" * (sig_figs - len(rounded_number) - 1)
-
-    # Decimal place after the number
-    if _digits(rounded_number) == sig_figs and rounded_number[-1] == "0" and no_decimal:
-        rounded_number += "."
-
-    # Distinguish significant digit with overline
-    if (
-        _digits(rounded_number) > sig_figs
-        and rounded_number[sig_figs - 1] == "0"
-        and sig_figs - 1 != 0
-    ):
-        rounded_number = (
-            rounded_number[: sig_figs - 1] + "0̅" + rounded_number[sig_figs:]
-        )
-
-    # Build the return sig_float
-    if isinstance(number, sig_float):
-        rounded_sig_float = sig_float(
-            rounded_number, number._units, float_num=float_number
-        )
-    else:
-        rounded_sig_float = sig_float(rounded_number, float_num=float_number)
-    rounded_sig_float._sig_figs = sig_figs
-
-    return rounded_sig_float
-
-
-########################################
-#           SIG FLOAT CLASS            #
-########################################
-class sig_float:
-    """
-    Defines a numerical float-like type that obides to significant figure rules:
-    • All non-zero digits are significant.
-    • All captive zeros are significant.
-    • Trailing zeros are only significant if they
-      follow a decimal point
-    • Leading zeros are never significant.
+    Defines a numerical float-like type that abides to significant figure rules:
+    - All non-zero digits are significant.
+    - All captive zeros are significant.
+    - Trailing zeros are only significant if they follow a decimal point
+    - Leading zeros are never significant.
     """
 
-    def __init__(
-        self,
-        str_num: str = "0",
-        units: dict = dict(),
-        exact: bool = False,
-        float_num: float = None,
-    ) -> None:
+    def __init__(self, str_num: str = "0", units: dict[str, int] = None, exact: bool = False):
         """
-        Initializes a sig_float object
+        Initializes a SigFloat object.
 
-        Parameters:
-        str_num : str = "0"
-          A string of the number to make a sig_float out of
-        units : dict = dict()
-          A dictionary of units and the power to which they are raised.
-          Keys are units and values are powers.
-        exact : bool = False
-          If True, the number is exact and sig figs are infinite. Otherwise (False),
-          sigfigs are determined by standard rules
+        Args:
+            str_num: A string of the number to make a SigFloat out of
+            units: A dictionary of units and the power to which they are raised.
+                Keys are units and values are powers. (optional)
+            exact: If True, the number is exact and sig figs are infinite. Otherwise (False),
+                sig figs are determined by standard rules. (optional)
         """
-        # If the user did not provide a string argument, argument is converted to a string and warning is raised
         if not isinstance(str_num, str):
-            warnings.warn(
-                "Warning: Argument should be of type str", PendingDeprecationWarning
-            )
-            str_num = str(str_num)
+            raise TypeError("Error: Argument str_num must be of type str")
 
-        self._units = units
+        # Replace over-lined zeros with `O` internally
+        str_num.replace("\u03050", "O")
+        str_num.replace("\\bar{0}", "O")
+        str_num.replace("\bar{0}", "O")
+
+        self._units = units if units is not None else {} 
         self._exact = exact
-        self._float = (
-            float(str_num) if float_num is None else float_num
-        )  # Should ALWAYS be None for users. The option to assign a float value is used internally only
-        if str_num.find("e") != -1:  # The number is in scientific
-            self._sig_figs = _digits(
-                str_num.split("e")[0]
-            )  # Count the number of digits in the coefficient. All are significant
-            self._str = sig_float._surpress_sci(
-                str_num, self._sig_figs
-            )  # Surpresses scientific notation for the string interpretation
-        else:  # Not scientific
+
+        temp = str_num
+        self._float = float(str_num.replace("O", "0"))
+        str_num = temp
+
+        # If the number is given in scientific notation
+        if str_num.find("e") != -1:
+            # Count the number of digits in the coefficient. All are significant
+            self._sig_figs = SigFloat._digits(str_num.split("e")[0])
+            self._str = SigFloat._suppress_sci(str_num, self._sig_figs)
+        else:
             self._str = str_num
             self._sig_figs = self.sig_figs()
+
         self._precision = self.precision()
-
-    @staticmethod
-    def _surpress_sci(x: str, sig_figs: int) -> str:
-        """
-        Format a string representation of a number with scientific notation surpressed
-
-        Parameters:
-          x : str
-            The value to be formatted
-          sig_figs : int
-            The number of sig_figs 'x' has
-
-        Returns:
-          A formatted string representation of x in standard notation
-        """
-        coef, exp = x.split("e")  # Split coefficient and exponent on e character
-        exp = int(exp)  # Exponent must be an int for math to happen
-
-        # Precision for string formatter
-        prec = (
-            sig_figs + abs(exp) - 1
-            if exp < 0
-            else sig_figs - exp - 1 if exp < sig_figs else 0
-        )
-
-        # Format x as a string without scientific notation
-        str_num = "{num:.{precision}f}".format(num=float(x), precision=prec)
-
-        # Add overlined zero if needed
-        if coef[-1] == "0" and exp >= sig_figs:
-            str_num = str_num[: sig_figs - 1] + "0̅" + str_num[sig_figs:]
-        elif coef[-1] == "0" and exp + 1 == sig_figs:
-            str_num += "."
-
-        return str_num
 
     def sig_figs(self) -> int:
         """
-        Count the number of sig figs of a sig_float object
+        Count the number of sig figs of a `SigFloat` object.
+        And cleans the string representation.
 
-        Returns:
-          An interger specifying the number of sig_figs in a number
+        Return:
+            An integer specifying the number of sig figs in a number.
         """
-        negative = True if self._str[0] == "-" else False
-
+        neg = self._str[0] == "-"
+        
         # Remove leading zeros and negative
-        self._str = self._str.lstrip("-00̅")
+        self._str = self._str.lstrip("-0O")
 
         # Count the initial sig figs from the front
-        sig_figs_count = len(self._str.lstrip(".0"))
-
-        # Python counts 0̅ as two characters somehow
-        if self._str.find("0̅") != -1:
-            sig_figs_count -= 1
+        count = len(self._str.lstrip(".0"))
 
         # Count the sig figs from the back
-        if self._str.find(".") != -1 and self._str[0] != ".":
-            sig_figs_count -= 1
-        elif self._str.find(".") == -1 and self._str[0] != ".":
-            sig_figs_count -= len(self._str) - len(
-                self._str.rstrip("0")
-            )  # What happens to overlined zeros?? This seems wrong
+        if self._str[0] != ".":
+            if self._str.find(".") != -1:
+                count -= 1
+            else:
+                count -= len(self._str) - len(self._str.rstrip("0"))
+        
+        # Re-build the string representation
+        if self._str[0] == ".":
+            self._str = "0" + self._str
+        if neg:
+            self._str = "-" + self._str
+        
+        return count
 
-        # Re build the string representation
-        self._str = (
-            "-0" + self._str
-            if negative and self._str[0] == "."
-            else (
-                "0" + self._str
-                if self._str[0] == "."
-                else "-" + self._str if negative else self._str
-            )
-        )
-
-        return sig_figs_count
-
-    @staticmethod
-    def _round_precision(val_1: int, val_2: int) -> int:
-        """
-        Given two place values, helper function determines which to round to.
-        Uses the place convention defined in precision()
-        Number:      138828.9823
-        Place:     -(543210)1234
-
-        Parameters:
-          val_1 : int
-            First precision value
-          val_2 : int
-            Second precision value
-
-        Returns:
-          The precision that takes precedence in an operation
-        """
-        if val_1 >= 0 and val_2 >= 0:  # Rounding with two decimals
-            return min(val_1, val_2)
-        elif val_1 <= 0 and val_2 <= 0:  # Rounding with two whole numbers
-            return -max(abs(val_1), abs(val_2))
-        else:  # Rounding with a decimal and a whole number
-            return min(val_1, val_2)
-
-    def precision(self) -> int:
+    def precision(self):
         """
         The number of decimal places to which the number is precise to
         Number:      138828.9823
         Place:     -(543210)1234
 
         Returns:
-          A interger value in which the precision of decimals is positive,
+          A integer value in which the precision of decimals is positive,
           and a negative number is returned if precise to a whole number value.
           Refer to the convention above.
         """
-        index = self._str.find(".")
-        if index != -1:
+        if (index:= self._str.find(".")) != -1:
             return len(self._str) - index - 1
-        else:
-            index = 0
-            for digit in reversed(self._str):
-                if digit != "0":
-                    break
-                index -= 1
+
+        index = 0
+        for digit in reversed(self._str):
+            if digit != "0":
+                break
+            index -= 1
         return index
 
-    def latex(self, format: int = 1, sci: bool = None) -> str:
+    @staticmethod
+    def round_sig(num, sig_figs: int):
+        """
+        Rounds a number to a certain number of significant figures
+
+        Args:
+            num: The number to round
+            sig_figs: The number of sig figs to round `num` to
+
+        Return:
+            `num` rounded to have `sig_figs` sig figs as a SigFloat object.
+        """
+        # Float representation
+        float_num = float(num)
+
+        # Rounds the number to the correct number of sig figs
+        rounded_num = str(
+            round(
+                float_num, sig_figs - int(floor(log10(abs(float_num)))) - 1
+            )
+        )
+
+        # Remove trailing decimal python adds
+        if rounded_num[-2:] == ".0" and sig_figs != len(rounded_num) - 1:
+            rounded_num = rounded_num[:-2]
+        
+        # Notes if the number has a decimal place
+        no_decimal = rounded_num.find(".") == -1
+
+        # If there should be trailing significant zeros
+        if len(rounded_num) < sig_figs:
+            # No decimal point
+            if no_decimal:
+                rounded_num += "." + (sig_figs - len(rounded_num)) * "0"
+                no_decimal = False
+            else:
+                rounded_num += "0" * (sig_figs - len(rounded_num) - 1)
+
+        digits = SigFloat._digits(rounded_num)
+    
+        # Decimal place after the number
+        if digits == sig_figs and rounded_num[-1] == "0" and no_decimal:
+            rounded_num += "."
+        
+        # Distinguish significant digit with overline placeholder O
+        if digits > sig_figs and rounded_num[sig_figs - 1] == "0" and sig_figs - 1 != 0:
+            rounded_num = rounded_num[: sig_figs - 1] + "O" + rounded_num[sig_figs:]
+
+        # Create new SigFloat object of the resultant
+        if isinstance(num, SigFloat):
+            temp = SigFloat(rounded_num, num._units, num._exact)
+        else:
+            temp = SigFloat(rounded_num)
+        temp._float = float_num
+        temp._sig_figs = sig_figs
+
+        return temp
+    
+    # TODO: Refactor
+    def latex(self, format: int = 1, sci: bool = False) -> str:
         """
         String formatted using LaTeX
 
@@ -293,16 +174,16 @@ class sig_float:
             format=1 (default): Units represented on one line using negative exponents
             format=2: Units represented as a fraction
             format=3: Units represented on one line using a fraction
-          sci : bool = None
+          sci : bool = False
             If True, uses scientific notation. If False, does not use scientific. If not
             provided, scientific is used when the number contains more than `MAX=6`
             trailing/leading zeros
 
           Returns:
-            A string representation of the sig_float formatted with LaTeX
+            A string representation of the SigFloat formatted with LaTeX
         """
-        if sci is None:
-            digits = _digits(self._str)
+        if not sci:
+            digits = SigFloat._digits(self._str)
             leading = digits - len(self._str.lstrip("0."))
             trailing = digits - len(self._str.rstrip("0."))
             zeros = (
@@ -313,7 +194,7 @@ class sig_float:
             sci = zeros >= MAX
 
         # If there are any overlined digits, replace them with LaTeX format
-        latex_str = self._str.replace("0̅", "\\bar{0}")
+        latex_str = self._str.replace("O", "\\bar{0}")
 
         if sci:
             latex_str = self._scientific()
@@ -372,12 +253,13 @@ class sig_float:
                     else latex_str + " \; " + pos_units + " / " + neg_units
                 )
 
+    # TODO: Refactor
     def _scientific(self) -> str:
         """
         Helper function that converts to scientific notation
 
         Returns:
-          A string of the sig_float in scientific notation
+          A string of the SigFloat in scientific notation
         """
         scientific_notation = "{:e}".format(
             self._float
@@ -400,266 +282,128 @@ class sig_float:
 
         return coef + " \\times 10^{" + exp + "}" if exp != "0" else self._str
 
-    def exact(self) -> bool:
+
+    def __add__(self, other):
         """
-        Determines if a sig_float is exact
+        Adds two numbers of type SigFloat with + using sig fig rules.
 
-        Returns:
-          True if the sig_float is exact, otherwise False
+        Return:
+            The sum of the values.
         """
-        return self._exact
+        # Ensures both operands are of type SigFloat
+        if not isinstance(other, SigFloat):
+            raise TypeError("Error: Arguments must be of type SigFloat")
 
-    def _clear_units(self) -> None:
-        """
-        Helper function that clears units with value 0
-        """
-        for unit in list(self._units):
-            if self._units[unit] == 0:
-                del self._units[unit]
-
-    def __mul__(self, other):  # ->sig_float
-        """
-        Multiplies two numbers of type sig_float with * using sig fig rules
-
-        Returns:
-          The product of the values
-        """
-        # Ensures both operands are of type sig_float
-        if not isinstance(other, sig_float):
-            other = sig_float(other)
-            warnings.warn(
-                "Warning: Operands should be of type sig_float",
-                PendingDeprecationWarning,
-            )
-
-        # Multiply
-        product = self._float * other._float
-
-        # Create new units of the product
-        new_units = {
-            unit: self._units.get(unit, 0) + other._units.get(unit, 0)
-            for unit in itertools.chain(self._units, other._units)
-        }
-
-        # Choose product sig figs
-        product_sig_figs = (
-            None
-            if self._exact and other._exact
-            else (
-                other._sig_figs
-                if self._exact
-                else (
-                    self._sig_figs
-                    if other._exact
-                    else min(self._sig_figs, other._sig_figs)
-                )
-            )
-        )
-
-        # If both numbers are exact, build return product
-        if product_sig_figs == None:
-            return_product = sig_float(
-                str(product), units=new_units, exact=True, float_num=product
-            )
-        else:
-            # Build return product as a sig_float
-            return_product = round_sig(
-                product, product_sig_figs
-            )  # Rounds to proper sig figs
-            return_product._units = new_units
-        return_product._clear_units()
-
-        return return_product
-
-    def __truediv__(self, other):  # ->sig_float
-        """
-        Divides two numbers of type sig_float with / using sig fig rules
-
-        Returns:
-          The quotient of the values
-        """
-        # Ensures both operands are of type sig_float
-        if not isinstance(other, sig_float):
-            other = sig_float(other)
-            warnings.warn(
-                "Warning: Operands should be of type sig_float",
-                PendingDeprecationWarning,
-            )
-
-        # Divide
-        quotient = self._float / other._float
-
-        # Create new units of the quotient
-        new_units = {
-            unit: self._units.get(unit, 0) - other._units.get(unit, 0)
-            for unit in itertools.chain(self._units, other._units)
-        }
-
-        # Choose quotient sig figs
-        quotient_sig_figs = (
-            None
-            if self._exact and other._exact
-            else (
-                other._sig_figs
-                if self._exact
-                else (
-                    self._sig_figs
-                    if other._exact
-                    else min(self._sig_figs, other._sig_figs)
-                )
-            )
-        )
-
-        # If both numbers are exact, build return quotient
-        if quotient_sig_figs == None:
-            return_quotient = sig_float(
-                str(quotient), units=new_units, exact=True, float_num=quotient
-            )
-        else:
-            # Build return quotient as a sig_float
-            return_quotient = round_sig(
-                quotient, quotient_sig_figs
-            )  # Rounds to proper sig figs
-            return_quotient._units = new_units
-        return_quotient._clear_units()
-
-        return return_quotient
-
-    def __add__(self, other):  # ->sig_float
-        """
-        Adds two numbers of type sig_float with + using sig fig rules
-
-        Returns:
-          The sum of the values
-        """
         # Ensures both operands units are the same
         if self._units != other._units:
             raise Exception("Error: Units must match")
 
-        # Ensures both operands are of type sig_float
-        if not isinstance(other, sig_float):
-            other = sig_float(other)
-            warnings.warn(
-                "Warning: Operands should be of type sig_float",
-                PendingDeprecationWarning,
-            )
+        return self._sum_diff_calc(other, self._float + other._float)
 
-        # Addition using sig fig rules
-        sum = self._float + other._float
-
-        # Choose sum precision
-        sum_precision = (
-            None
-            if self._exact and other._exact
-            else (
-                other._sig_figs
-                if self._exact
-                else (
-                    self._sig_figs
-                    if other._exact
-                    else sig_float._round_precision(self._precision, other._precision)
-                )
-            )
-        )
-
-        # If both numbers are exact
-        if sum_precision == None:
-            return sig_float(str(sum), units=self._units, exact=True, float_num=sum)
-
-        # Round to correct precision
-        temp_str = str(round(sum, sum_precision))
-
-        # Remove trailing decimal python adds
-        if sum_precision <= 0:
-            temp_str = temp_str[:-2]
-
-        return sig_float(temp_str, units=self._units, float_num=sum)
-
-    def __sub__(self, other):  # ->sig_float
+    def __sub__(self, other):
         """
-        Subtracts two numbers of type sig_float with + using sig fig rules
+        Subtracts two numbers of type SigFloat with - using sig fig rules
 
-        Returns:
-          The difference of the values
+        Return:
+            The difference of the values.
         """
+        # Ensures both operands are of type SigFloat
+        if not isinstance(other, SigFloat):
+            raise TypeError("Error: Arguments must be of type SigFloat")
+
         # Ensures both operands units are the same
         if self._units != other._units:
             raise Exception("Error: Units must match")
 
-        # Ensures both operands are of type sig_float
-        if not isinstance(other, sig_float):
-            other = sig_float(other)
-            warnings.warn(
-                "Warning: Operands should be of type sig_float",
-                PendingDeprecationWarning,
-            )
+        return self._sum_diff_calc(other, self._float - other._float)
 
-        # Subtraction using sig fig rules
-        diff = self._float - other._float
-
-        # Choose difference precision
-        diff_precision = (
-            None
-            if self._exact and other._exact
-            else (
-                other._sig_figs
-                if self._exact
-                else (
-                    self._sig_figs
-                    if other._exact
-                    else sig_float._round_precision(self._precision, other._precision)
-                )
-            )
-        )
-
-        # If both numbers are exact
-        if diff_precision == None:
-            return sig_float(str(diff), units=self._units, exact=True, float_num=diff)
-
-        # Round to correct precision
-        temp_str = str(round(diff, diff_precision))
-
-        # Remove trailing decimal python adds
-        if diff_precision <= 0:
-            temp_str = temp_str[:-2]
-
-        return sig_float(temp_str, units=self._units, float_num=diff)
-
-    def __pow__(self, other: int):  # -> sig_float
+    def __mul__(self, other):
         """
-        Raises a sig_float to a power. Intended to be used with floats and ints
+        Multiplies two numbers of type SigFloat with * using sig fig rules
 
-        Returns:
-          The resultant of a sig_float raised to an int
+        Return:
+            The product of the values
         """
-        if isinstance(other, sig_float):
-            product = math.pow(self._float, other._float)
+        # Ensures both operands are of type SigFloat
+        if not isinstance(other, SigFloat):
+            raise TypeError("Error: Arguments must be of type SigFloat")
+
+        return self._prod_quotient_calc(other, self._float * other._float, "*")
+    
+    def __truediv__(self, other):
+        """
+        Divides two numbers of type SigFloat with / using sig fig rules
+
+        Return:
+            The quotient of the values.
+        """
+        # Ensures both operands are of type SigFloat
+        if not isinstance(other, SigFloat):
+            raise TypeError("Error: Arguments must be of type SigFloat")
+
+        return self._prod_quotient_calc(other, self._float / other._float, "/")
+
+    # TODO: This does not work correctly for two SigFloats
+    def __pow__(self, other: int):
+        """
+        Raises a SigFloat to a power. Intended to be used with SigFloat and ints.
+
+        Return:
+          The resultant of a SigFloat raised to an int.
+        """
+        # If instance of SigFloat, use the float attribute
+        if isinstance(other, SigFloat):
             other = other._float
-        else:
-            product = math.pow(self._float, other)
+        
+        resultant = pow(self._float, other)
         other = int(other) if other - int(other) == 0 else other
 
         # Construct new units
         new_units = {unit: self._units.get(unit, 0) * other for unit in self._units}
 
         # Choose sig figs for answer
-        product_sig_figs = None if self._exact else self._sig_figs
+        sig_figs = None if self._exact else self._sig_figs
 
-        # If both numbers are exact, build return product
-        if product_sig_figs == None:
-            return_product = sig_float(
-                str(product), units=new_units, exact=True, float_num=product
-            )
-        else:
-            # Build return product as a sig_float
-            return_product = round_sig(
-                product, product_sig_figs
-            )  # Rounds to proper sig figs
-            return_product._units = new_units
-        return_product._clear_units()
+        # Both numbers are exact
+        if sig_figs is None:
+            temp = SigFloat(str(resultant), units=new_units, exact=True)
+            temp._float = resultant
+        else: # Round the resultant correctly
+            temp = SigFloat.round_sig(resultant, sig_figs)
+            temp._units = new_units
+        
+        temp._clear_units()
+    
+        return temp
 
-        return return_product
 
+    def exact(self) -> bool:
+        """
+        Determines if a SigFloat is exact
+
+        Returns:
+          True if the SigFloat is exact, otherwise False
+        """
+        return self._exact
+
+    def __bool__(self) -> bool:
+        """
+        Applies standard numeric to bool conventions.
+
+        Return:
+            Zero is False, non-zero is True.
+        """
+        return bool(self._float)
+
+    def __float__(self) -> float:
+        """
+        Float representation of the number, may have improper sig figs. Use with caution!!
+
+        Return:
+            Float representation
+        """
+        return self._float
+    
     def __str__(self) -> str:
         """
         String representation of the number with correct sig figs and units.
@@ -668,139 +412,223 @@ class sig_float:
         Returns:
           The return value of the .latex()
         """
-        # temp = self._str + " " + " ".join(
-        #     unit if exponent == 1 else unit + "^" + str(exponent) for unit, exponent in self._units.items())
-        # return temp.strip()
         return self.latex()
-
-    def __bool__(self) -> bool:
-        """
-        Applies standard numeric to bool coversions
-
-        Returns:
-          0 is False, non-zero is True
-        """
-        return bool(self._float)
-
-    def __float__(self) -> float:
-        """
-        Float representation of the number, may have improper sig figs. Use with caution!!
-
-        Returns:
-          Float representation
-        """
-        return self._float
 
     def __repr__(self) -> str:
         """
-        Representation of sig_float for REPL usage
+        Representation of SigFloat for REPL usage
 
         Returns:
-          A string formatted as sig_float('value')
+          A string formatted as SigFloat('value')
         """
         return f"{type(self).__name__}('{self}')"
-
-    def __eq__(self, other) -> bool:
-        """
-        Evaluates if two numbers of type sig_float are equal
-
-        Returns:
-          True if the two values are equal, otherwise False
-        """
-        # TODO: Ask how equality should work
-        raise NotImplementedError("Equality not implicated yet. Todo")
-        if not isinstance(other, sig_float):
-            other = sig_float(other)
-            warnings.warn(
-                "Warning: Operands should be of type sig_float",
-                PendingDeprecationWarning,
-            )
-
-        return self._str == other._str
-
-    def __ne__(self, other) -> bool:
-        """
-        Evaluates if two numbers of type sig_float are not equal
-
-        Returns:
-          True if the two values are not equal, otherwise False
-        """
-        raise NotImplementedError("Not equal not implicated yet. Todo")
-        if not isinstance(other, sig_float):
-            other = sig_float(other)
-            warnings.warn(
-                "Warning: Operands should be of type sig_float",
-                PendingDeprecationWarning,
-            )
-
-        return self._str != other._str
-
+    
     def __lt__(self, other) -> bool:
         """
         Evaluates if a number is less than another number.
-        Numbers should be of type sig_float
+        Numbers should be of type SigFloat
         """
-        if not isinstance(other, sig_float):
-            other = sig_float(other)
-            warnings.warn(
-                "Warning: Operands should be of type sig_float",
-                PendingDeprecationWarning,
-            )
+        if not isinstance(other, SigFloat):
+            raise TypeError("Error: Arguments must be of type SigFloat")
 
         return self._float < other._float
 
     def __le__(self, other) -> bool:
         """
         Evaluates if a number is less or equal to than another number.
-        Numbers should be of type sig_float
+        Numbers should be of type SigFloat
         """
-        if not isinstance(other, sig_float):
-            other = sig_float(other)
-            warnings.warn(
-                "Warning: Operands should be of type sig_float",
-                PendingDeprecationWarning,
-            )
+        if not isinstance(other, SigFloat):
+            raise TypeError("Error: Arguments must be of type SigFloat")
 
         return self._float <= other._float
 
     def __gt__(self, other) -> bool:
         """
         Evaluates if a number is greater than another number.
-        Numbers should be of type sig_float
+        Numbers should be of type SigFloat
         """
-        if not isinstance(other, sig_float):
-            other = sig_float(other)
-            warnings.warn(
-                "Warning: Operands should be of type sig_float",
-                PendingDeprecationWarning,
-            )
+        if not isinstance(other, SigFloat):
+            raise TypeError("Error: Arguments must be of type SigFloat")
 
         return self._float > other._float
 
     def __ge__(self, other) -> bool:
         """
         Evaluates if a number is greater than or equal to another number.
-        Numbers should be of type sig_float
+        Numbers should be of type SigFloat
         """
-        if not isinstance(other, sig_float):
-            other = sig_float(other)
-            warnings.warn(
-                "Warning: Operands should be of type sig_float",
-                PendingDeprecationWarning,
-            )
+        if not isinstance(other, SigFloat):
+            raise TypeError("Error: Arguments must be of type SigFloat")
 
         return self._float >= other._float
 
     def __assign__(self, other):
         """
-        Assigns an object to an object of type sig_float
+        Assigns an object to an object of type SigFloat
         """
-        if isinstance(other, sig_float):
-            self._str = other._str
-            self._sig_figs = other._sig_figs
-            self._precision = other._precision
-            self._float = other._float
-            self._units = other._units
-            self._exact = other._exact
+        if not isinstance(other, SigFloat):
+            raise TypeError("Error: Arguments must be of type SigFloat")
+        self._str = other._str
+        self._sig_figs = other._sig_figs
+        self._precision = other._precision
+        self._float = other._float
+        self._units = other._units
+        self._exact = other._exact
+
+    # TODO: Double check that this seems reasonable
+    def _clear_units(self) -> None:
+        """
+        Helper function that clears units with power 0.
+        """
+        for unit in list(self._units):
+            if self._units[unit] == 0:
+                del self._units[unit]
+    
+    def _sum_diff_calc(self, other, ans: float):
+        """
+        Given an addition or subtraction calculation, determines the result
+        with proper precision.
+
+        Args:
+            other: SigFloat to add or subtract from this object.
+            ans: Answer of float arithmetic of the two numbers.
+        Return:
+            A new SigFloat object of the sum or difference.
+        """
+        # Choose precision to use in calculation
+        if (both_exact:=self._exact and other._exact):
+            precision = None
+        elif self._exact:
+            precision = other._sig_figs
+        elif other._exact:
+            precision = self._sig_figs
         else:
-            self = sig_float(other)
+            precision = SigFloat._round_precision(self._precision, other._precision)
+
+        # Round to correct precision
+        temp_str = str(ans) if both_exact else str(round(ans, precision))
+
+        # Remove trailing decimal python adds
+        if precision is not None and precision <= 0:
+            temp_str = temp_str[:-2]
+
+        # Create new SigFloat object of the resultant
+        temp = SigFloat(temp_str, units=self._units, exact=both_exact)
+        temp._float = ans
+        return temp
+
+    def _prod_quotient_calc(self, other, ans: float, opp: str):
+        """
+        Given an multiplication or division calculation, determines the result
+        with proper sig figs.
+
+        Args:
+            other: SigFloat to multiply or divide from this object.
+            ans: Answer of float arithmetic of the two numbers.
+        Return:
+            A new SigFloat object of the product or quotient.
+        """
+        # Create new units
+        if opp == "*":
+            new_units = {
+                unit: self._units.get(unit, 0) + other._units.get(unit, 0)
+                for unit in chain(self._units, other._units)
+            }
+        else:
+            new_units = {
+                unit: self._units.get(unit, 0) - other._units.get(unit, 0)
+                for unit in chain(self._units, other._units)
+            }
+
+        # Choose sig figs to use 
+        if self._exact and other._exact:
+            figs = None
+        elif self._exact:
+            figs = other._sig_figs
+        elif other._exact:
+            figs = self._sig_figs
+        else:
+            figs = min(self._sig_figs, other._sig_figs)
+        
+        # Create new SigFloat object of the resultant
+        if figs is None:
+            temp = SigFloat(str(ans), units=new_units, exact=True)
+            temp._float = ans
+        else:
+            # Helper function which rounds a number to a certain number of sig figs.
+            temp = SigFloat.round_sig(ans, figs)
+            temp._units = new_units
+
+        temp._clear_units()
+
+        return temp
+
+    @staticmethod
+    def _digits(num: str) -> int:
+        """
+        Helper function that counts the number of valid digits in a string
+        representation of a number
+
+        Args:
+            num: The number to count the digits of.
+
+        Return:
+            The number of digits in `num`.
+        """
+        return len(num) - num.count(".") - num.count("-")
+
+    @staticmethod
+    def _suppress_sci(x: str, sig_figs: int) -> str:
+        """
+        Format a string representation of a number with scientific notation suppressed.
+
+        Args:
+            x: The value to be formatted.
+            sig_figs: The number of sig_figs `x` has.
+
+        Returns:
+          A formatted string representation of `x` in standard notation.
+        """
+        x.replace("E", "e") # If e is capitalized, replace it with lower case
+        coef, exp = x.split("e")  # Split coefficient and exponent on e character
+        exp = int(exp)
+
+        # Precision for string formatter
+        prec = (
+            sig_figs + abs(exp) - 1
+            if exp < 0
+            else sig_figs - exp - 1 if exp < sig_figs else 0
+        )
+
+        # Format x as a string without scientific notation
+        str_num = "{num:.{precision}f}".format(num=float(x), precision=prec)
+
+        if coef[-1] == "0":
+            if exp >= sig_figs:
+                # Insert `O` as  placeholder for over-lined zero ("\u03050")
+                # because over-lined zero is two characters and makes the computations harder later
+                str_num = str_num[: sig_figs - 1] + "O" + str_num[sig_figs:]
+            elif  exp + 1 == sig_figs:
+                str_num += "."
+        
+        return str_num
+    
+    @staticmethod
+    def _round_precision(x: int, y: int) -> int:
+        """
+        Given two place values, helper function determines which to round to.
+        Uses the place convention defined in precision()
+        Number:      138828.9823
+        Place:     -(543210)1234
+
+        Args:
+            x, y: Precisions
+
+        Return:
+            The precision that takes precedence in an operation
+        """
+        if x <= 0 and y <= 0:  # Rounding with two whole numbers
+            return -max(abs(x), abs(y))
+        else:  # Rounding with a decimal and a whole number, or two decimals
+            return min(x, y)
