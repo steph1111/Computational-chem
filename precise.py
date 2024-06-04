@@ -1,6 +1,5 @@
 """
-Module SigFloat contains the SigFloat class, 
-of numbers that behave according to sig fig rules.
+Precision Rules Enforced Calculations In Scientific Environments
 """
 from itertools import chain
 from math import floor, log10, pow
@@ -15,6 +14,11 @@ class SigFloat:
     - All captive zeros are significant.
     - Trailing zeros are only significant if they follow a decimal point
     - Leading zeros are never significant.
+
+    This module provides the infrastructure to preform calculations that behave according to 
+    significant figure rules. An instance of the SigFloat class may be added, subtracted, 
+    multiplied, or divided with another SigFloat using standard operators. The resultant will
+    retain the proper number of significant figures. Units can optionally be provided.
     """
 
     def __init__(self, str_num: str = "0", units: dict[str, int] = None, exact: bool = False):
